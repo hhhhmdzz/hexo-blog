@@ -1,0 +1,2915 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="ICT战队-第9次笔记, python,Linux,C/C++,LaTeX,Markdown等">
+    <meta name="description" content="BGP边界网关协议">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>ICT战队-第9次笔记 | HMZ-blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">HMZ-blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/navigate" class="waves-effect waves-light">
+      
+      <i class="fas fa-location-arrow" style="zoom: 0.6;"></i>
+      
+      <span>导航</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">HMZ-blog</div>
+        <div class="logo-desc">
+            
+            本网站是个人兴趣爱好，总结分享经验，记录生活点滴的平台，希望在以后的学习旅途中，走出自己的风景。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/navigate" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-location-arrow"></i>
+			
+			导航
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/hhhhmdzz/hhhhmdzz.github.io" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/hhhhmdzz/hhhhmdzz.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">ICT战队-第9次笔记</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/HCIA/">
+                                <span class="chip bg-color">HCIA</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%8D%8E%E4%B8%BAeNSP/">
+                                <span class="chip bg-color">华为eNSP</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/ICT%E6%88%98%E9%98%9F%E6%95%B0%E6%8D%AE%E9%80%9A%E4%BF%A1/" class="post-category">
+                                ICT战队数据通信
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-06-29
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2022-06-30
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    10.5k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    53 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="ICT战队-第9次笔记"><a href="#ICT战队-第9次笔记" class="headerlink" title="ICT战队-第9次笔记"></a>ICT战队-第9次笔记</h1><p>[toc]</p>
+<h2 id="BGP"><a href="#BGP" class="headerlink" title="BGP"></a>BGP</h2><h3 id="原理：BGP自治系统间的路由协议"><a href="#原理：BGP自治系统间的路由协议" class="headerlink" title="原理：BGP自治系统间的路由协议"></a><strong>原理：BGP自治系统间的路由协议</strong></h3><p>BGP外部路由协议，是一种增强的距离矢量路由协议。</p>
+<p>可以根据链路状态数据库画出整个网络拓扑图。</p>
+<p>BGP边界网关协议，用于AS与AS之间的路由协议</p>
+<p>BGP：支持CIDR<br>传输协议：<strong>TCP</strong>，端口号：<strong>179</strong><br>无需周期性更新<br>路由更新：只发送增量路由<br>周期性发送keepAlive报文检测TCP连通性</p>
+<p>BGP报文(5种)：</p>
+<ul>
+<li>Open包：负责和对等体peer建立邻居关系。(<strong>建立</strong>)</li>
+<li>KeepAlive：该消息在对等体之间周期性地发送，用以维护连接。(<strong>维护</strong>)</li>
+<li>Update：该消息被用来在BGP对等体之间传递路由信息。(<strong>更新</strong>)</li>
+<li>Notification：当 BGP Speaker检测到错误的时候，就发送该消息给对等体。(<strong>纠错</strong>)</li>
+<li>Route-refresh：用来通知对等体自己支持路由刷新能力。</li>
+</ul>
+<p>BGP路由传递</p>
+<p>EBGP水平分割：经过那个AS，反过来不能再进入该AS<br>IBGP水平分割：通过IBGP学习到的路由条目反过来不能发给IBGP</p>
+<p>AS号<br>公有AS：1 ~ 64511<br>私有AS：64512 ~ 65535</p>
+<p>BGP两种邻居关系：IBGP、EBGP<br>当BGP被用在一个AS内部：IBGP<br>当BGP被用在AS之间：EBGP</p>
+<p>BGP只能使用一个进程号</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR1：展示BGP只能使用一个进程号</span>
+<span class="token punctuation">[</span>R1<span class="token punctuation">]</span>bgp <span class="token number">1</span>
+<span class="token punctuation">[</span>R1-bgp<span class="token punctuation">]</span>bgp <span class="token number">2</span>
+Error: BGP is already running. The AS is <span class="token number">1</span>.</code></pre>
+
+<p>注：<br>1.BGP宣告路由信息必须和路由表一致<br>2.BGP建立邻居关系建议直接使用物理接口<br>3.BGP建立邻居关系：<code>peer [对方IP] as-number [AS号]</code><br>4.BGP邻居关系建立30s-60s</p>
+<h3 id="实验一-1-：BGP简单配置"><a href="#实验一-1-：BGP简单配置" class="headerlink" title="实验一$_1$：BGP简单配置"></a><strong>实验一$_1$：BGP简单配置</strong></h3><p>目的：AR2和AR1建立邻居关系，且AR1的环回地址在AR2路由表项中</p>
+<ul>
+<li><strong>STEP1：</strong> 网络拓扑</li>
+</ul>
+<p>打开老师的拓扑</p>
+<img src="/2022/06/29/ict-zhan-dui-di-9-ci-bi-ji/7a748725d42144b1aaa0027e44e0fec9.png">
+
+<blockquote>
+<p>说明：<br>1.两个路由器间的网段分别是：<code>12.1.1.0</code>、<code>23.1.1.0</code>、<code>34.1.1.0</code>、<code>64.1.1.0</code><br>2.每个路由器上面都配了环回地址</p>
+</blockquote>
+<ul>
+<li><strong>STEP2.0：</strong> BGP建立邻居关系</li>
+</ul>
+<p>BGP邻居关系通过<strong>单播</strong>建立，所以需要<strong>手动</strong>指定邻居</p>
+<p><code>peer 对方接口IP地址 as-number 16</code><br>对方AS号：16</p>
+<p>可以先在AR1和AR2之间开启抓包</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR1：为对等体配置AS号</span>
+<span class="token punctuation">[</span>R1<span class="token punctuation">]</span>bgp <span class="token number">1</span>
+<span class="token punctuation">[</span>R1-bgp<span class="token punctuation">]</span>peer <span class="token number">12.1</span>.1.2 as-number <span class="token number">16</span>
+
+<span class="token comment"># todo AR2：为对等体配置AS号</span>
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>bgp <span class="token number">16</span>
+<span class="token punctuation">[</span>R2-bgp<span class="token punctuation">]</span>peer <span class="token number">12.1</span>.1.1 as-number <span class="token number">1</span></code></pre>
+
+<p>AR1进行BGP宣告网段之前，可以查看一下AR2的路由表，宣告之后再次查看即可看到AR2的路由表添加了AR1宣告网段的路由条目。</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># show 错误写法：AR1：BGP宣告网段</span>
+<span class="token punctuation">[</span>R1-bgp<span class="token punctuation">]</span>network <span class="token number">1.1</span>.1.1 <span class="token number">24</span>  <span class="token comment"># 必须按照路由表严格宣告！</span>
+Info: The network does not exist.</code></pre>
+
+<ul>
+<li><strong>STEP2.1：</strong> 看一下Notification报文(可以跳过这步)</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR1：修改AS号</span>
+<span class="token punctuation">[</span>R1-bgp<span class="token punctuation">]</span>q
+<span class="token punctuation">[</span>R1<span class="token punctuation">]</span>un bgp <span class="token number">1</span>
+Warning: All BGP configurations will be deleted. Continue? <span class="token punctuation">[</span>Y/N<span class="token punctuation">]</span>: y
+<span class="token punctuation">[</span>R1<span class="token punctuation">]</span>bgp <span class="token number">1</span>
+<span class="token punctuation">[</span>R1-bgp<span class="token punctuation">]</span>peer <span class="token number">12.1</span>.1.2 as-number <span class="token number">166</span>  </code></pre>
+
+<p>在wireshark可以看到<code>NOTIFICATION</code>报文信息：</p>
+<img src="/2022/06/29/ict-zhan-dui-di-9-ci-bi-ji/3560064be56b44eebd13750a3a4d78f8.png">
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR1：修改回原来的AS号</span>
+<span class="token punctuation">[</span>R1-bgp<span class="token punctuation">]</span>q
+<span class="token punctuation">[</span>R1<span class="token punctuation">]</span>un bgp <span class="token number">1</span>
+Warning: All BGP configurations will be deleted. Continue? <span class="token punctuation">[</span>Y/N<span class="token punctuation">]</span>: y
+<span class="token punctuation">[</span>R1<span class="token punctuation">]</span>bgp <span class="token number">1</span>
+<span class="token punctuation">[</span>R1-bgp<span class="token punctuation">]</span>peer <span class="token number">12.1</span>.1.2 as-number <span class="token number">16</span>
+<span class="token comment"># 注意此时还没有进行BGP宣告路由！</span></code></pre>
+
+<ul>
+<li><strong>STEP2.2：</strong> 查看BGP邻居状态</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># TODO AR1：查看BGP邻居状态</span>
+<span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span>dis bgp peer
+ BGP <span class="token builtin class-name">local</span> router ID <span class="token builtin class-name">:</span> <span class="token number">12.1</span>.1.1
+ Local AS number <span class="token builtin class-name">:</span> <span class="token number">1</span>
+ Total number of peers <span class="token builtin class-name">:</span> <span class="token number">1</span>                Peers <span class="token keyword">in</span> established state <span class="token builtin class-name">:</span> <span class="token number">1</span>
+  Peer            V          AS  MsgRcvd  MsgSent  OutQ  Up/Down       State PrefRcv
+  <span class="token number">12.1</span>.1.2        <span class="token number">4</span>          <span class="token number">16</span>       <span class="token number">14</span>       <span class="token number">14</span>     <span class="token number">0</span> 00:12:45 Established       <span class="token number">0</span></code></pre>
+
+<p>Connect说明正在进行TCP三次握手；Active和Connect之间来回切换则检查两个路由器之间单播是否可达</p>
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Peer</td>
+<td>邻居地址</td>
+</tr>
+<tr>
+<td align="center">V</td>
+<td>邻居IP版本</td>
+</tr>
+<tr>
+<td align="center">AS</td>
+<td>邻居AS号</td>
+</tr>
+<tr>
+<td align="center">State</td>
+<td>与邻居之间的链路状态</td>
+</tr>
+<tr>
+<td align="center">PrefRcv</td>
+<td>从该邻居接收的路由信息条数</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>STEP2.3：</strong> BGP宣告网段</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR1：BGP宣告网段</span>
+<span class="token punctuation">[</span>R1-bgp<span class="token punctuation">]</span>network <span class="token number">1.1</span>.1.1 <span class="token number">32</span></code></pre>
+
+<ul>
+<li><strong>STEP2.4：</strong> 查看BGP邻居信息及其BGP学习到的路由信息</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR2：查看BGP邻居</span>
+<span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span>dis bgp peer
+ BGP <span class="token builtin class-name">local</span> router ID <span class="token builtin class-name">:</span> <span class="token number">12.1</span>.1.2
+ Local AS number <span class="token builtin class-name">:</span> <span class="token number">16</span>
+ Total number of peers <span class="token builtin class-name">:</span> <span class="token number">1</span>                Peers <span class="token keyword">in</span> established state <span class="token builtin class-name">:</span> <span class="token number">1</span>
+  Peer            V          AS  MsgRcvd  MsgSent  OutQ  Up/Down       State PrefRcv
+  <span class="token number">12.1</span>.1.1        <span class="token number">4</span>           <span class="token number">1</span>       <span class="token number">27</span>       <span class="token number">27</span>     <span class="token number">0</span> 00:24:20 Established       <span class="token number">1</span>
+<span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span>  <span class="token comment"># 可以看到从对方学习到一条路由条目</span></code></pre>
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR2：查看BGP学习到的路由</span>
+<span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span>dis bgp rou
+ BGP Local router ID is <span class="token number">12.1</span>.1.2 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">1</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>   <span class="token number">1.1</span>.1.1/32         <span class="token number">12.1</span>.1.1        <span class="token number">0</span>                     <span class="token number">0</span>      1i</code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">*</td>
+<td>表示下一跳有效/可达</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>|表示指向的最优的路由条目(当有多条路由条目，选择最优的)<br>(空格)|表示EBGP学习到的路由条目<br>i|表示通过IBGP学习到的路由条目<br>Path|路径(AS号)<br>Ogn|起源属性</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">Ogn</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">?</td>
+<td>通过重分发学习到</td>
+</tr>
+<tr>
+<td align="center">i</td>
+<td>通过BGP学习到</td>
+</tr>
+<tr>
+<td align="center">e</td>
+<td>通过EGP(BGP前身)学习到</td>
+</tr>
+</tbody></table>
+<h3 id="实验一-2-：BGP更新源"><a href="#实验一-2-：BGP更新源" class="headerlink" title="实验一$_2$：BGP更新源"></a><strong>实验一$_2$：BGP更新源</strong></h3><p>在上一个实验基础上继续</p>
+<p>目的：让2、4环回口建立IGBP邻居关系</p>
+<ul>
+<li><strong>STEP3.0：</strong> BGP建立邻居关系</li>
+</ul>
+<p>BGP不需要配置中间路由器<br>IBGP指AS号，如果两个路由器都是AS 200，互相指向对方，AS号写200即可<br>一般IBGP建立邻居关系喜欢使用环回口，</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR2：配置BGP对等体</span>
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>bgp <span class="token number">16</span>
+<span class="token punctuation">[</span>R2-bgp<span class="token punctuation">]</span>peer <span class="token number">4.4</span>.4.4 as-number <span class="token number">16</span>
+
+<span class="token comment"># todo AR4：配置BGP对等体</span>
+<span class="token punctuation">[</span>R4<span class="token punctuation">]</span>bgp <span class="token number">16</span>
+<span class="token punctuation">[</span>R4-bgp<span class="token punctuation">]</span>peer <span class="token number">2.2</span>.2.2 as-number <span class="token number">16</span></code></pre>
+
+<p>此时，虽然配置了BGP，但是邻居关系无法建立</p>
+<ul>
+<li><strong>STEP3.1：</strong> 抓包分析原因</li>
+</ul>
+<p>在AR2和AR3之间的线路开始抓包，看到：</p>
+<img src="/2022/06/29/ict-zhan-dui-di-9-ci-bi-ji/761187adb6954ec98b767489c81572a4.png">
+
+<blockquote>
+<p>现象：双方不断地进行TCP连接建立的请求和拒绝<br>原因：源地址不是BGP建立邻居关系的地址，所以无法建立邻居关系</p>
+</blockquote>
+<ul>
+<li><strong>STEP3.2：</strong> 配置更新源</li>
+</ul>
+<p>IGBP跟对方建立连接的时候，注意要指定源地址，不指定的话，就用<strong>出接口</strong>作为源IP<br>若IBGP使用的不是物理接口或者物理接口和建立邻居关系的路由的出接口不一样，则要使用<strong>更新源</strong>(connected interface)指定一下源地址，否则无法建立邻居关系</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR2：指定更新源</span>
+<span class="token punctuation">[</span>R2-bgp<span class="token punctuation">]</span>peer <span class="token number">4.4</span>.4.4 connect-interface LoopBack <span class="token number">0</span></code></pre>
+
+<p>因为只在AR2配置了更新源，所以只能等待AR2发起TCP连接，意味着AR2拒绝AR4发送过来的TCP建立连接请求。在wireshark中能看到2.2.2.2和4.4.4.4建立TCP连接的报文</p>
+<h3 id="实验一-3-：实现互通"><a href="#实验一-3-：实现互通" class="headerlink" title="实验一$_3$：实现互通"></a><strong>实验一$_3$：实现互通</strong></h3><p><strong>目的</strong>：建立AR4和AR6的BGP邻居关系，使用环回口地址建立BGP邻居关系<br>AR4使用环回地址<code>4.4.4.4</code>；AR6使用环回地址<code>6.6.6.6</code></p>
+<ul>
+<li><strong>STEP4.0：</strong> 配置环回地址</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR4：配置环回地址</span>
+<span class="token punctuation">[</span>R4<span class="token punctuation">]</span>int lo <span class="token number">10</span>
+<span class="token punctuation">[</span>R4-LoopBack10<span class="token punctuation">]</span>ip <span class="token function">add</span> <span class="token number">44.44</span>.44.44 <span class="token number">32</span>
+<span class="token punctuation">[</span>R4-LoopBack10<span class="token punctuation">]</span>q
+<span class="token punctuation">[</span>R4<span class="token punctuation">]</span>ip route-static <span class="token number">66.66</span>.66.66 <span class="token number">32</span> <span class="token number">64.1</span>.1.6
+
+<span class="token comment"># todo AR6：配置环回地址</span>
+<span class="token punctuation">[</span>R6<span class="token punctuation">]</span>int lo <span class="token number">10</span>
+<span class="token punctuation">[</span>R6-LoopBack10<span class="token punctuation">]</span>ip <span class="token function">add</span> <span class="token number">66.66</span>.66.66 <span class="token number">32</span>
+<span class="token punctuation">[</span>R6-LoopBack10<span class="token punctuation">]</span>q
+<span class="token punctuation">[</span>R6<span class="token punctuation">]</span>ip route-static <span class="token number">44.44</span>.44.44 <span class="token number">32</span> <span class="token number">64.1</span>.1.4</code></pre>
+
+<ul>
+<li><strong>STEP4.1：</strong> 测试连通</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR4：测试连通</span>
+<span class="token punctuation">[</span>R4<span class="token punctuation">]</span>ping -a <span class="token number">44.44</span>.44.44 <span class="token number">66.66</span>.66.66</code></pre>
+
+<p>能ping通。</p>
+<ul>
+<li><strong>STEP4.2：</strong> BGP建立邻居关系</li>
+</ul>
+<p>先写<code>as-number</code>，再写<code>connect-interface</code>，命令顺序不能反</p>
+<p>这里老师的配置跟拓扑图不同，直接删除原来BGP的配置即可：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR6：删除原BGP配置</span>
+<span class="token punctuation">[</span>R6<span class="token punctuation">]</span>un bgp <span class="token number">24</span>
+Warning: All BGP configurations will be deleted. Continue? <span class="token punctuation">[</span>Y/N<span class="token punctuation">]</span>: y</code></pre>
+
+<p>然后配置建立BGP邻居关系：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR6：配置建立BGP邻居关系</span>
+<span class="token punctuation">[</span>R6<span class="token punctuation">]</span>bgp <span class="token number">6</span>
+<span class="token punctuation">[</span>R6-bgp<span class="token punctuation">]</span>peer <span class="token number">44.44</span>.44.44 as-number <span class="token number">16</span>
+
+<span class="token comment"># todo AR4：配置建立BGP邻居关系</span>
+<span class="token punctuation">[</span>R4<span class="token punctuation">]</span>bgp <span class="token number">16</span>
+<span class="token punctuation">[</span>R4-bgp<span class="token punctuation">]</span>peer <span class="token number">66.66</span>.66.66 as-number <span class="token number">6</span></code></pre>
+
+<ul>
+<li><strong>STEP4.3：</strong> 查表</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR4：查看BGP邻居</span>
+<span class="token punctuation">[</span>R4<span class="token punctuation">]</span>dis bgp peer
+ BGP <span class="token builtin class-name">local</span> router ID <span class="token builtin class-name">:</span> <span class="token number">34.1</span>.1.4
+ Local AS number <span class="token builtin class-name">:</span> <span class="token number">16</span>
+ Total number of peers <span class="token builtin class-name">:</span> <span class="token number">2</span>                Peers <span class="token keyword">in</span> established state <span class="token builtin class-name">:</span> <span class="token number">1</span>
+  Peer            V          AS  MsgRcvd  MsgSent  OutQ  Up/Down       State PrefRcv
+  <span class="token number">2.2</span>.2.2         <span class="token number">4</span>          <span class="token number">16</span>       <span class="token number">25</span>       <span class="token number">24</span>     <span class="token number">0</span> 00:22:51 Established       <span class="token number">1</span>
+  <span class="token number">6.6</span>.6.6         <span class="token number">4</span>           <span class="token number">6</span>        <span class="token number">0</span>        <span class="token number">0</span>     <span class="token number">0</span> 00:10:41        Idle       <span class="token number">0</span>
+
+<span class="token comment"># todo AR4：查看BGP学习到的路由</span>
+<span class="token punctuation">[</span>R4<span class="token punctuation">]</span>dis bgp rou
+ BGP Local router ID is <span class="token number">34.1</span>.1.4 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">1</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+   i  <span class="token number">1.1</span>.1.1/32         <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      1i
+
+<span class="token comment"># todo AR4：查看路由表</span>
+<span class="token punctuation">[</span>R4<span class="token punctuation">]</span>dis <span class="token function">ip</span> rou
+Route Flags: R - relay, D - download to fib
+------------------------------------------------------------------------------
+Routing Tables: Public
+         Destinations <span class="token builtin class-name">:</span> <span class="token number">16</span>       Routes <span class="token builtin class-name">:</span> <span class="token number">16</span>       
+Destination/Mask    Proto   Pre  Cost      Flags NextHop         Interface
+        <span class="token number">2.2</span>.2.2/32  OSPF    <span class="token number">10</span>   <span class="token number">2</span>           D   <span class="token number">34.1</span>.1.3        GigabitEthernet0/0/0
+        <span class="token number">3.3</span>.3.3/32  OSPF    <span class="token number">10</span>   <span class="token number">1</span>           D   <span class="token number">34.1</span>.1.3        GigabitEthernet0/0/0
+        <span class="token number">4.4</span>.4.4/32  Direct  <span class="token number">0</span>    <span class="token number">0</span>           D   <span class="token number">127.0</span>.0.1       LoopBack0
+        ······</code></pre>
+
+<p>i：从BGP学习到的地址<br>但是路由表中没有该地址</p>
+<p>所以此时有两个问题：<br>1.AR4和AR6邻居关系无法建立<br>2.AR4能通过AR2学习<code>1.1.1.1</code>路由条目，但是无法加表，因为AR4学习该地址及其下一跳，而AR2的<code>1.1.1.1</code>的下一跳是AR2的直连路由，但是对AR4来说是一个不可达地址，所以不加到AR4路由表中</p>
+<ul>
+<li><strong>STEP4.4：</strong> 设置下一跳地址</li>
+</ul>
+<p>在AR2上，把出AR2的地址设置为AR2本地地址，且保证该地址有效可达</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR2：设置下一跳地址</span>
+<span class="token punctuation">[</span>R2-bgp<span class="token punctuation">]</span>peer <span class="token number">4.4</span>.4.4 next-hop-local</code></pre>
+
+<ul>
+<li><strong>STEP4.5：</strong> 查看BGP更新(需要重置邻居关系)</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR4：查看BGP学习的路由</span>
+<span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">4</span>&gt;</span>dis bgp rou
+ BGP Local router ID is <span class="token number">34.1</span>.1.4 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">1</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+   i  <span class="token number">1.1</span>.1.1/32         <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      1i</code></pre>
+
+<p>这里需要重置以下BGP邻居关系才能生效</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR2：重置BGP</span>
+<span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span>reset bgp all graceful </code></pre>
+
+<p>如果在一台路由器配置，另一台路由器未及时生效，可以把BGP邻居关系重置一下。(graceful软重启，如果软重启不行就硬重启。)</p>
+<ul>
+<li><strong>STEP4.6：</strong> 重启后查看</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR4：查看BGP路由表</span>
+<span class="token punctuation">[</span>R4-bgp<span class="token punctuation">]</span>dis bgp rou
+ BGP Local router ID is <span class="token number">34.1</span>.1.4 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">1</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>i  <span class="token number">1.1</span>.1.1/32         <span class="token number">2.2</span>.2.2         <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      1i
+
+<span class="token comment"># todo AR4：查看BGP邻居关系</span>
+<span class="token punctuation">[</span>R4-bgp<span class="token punctuation">]</span>dis bgp pee
+ BGP <span class="token builtin class-name">local</span> router ID <span class="token builtin class-name">:</span> <span class="token number">34.1</span>.1.4
+ Local AS number <span class="token builtin class-name">:</span> <span class="token number">16</span>
+ Total number of peers <span class="token builtin class-name">:</span> <span class="token number">2</span>                Peers <span class="token keyword">in</span> established state <span class="token builtin class-name">:</span> <span class="token number">1</span>
+  Peer            V          AS  MsgRcvd  MsgSent  OutQ  Up/Down       State PrefRcv
+  <span class="token number">2.2</span>.2.2         <span class="token number">4</span>          <span class="token number">16</span>        <span class="token number">4</span>        <span class="token number">3</span>     <span class="token number">0</span> 00:01:49 Established       <span class="token number">1</span>
+  <span class="token number">66.66</span>.66.66     <span class="token number">4</span>           <span class="token number">6</span>        <span class="token number">0</span>        <span class="token number">0</span>     <span class="token number">0</span> 00:07:37      Active       <span class="token number">0</span></code></pre>
+
+<p>虽然路由表有了<code>*&gt;i</code>，但是链路状态为<code>Active</code>。</p>
+<ul>
+<li><strong>STEP4.7：</strong> 配置环回口为更新源</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR4：配置环回口为更新源</span>
+<span class="token punctuation">[</span>R4-bgp<span class="token punctuation">]</span>peer <span class="token number">66.66</span>.66.66 connect-interface  LoopBack <span class="token number">10</span></code></pre>
+
+<p>配置之后，AR4就会用<code>44.44.44.44</code>和对方<code>66.66.66.66</code>建立邻居关系。</p>
+<ul>
+<li><strong>STEP4.8：</strong> 开始抓包</li>
+</ul>
+<p>在AR4和AR6之间开始抓包，可以看到(<code>44.44.44.44</code>和<code>66.66.66.66</code>建立邻居关系)：</p>
+<img src="/2022/06/29/ict-zhan-dui-di-9-ci-bi-ji/174f70b475be45d992f58ad86b919d98.png">
+
+<p>EBGP建立邻居关系特性：<br>EBGP多跳，EBGP发送的所有报文TTL为1，即只能走一跳，如图所示：</p>
+<img src="/2022/06/29/ict-zhan-dui-di-9-ci-bi-ji/6fab1a3153754b5b91c8c4b62e290e56.png">
+
+<p>说白了EBGP默认只有直连才能建立EBGP邻居关系，中间不能有路由器，但是两个EBGP路由器中间有路由器的情况比较常见，所以可以把TTL设置大一点，而且两边都要设置。</p>
+<ul>
+<li><strong>STEP4.9：</strong> 修改EBGP报文的TTL值</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR6：修改EBGP报文的TTL值</span>
+<span class="token punctuation">[</span>R6<span class="token punctuation">]</span>bgp <span class="token number">6</span>
+<span class="token punctuation">[</span>R6-bgp<span class="token punctuation">]</span>peer <span class="token number">44.44</span>.44.44 ebgp-max-hop <span class="token number">10</span>
+
+<span class="token comment"># todo AR4：修改EBGP报文的TTL值</span>
+<span class="token punctuation">[</span>R4<span class="token punctuation">]</span>bgp <span class="token number">16</span>
+<span class="token punctuation">[</span>R4-bgp<span class="token punctuation">]</span>peer <span class="token number">66.66</span>.66.66 ebgp-max-hop <span class="token number">10</span></code></pre>
+
+<ul>
+<li><strong>STEP4.99：</strong> 查看</li>
+</ul>
+<p>首先，查看抓包信息：</p>
+<img src="/2022/06/29/ict-zhan-dui-di-9-ci-bi-ji/d2a33e2aaac346faaf571e5dd2cd8726.png">
+
+<p>其次，查看BGP邻居关系</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR6：查看BGP邻居关系</span>
+<span class="token punctuation">[</span>R6-bgp<span class="token punctuation">]</span>dis bgp pee
+ BGP <span class="token builtin class-name">local</span> router ID <span class="token builtin class-name">:</span> <span class="token number">26.1</span>.1.6
+ Local AS number <span class="token builtin class-name">:</span> <span class="token number">6</span>
+ Total number of peers <span class="token builtin class-name">:</span> <span class="token number">1</span>                Peers <span class="token keyword">in</span> established state <span class="token builtin class-name">:</span> <span class="token number">1</span>
+  Peer            V          AS  MsgRcvd  MsgSent  OutQ  Up/Down       State PrefRcv
+  <span class="token number">44.44</span>.44.44     <span class="token number">4</span>          <span class="token number">16</span>        <span class="token number">3</span>        <span class="token number">2</span>     <span class="token number">0</span> 00:00:06 Established       <span class="token number">1</span></code></pre>
+
+<p>再次，查看路由表</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR6：查看路由表</span>
+<span class="token punctuation">[</span>R6-bgp<span class="token punctuation">]</span>dis <span class="token function">ip</span> rou
+Route Flags: R - relay, D - download to fib
+------------------------------------------------------------------------------
+Routing Tables: Public
+         Destinations <span class="token builtin class-name">:</span> <span class="token number">11</span>       Routes <span class="token builtin class-name">:</span> <span class="token number">11</span>       
+Destination/Mask    Proto   Pre  Cost      Flags NextHop         Interface
+        <span class="token number">1.1</span>.1.1/32  EBGP    <span class="token number">255</span>  <span class="token number">0</span>          RD   <span class="token number">44.44</span>.44.44     GigabitEthernet0/0/1
+        <span class="token number">6.6</span>.6.6/32  Direct  <span class="token number">0</span>    <span class="token number">0</span>           D   <span class="token number">127.0</span>.0.1       LoopBack0
+    <span class="token number">44.44</span>.44.44/32  Static  <span class="token number">60</span>   <span class="token number">0</span>          RD   <span class="token number">64.1</span>.1.4        GigabitEthernet0/0/1
+    ······</code></pre>
+
+<p>此时已经有<code>1.1.1.1</code>这个路由条目。</p>
+<ul>
+<li><strong>STEP5.0：</strong> AR6宣告网段</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR6：宣告网段</span>
+<span class="token punctuation">[</span>R6-bgp<span class="token punctuation">]</span>network <span class="token number">6.6</span>.6.6 <span class="token number">32</span></code></pre>
+
+<ul>
+<li><strong>STEP5.1：</strong> 查看AR1路由表</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR1：查看路由表</span>
+<span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span>dis <span class="token function">ip</span> rou
+Route Flags: R - relay, D - download to fib
+------------------------------------------------------------------------------
+Routing Tables: Public
+         Destinations <span class="token builtin class-name">:</span> <span class="token number">8</span>        Routes <span class="token builtin class-name">:</span> <span class="token number">8</span>        
+
+Destination/Mask    Proto   Pre  Cost      Flags NextHop         Interface
+
+        <span class="token number">1.1</span>.1.1/32  Direct  <span class="token number">0</span>    <span class="token number">0</span>           D   <span class="token number">127.0</span>.0.1       LoopBack0
+       <span class="token number">12.1</span>.1.0/24  Direct  <span class="token number">0</span>    <span class="token number">0</span>           D   <span class="token number">12.1</span>.1.1        GigabitEthernet0/0/0
+       <span class="token number">12.1</span>.1.1/32  Direct  <span class="token number">0</span>    <span class="token number">0</span>           D   <span class="token number">127.0</span>.0.1       GigabitEthernet0/0/0
+     <span class="token number">12.1</span>.1.255/32  Direct  <span class="token number">0</span>    <span class="token number">0</span>           D   <span class="token number">127.0</span>.0.1       GigabitEthernet0/0/0
+      <span class="token number">127.0</span>.0.0/8   Direct  <span class="token number">0</span>    <span class="token number">0</span>           D   <span class="token number">127.0</span>.0.1       InLoopBack0
+      <span class="token number">127.0</span>.0.1/32  Direct  <span class="token number">0</span>    <span class="token number">0</span>           D   <span class="token number">127.0</span>.0.1       InLoopBack0
+<span class="token number">127.255</span>.255.255/32  Direct  <span class="token number">0</span>    <span class="token number">0</span>           D   <span class="token number">127.0</span>.0.1       InLoopBack0
+<span class="token number">255.255</span>.255.255/32  Direct  <span class="token number">0</span>    <span class="token number">0</span>           D   <span class="token number">127.0</span>.0.1       InLoopBack0
+
+<span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span>dis bgp rou
+ BGP Local router ID is <span class="token number">12.1</span>.1.1 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">1</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>   <span class="token number">1.1</span>.1.1/32         <span class="token number">0.0</span>.0.0         <span class="token number">0</span>                     <span class="token number">0</span>      i</code></pre>
+
+<p>AR1学习不到<code>6.6.6.6</code>。</p>
+<ul>
+<li><strong>STEP5.2：</strong> 分析AR1学习不到<code>6.6.6.6</code>的原因</li>
+</ul>
+<p>从AR6到AR1没问题，但是，因为(AR1-&gt;)AR2学习到的地址<code>6.6.6.6</code>的下一跳指向<code>66.66.66.66</code>，(AR2-&gt;)AR4的目的地址<code>6.6.6.6</code>的下一跳<code>66.66.66.66</code>单播不可达，所以加数据库，但是不加表，因此AR4需要使用更新源：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR4：查看BGP路由表</span>
+<span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">4</span>&gt;</span>dis bgp rou
+ BGP Local router ID is <span class="token number">34.1</span>.1.4 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">2</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>i  <span class="token number">1.1</span>.1.1/32         <span class="token number">2.2</span>.2.2         <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      1i
+ *<span class="token operator">&gt;</span>   <span class="token number">6.6</span>.6.6/32         <span class="token number">66.66</span>.66.66     <span class="token number">0</span>                     <span class="token number">0</span>      6i
+
+<span class="token comment"># todo AR4：更新源</span>
+<span class="token punctuation">[</span>R4<span class="token punctuation">]</span>bgp <span class="token number">16</span>
+<span class="token punctuation">[</span>R4-bgp<span class="token punctuation">]</span>peer <span class="token number">2.2</span>.2.2 next-hop-local</code></pre>
+
+<ul>
+<li><strong>STEP5.3：</strong> 查看路由表</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR1：查看路由表</span>
+<span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span>dis <span class="token function">ip</span> rou
+Route Flags: R - relay, D - download to fib
+------------------------------------------------------------------------------
+Routing Tables: Public
+         Destinations <span class="token builtin class-name">:</span> <span class="token number">9</span>        Routes <span class="token builtin class-name">:</span> <span class="token number">9</span>        
+Destination/Mask    Proto   Pre  Cost      Flags NextHop         Interface
+        <span class="token number">1.1</span>.1.1/32  Direct  <span class="token number">0</span>    <span class="token number">0</span>           D   <span class="token number">127.0</span>.0.1       LoopBack0
+        <span class="token number">6.6</span>.6.6/32  EBGP    <span class="token number">255</span>  <span class="token number">0</span>           D   <span class="token number">12.1</span>.1.2        GigabitEthernet0/0/0
+        ······</code></pre>
+
+<p>AR1路由表有<code>6.6.6.6</code></p>
+<ul>
+<li><strong>STEP6.0：</strong> 测试连通</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR1：ping AR6</span>
+<span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span>ping -a <span class="token number">1.1</span>.1.1 <span class="token number">6.6</span>.6.6
+  PING <span class="token number">6.6</span>.6.6: <span class="token number">56</span>  data bytes, press CTRL_C to <span class="token builtin class-name">break</span>
+    Request <span class="token function">time</span> out
+    Request <span class="token function">time</span> out
+    Request <span class="token function">time</span> out
+    Request <span class="token function">time</span> out
+    Request <span class="token function">time</span> out
+
+  --- <span class="token number">6.6</span>.6.6 <span class="token function">ping</span> statistics ---
+    <span class="token number">5</span> packet<span class="token punctuation">(</span>s<span class="token punctuation">)</span> transmitted
+    <span class="token number">0</span> packet<span class="token punctuation">(</span>s<span class="token punctuation">)</span> received
+    <span class="token number">100.00</span>% packet loss</code></pre>
+
+<p>不通</p>
+<ul>
+<li><strong>STEP6.1：</strong> 分析ping不同原因，配置MPLS</li>
+</ul>
+<p>注：<br>1.AR3路由黑洞：转发到该接口上的数据包都会被丢掉<br>2.解决办法：重分发，静态路由，BGP，MPLS······<br>3.MPLS(多协议标签交换)，当有标签的时候，基于标签转发，不再基于路由表转发<br>4.id建议使用环回口地址，确保环回口地址单播可达，因为要通过LSR-ID建立TCP连接来分标签</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR2：配置MPLS</span>
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>mpls lsr-id <span class="token number">2.2</span>.2.2  <span class="token comment"># 配LSR-ID</span>
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>mpls  <span class="token comment"># 启用MPLS</span>
+Info: Mpls starting, please wait<span class="token punctuation">..</span>. OK<span class="token operator">!</span>
+<span class="token punctuation">[</span>R2-mpls<span class="token punctuation">]</span>mpls ldp  <span class="token comment"># 启用MPLS LDB</span>
+
+<span class="token comment"># todo 接口配置MPLS</span>
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>int g0/0/1
+<span class="token punctuation">[</span>R2-GigabitEthernet0/0/1<span class="token punctuation">]</span>mpls     
+<span class="token punctuation">[</span>R2-GigabitEthernet0/0/1<span class="token punctuation">]</span>mpls ldp
+
+<span class="token comment"># todo AR3：配置MPLS</span>
+<span class="token punctuation">[</span>R3<span class="token punctuation">]</span>mpls lsr-id <span class="token number">3.3</span>.3.3
+<span class="token punctuation">[</span>R3<span class="token punctuation">]</span>mpls
+Info: Mpls starting, please wait<span class="token punctuation">..</span>. OK<span class="token operator">!</span>
+<span class="token punctuation">[</span>R3-mpls<span class="token punctuation">]</span>mpls ldp
+
+<span class="token comment"># todo AR3：接口配置MPLS</span>
+<span class="token punctuation">[</span>R3-mpls-ldp<span class="token punctuation">]</span>int g0/0/0
+<span class="token punctuation">[</span>R3-GigabitEthernet0/0/0<span class="token punctuation">]</span>mpls
+<span class="token punctuation">[</span>R3-GigabitEthernet0/0/0<span class="token punctuation">]</span>mpls ldp
+<span class="token punctuation">[</span>R3-GigabitEthernet0/0/0<span class="token punctuation">]</span>int g0/0/1
+<span class="token punctuation">[</span>R3-GigabitEthernet0/0/1<span class="token punctuation">]</span>mpls
+<span class="token punctuation">[</span>R3-GigabitEthernet0/0/1<span class="token punctuation">]</span>mpls ldp
+
+<span class="token comment"># todo AR4：配置MPLS</span>
+<span class="token punctuation">[</span>R4<span class="token punctuation">]</span>mpls lsr-id <span class="token number">4.4</span>.4.4
+<span class="token punctuation">[</span>R4<span class="token punctuation">]</span>mpls
+Info: Mpls starting, please wait<span class="token punctuation">..</span>. OK<span class="token operator">!</span>
+<span class="token punctuation">[</span>R4-mpls<span class="token punctuation">]</span>mpls ldp
+<span class="token punctuation">[</span>R4-mpls-ldp<span class="token punctuation">]</span>int g0/0/0
+<span class="token punctuation">[</span>R4-GigabitEthernet0/0/0<span class="token punctuation">]</span>mpls
+<span class="token punctuation">[</span>R4-GigabitEthernet0/0/0<span class="token punctuation">]</span>mpls ldp </code></pre>
+
+<ul>
+<li><strong>STEP6.2：</strong> 查看MPLS转发表</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR2：查看MPLS转发表</span>
+<span class="token punctuation">[</span>R2-GigabitEthernet0/0/1<span class="token punctuation">]</span>dis mpls lsp
+-------------------------------------------------------------------------------
+                 LSP Information: LDP LSP
+-------------------------------------------------------------------------------
+FEC                In/Out Label  In/Out IF                      Vrf Name       
+<span class="token number">3.3</span>.3.3/32         NULL/3        -/GE0/0/1                                     
+<span class="token number">3.3</span>.3.3/32         <span class="token number">1024</span>/3        -/GE0/0/1                                     
+<span class="token number">2.2</span>.2.2/32         <span class="token number">3</span>/NULL        -/-                                           
+<span class="token number">4.4</span>.4.4/32         NULL/1025     -/GE0/0/1                                     
+<span class="token number">4.4</span>.4.4/32         <span class="token number">1025</span>/1025     -/GE0/0/1   
+
+<span class="token comment"># todo AR3：查看MPLS转发表</span>
+<span class="token punctuation">[</span>R3-GigabitEthernet0/0/1<span class="token punctuation">]</span>dis mpls lsp
+-------------------------------------------------------------------------------
+                 LSP Information: LDP LSP
+-------------------------------------------------------------------------------
+FEC                In/Out Label  In/Out IF                      Vrf Name       
+<span class="token number">3.3</span>.3.3/32         <span class="token number">3</span>/NULL        -/-                                           
+<span class="token number">2.2</span>.2.2/32         NULL/3        -/GE0/0/0                                     
+<span class="token number">2.2</span>.2.2/32         <span class="token number">1024</span>/3        -/GE0/0/0                                     
+<span class="token number">4.4</span>.4.4/32         NULL/3        -/GE0/0/1                                     
+<span class="token number">4.4</span>.4.4/32         <span class="token number">1025</span>/3        -/GE0/0/1                                     
+
+<span class="token comment"># todo AR4：查看MPLS转发表</span>
+<span class="token punctuation">[</span>R4-GigabitEthernet0/0/0<span class="token punctuation">]</span>dis mpls lsp
+-------------------------------------------------------------------------------
+                 LSP Information: LDP LSP
+-------------------------------------------------------------------------------
+FEC                In/Out Label  In/Out IF                      Vrf Name       
+<span class="token number">2.2</span>.2.2/32         NULL/1024     -/GE0/0/0                                     
+<span class="token number">2.2</span>.2.2/32         <span class="token number">1024</span>/1024     -/GE0/0/0                                     
+<span class="token number">3.3</span>.3.3/32         NULL/3        -/GE0/0/0                                     
+<span class="token number">3.3</span>.3.3/32         <span class="token number">1025</span>/3        -/GE0/0/0                                     
+<span class="token number">44.44</span>.44.44/32     <span class="token number">3</span>/NULL        -/-                                           
+<span class="token number">4.4</span>.4.4/32         <span class="token number">3</span>/NULL        -/-                                           </code></pre>
+
+<p>In进来撕掉标签<br>Out出去添加标签</p>
+<ul>
+<li><strong>STEP6.3：</strong> 测试连通</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span>ping -a <span class="token number">1.1</span>.1.1 <span class="token number">6.6</span>.6.6
+  PING <span class="token number">6.6</span>.6.6: <span class="token number">56</span>  data bytes, press CTRL_C to <span class="token builtin class-name">break</span>
+    Request <span class="token function">time</span> out
+    Request <span class="token function">time</span> out
+    Request <span class="token function">time</span> out
+    Request <span class="token function">time</span> out
+    Request <span class="token function">time</span> out
+
+  --- <span class="token number">6.6</span>.6.6 <span class="token function">ping</span> statistics ---
+    <span class="token number">5</span> packet<span class="token punctuation">(</span>s<span class="token punctuation">)</span> transmitted
+    <span class="token number">0</span> packet<span class="token punctuation">(</span>s<span class="token punctuation">)</span> received
+    <span class="token number">100.00</span>% packet loss</code></pre>
+
+<p>还是不通，因为没有关闭递归查找：</p>
+<ul>
+<li><strong>STEP6.4：</strong> 关闭递归查找</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo 关闭递归查找</span>
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>route recursive-lookup tunnel 
+<span class="token punctuation">[</span>R3<span class="token punctuation">]</span>route recursive-lookup tunnel 
+<span class="token punctuation">[</span>R4<span class="token punctuation">]</span>route recursive-lookup tunnel </code></pre>
+
+<p>但凡少配一个路由器，下面都不能通</p>
+<ul>
+<li><strong>STEP6.5：</strong> 测试连通</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span>ping -a <span class="token number">1.1</span>.1.1 <span class="token number">6.6</span>.6.6
+  PING <span class="token number">6.6</span>.6.6: <span class="token number">56</span>  data bytes, press CTRL_C to <span class="token builtin class-name">break</span>
+    Reply from <span class="token number">6.6</span>.6.6: <span class="token assign-left variable">bytes</span><span class="token operator">=</span><span class="token number">56</span> <span class="token assign-left variable">Sequence</span><span class="token operator">=</span><span class="token number">1</span> <span class="token assign-left variable">ttl</span><span class="token operator">=</span><span class="token number">252</span> <span class="token assign-left variable">time</span><span class="token operator">=</span><span class="token number">70</span> ms
+    Reply from <span class="token number">6.6</span>.6.6: <span class="token assign-left variable">bytes</span><span class="token operator">=</span><span class="token number">56</span> <span class="token assign-left variable">Sequence</span><span class="token operator">=</span><span class="token number">2</span> <span class="token assign-left variable">ttl</span><span class="token operator">=</span><span class="token number">252</span> <span class="token assign-left variable">time</span><span class="token operator">=</span><span class="token number">40</span> ms
+    Reply from <span class="token number">6.6</span>.6.6: <span class="token assign-left variable">bytes</span><span class="token operator">=</span><span class="token number">56</span> <span class="token assign-left variable">Sequence</span><span class="token operator">=</span><span class="token number">3</span> <span class="token assign-left variable">ttl</span><span class="token operator">=</span><span class="token number">252</span> <span class="token assign-left variable">time</span><span class="token operator">=</span><span class="token number">50</span> ms
+    Reply from <span class="token number">6.6</span>.6.6: <span class="token assign-left variable">bytes</span><span class="token operator">=</span><span class="token number">56</span> <span class="token assign-left variable">Sequence</span><span class="token operator">=</span><span class="token number">4</span> <span class="token assign-left variable">ttl</span><span class="token operator">=</span><span class="token number">252</span> <span class="token assign-left variable">time</span><span class="token operator">=</span><span class="token number">40</span> ms
+    Reply from <span class="token number">6.6</span>.6.6: <span class="token assign-left variable">bytes</span><span class="token operator">=</span><span class="token number">56</span> <span class="token assign-left variable">Sequence</span><span class="token operator">=</span><span class="token number">5</span> <span class="token assign-left variable">ttl</span><span class="token operator">=</span><span class="token number">252</span> <span class="token assign-left variable">time</span><span class="token operator">=</span><span class="token number">30</span> ms
+
+  --- <span class="token number">6.6</span>.6.6 <span class="token function">ping</span> statistics ---
+    <span class="token number">5</span> packet<span class="token punctuation">(</span>s<span class="token punctuation">)</span> transmitted
+    <span class="token number">5</span> packet<span class="token punctuation">(</span>s<span class="token punctuation">)</span> received
+    <span class="token number">0.00</span>% packet loss
+    round-trip min/avg/max <span class="token operator">=</span> <span class="token number">30</span>/46/70 ms</code></pre>
+
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45404784/article/details/105387520">次末跳(倒数第二跳)</a>：边界LSR将本地的直连网段传递给MPLS域内邻居后，LDP给该网段分配标签号为3，告知倒数第二跳设备它的身份；导致倒数第二跳设备在查询LFIB表后，已知转发路径的前提下提前弹出标签，使得最后一跳路由器均只需要查询FIB表；否则最后一跳路由器在查询LFIB表后，弹出标签还需要查询FIB。</p>
+<h2 id="BGP路径选择属性"><a href="#BGP路径选择属性" class="headerlink" title="BGP路径选择属性"></a>BGP路径选择属性</h2><img src="/2022/06/29/ict-zhan-dui-di-9-ci-bi-ji/435538e229b646a8873d63c04964a4f2.png">
+
+<img src="/2022/06/29/ict-zhan-dui-di-9-ci-bi-ji/9f20a45b0a4f4e80b137c23021639d77.png">
+
+<img src="/2022/06/29/ict-zhan-dui-di-9-ci-bi-ji/91a63ab27c944bc7b32b2705550ccca2.png">
+
+<img src="/2022/06/29/ict-zhan-dui-di-9-ci-bi-ji/6ff870a46725443e96b78ea53fd071bc.png">
+
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv12135573">【每日干货】华为13条BGP选路原则详解</a></p>
+<h3 id="原理：BGP选路原则"><a href="#原理：BGP选路原则" class="headerlink" title="原理：BGP选路原则"></a><strong>原理：BGP选路原则</strong></h3><p>13条BGP选路原则(中的几条)：</p>
+<ul>
+<li>2、Prefer highest local preference (global within AS).：本地优先级最高的路由&lt;**本地优先级用于AS内部**&gt;</li>
+<li>3、Prefer route originated by the local router (next hop = <code>0.0.0.0</code>).：当前路由器<strong>通告</strong>的路由</li>
+<li>4、Prefer shortest AS path.：<strong>AS路径最短的路由</strong></li>
+<li>7、Prefer EBGP path over IBGP path.：<strong>外部路径(EBGP)优先于内部路径(IBGP)</strong></li>
+<li>8、Prefer the path through the closest IGP neighbor：选择经过最近的IGP邻居的路径，即<strong>IBGP下一跳首选AS中最短的内部路径(OSPF、RIP开销cost值最小的)作为下一跳</strong></li>
+<li>9、balance traffic：如果配置了maximum-path(<strong>默认为1</strong>), 会安装多条路由到路由表&lt;但是BGP继续比，只有一个打上&gt;</li>
+<li>10、Prefer oldest route for EBGP paths.：都是外部路径，选<strong>最先</strong>收到的（最旧的）&lt;目的是减少抖动&gt;</li>
+<li>11、Prefer the path with the lowest neighbor BGP router ID.：首选来自<strong>最低路由ID</strong>的BGP路由器的路由</li>
+</ul>
+<h3 id="实验二-1-：BGP属性-协议首选值PrefVal-preference-value"><a href="#实验二-1-：BGP属性-协议首选值PrefVal-preference-value" class="headerlink" title="实验二$_1$：BGP属性:协议首选值PrefVal(preference value)"></a><strong>实验二$_1$：BGP属性:协议首选值PrefVal(preference value)</strong></h3><p>PrefVal是华为特有的属性</p>
+<ul>
+<li><p><strong>方法一</strong>：直接在BGP修改</p>
+</li>
+<li><p><strong>STEP1.0：</strong> 网络拓扑</p>
+</li>
+</ul>
+<p>直接打开老师的拓扑</p>
+<img src="/2022/06/29/ict-zhan-dui-di-9-ci-bi-ji/68c11ce8b9a04b78a99a55235e3f6a01.png">
+
+<p>注意：AR1有环回地址<code>1.1.1.1</code>，AR4有环回地址<code>4.4.4.4</code>。</p>
+<ul>
+<li><p><strong>STEP1.1：</strong> 改名(略)</p>
+</li>
+<li><p><strong>STEP2.0：</strong> 查看</p>
+</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR2：查看BGP邻居关系</span>
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>dis bgp pee
+ BGP <span class="token builtin class-name">local</span> router ID <span class="token builtin class-name">:</span> <span class="token number">12.1</span>.1.2
+ Local AS number <span class="token builtin class-name">:</span> <span class="token number">1</span>
+ Total number of peers <span class="token builtin class-name">:</span> <span class="token number">3</span>		  Peers <span class="token keyword">in</span> established state <span class="token builtin class-name">:</span> <span class="token number">3</span>
+  Peer            V          AS  MsgRcvd  MsgSent  OutQ  Up/Down       State Pre fRcv
+  <span class="token number">12.1</span>.1.1        <span class="token number">4</span>           <span class="token number">1</span>       <span class="token number">22</span>       <span class="token number">22</span>     <span class="token number">0</span> 00:18:46 Established       <span class="token number">2</span>
+  <span class="token number">23.1</span>.1.3        <span class="token number">4</span>          <span class="token number">24</span>       <span class="token number">21</span>       <span class="token number">23</span>     <span class="token number">0</span> 00:18:46 Established       <span class="token number">1</span>
+  <span class="token number">26.1</span>.1.6        <span class="token number">4</span>          <span class="token number">24</span>       <span class="token number">21</span>       <span class="token number">23</span>     <span class="token number">0</span> 00:18:46 Established       <span class="token number">1</span>
+
+<span class="token comment"># todo AR2：查看BGP路由表</span>
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>dis bgp rou
+ BGP Local router ID is <span class="token number">12.1</span>.1.2 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">4</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>i  <span class="token number">1.1</span>.1.1/32         <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+ *<span class="token operator">&gt;</span>   <span class="token number">4.4</span>.4.4/32         <span class="token number">23.1</span>.1.3                              <span class="token number">0</span>      24i
+ *                       <span class="token number">26.1</span>.1.6                              <span class="token number">0</span>      24i
+   i  <span class="token number">12.1</span>.1.0/24        <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i</code></pre>
+
+<ul>
+<li><strong>STEP2.1：</strong> 修改优先级</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR2：修改优先级</span>
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>bgp <span class="token number">1</span>
+<span class="token punctuation">[</span>R2-bgp<span class="token punctuation">]</span>peer <span class="token number">26.1</span>.1.6 preferred-value <span class="token number">1</span>
+
+<span class="token comment"># todo AR2：查看BGP路由表</span>
+<span class="token punctuation">[</span>R2-bgp<span class="token punctuation">]</span>dis bgp rou
+ BGP Local router ID is <span class="token number">12.1</span>.1.2 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">4</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>i  <span class="token number">1.1</span>.1.1/32         <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+ *<span class="token operator">&gt;</span>   <span class="token number">4.4</span>.4.4/32         <span class="token number">26.1</span>.1.6                              <span class="token number">1</span>      24i
+ *                       <span class="token number">23.1</span>.1.3                              <span class="token number">0</span>      24i
+   i  <span class="token number">12.1</span>.1.0/24        <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i</code></pre>
+
+<p>看到AR2到<code>4.4.4.4</code>的第一个下一跳由<code>23.1.1.3</code>改为<code>26.1.1.6</code>，并且优先级变为1。</p>
+<ul>
+<li><strong>STEP2.2：</strong> 实验现象看完后，删除配置，利于做下一个实验</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR2：删除配置</span>
+<span class="token punctuation">[</span>R2-bgp<span class="token punctuation">]</span>un peer <span class="token number">26.1</span>.1.6 preferred-value
+
+<span class="token comment"># todo AR2：查看BGP路由表</span>
+<span class="token punctuation">[</span>R2-bgp<span class="token punctuation">]</span>dis bgp rou
+ BGP Local router ID is <span class="token number">12.1</span>.1.2 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">4</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>i  <span class="token number">1.1</span>.1.1/32         <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+ *<span class="token operator">&gt;</span>   <span class="token number">4.4</span>.4.4/32         <span class="token number">23.1</span>.1.3                              <span class="token number">0</span>      24i
+ *                       <span class="token number">26.1</span>.1.6                              <span class="token number">0</span>      24i
+   i  <span class="token number">12.1</span>.1.0/24        <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i</code></pre>
+
+<ul>
+<li><p><strong>方法二</strong>：通过配置前缀列表和ACL进行修改</p>
+</li>
+<li><p><strong>STEP3.0：</strong> 使用前缀列表</p>
+</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR2：配置前缀列表</span>
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>ip ip-prefix dcm permit <span class="token number">4.4</span>.4.4 <span class="token number">32</span>
+
+<span class="token comment"># todo AR2：配置路由策略</span>
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>route-policy ?
+  STRING<span class="token operator">&lt;</span><span class="token number">1</span>-4<span class="token operator"><span class="token file-descriptor important">0</span>&gt;</span>  Name of the route policy
+  <span class="token number">1</span>             Name of the route policy
+  ben           Name of the route policy
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>route-policy PV permit <span class="token function">node</span> ?
+  INTEGER<span class="token operator">&lt;</span><span class="token number">0</span>-6553<span class="token operator"><span class="token file-descriptor important">5</span>&gt;</span>  Index of the <span class="token function">node</span>
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>route-policy PV permit <span class="token function">node</span> <span class="token number">10</span> 
+Info: New Sequence of this List.
+
+<span class="token comment"># todo AR2：匹配前缀列表</span>
+<span class="token punctuation">[</span>R2-route-policy<span class="token punctuation">]</span>if-match ip-prefix ?
+  STRING<span class="token operator">&lt;</span><span class="token number">1</span>-16<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span>  Specify prefix-list name
+<span class="token punctuation">[</span>R2-route-policy<span class="token punctuation">]</span>if-match ip-prefix dcm
+
+<span class="token comment"># todo AR2：修改优先级</span>
+<span class="token punctuation">[</span>R2-route-policy<span class="token punctuation">]</span>apply preferred-value ?
+  INTEGER<span class="token operator">&lt;</span><span class="token number">0</span>-6553<span class="token operator"><span class="token file-descriptor important">5</span>&gt;</span>  Specify BGP Preferred-value<span class="token punctuation">(</span>weight<span class="token punctuation">)</span> value <span class="token keyword">for</span> routing table
+<span class="token punctuation">[</span>R2-route-policy<span class="token punctuation">]</span>apply preferred-value <span class="token number">10</span>
+
+<span class="token comment"># todo AR2：配置路由策略</span>
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>route-policy PV permit <span class="token function">node</span> <span class="token number">20</span>
+Info: New Sequence of this List.
+
+<span class="token comment"># todo AR2：在BGP应用前缀列表</span>
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>bgp <span class="token number">1</span>
+<span class="token punctuation">[</span>R2-bgp<span class="token punctuation">]</span>peer <span class="token number">26.1</span>.1.6 route-policy PV <span class="token function">import</span> 
+
+<span class="token comment"># todo AR2：查看BGP路由表</span>
+<span class="token punctuation">[</span>R2-bgp<span class="token punctuation">]</span>dis bgp rou
+ BGP Local router ID is <span class="token number">12.1</span>.1.2 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">4</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>i  <span class="token number">1.1</span>.1.1/32         <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+ *<span class="token operator">&gt;</span>   <span class="token number">4.4</span>.4.4/32         <span class="token number">26.1</span>.1.6                              <span class="token number">10</span>     24i
+ *                       <span class="token number">23.1</span>.1.3                              <span class="token number">0</span>      24i
+   i  <span class="token number">12.1</span>.1.0/24        <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i</code></pre>
+
+<p>prefVal是<strong>私有属性</strong>，不能转发，且这个属性只能<strong>接收方向</strong>修改</p>
+<ul>
+<li><strong>STEP3.1：</strong> 删除配置，利于做下一个实验</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR2：删除配置</span>
+<span class="token punctuation">[</span>R2-bgp<span class="token punctuation">]</span>un peer <span class="token number">26.1</span>.1.6 route-policy PV <span class="token function">import</span></code></pre>
+
+<h3 id="实验二-2-：BGP属性-本地优先级最高的路由LocPrf-Local-Preference"><a href="#实验二-2-：BGP属性-本地优先级最高的路由LocPrf-Local-Preference" class="headerlink" title="实验二$_2$：BGP属性:本地优先级最高的路由LocPrf(Local Preference)"></a><strong>实验二$_2$：BGP属性:本地优先级最高的路由LocPrf(Local Preference)</strong></h3><p>LocPrf只能在AS内部的IBGP传递时使用，就是说EBGP之间不能使用<br>可以用在IBGP的In和Out方向，只能用在EBGP的In方向(虽然不能传递，但是可以在本地修改)</p>
+<p><strong>目的</strong>：AR2选择AR6的路由路径作为最优</p>
+<ul>
+<li><strong>STEP4.0：</strong> 修改LocPrf</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR2：路由策略</span>
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>route-policy LP permit <span class="token function">node</span> <span class="token number">10</span> 
+Info: New Sequence of this List.
+
+<span class="token comment"># todo AR2：前缀列表</span>
+<span class="token punctuation">[</span>R2-route-policy<span class="token punctuation">]</span>if-match ip-prefix dcm  <span class="token comment"># 之前配置的前缀列表dcm</span>
+<span class="token punctuation">[</span>R2-route-policy<span class="token punctuation">]</span>apply local-preference <span class="token number">110</span>  <span class="token comment"># 修改locprf</span>
+
+<span class="token comment"># todo AR2：查看BGP路由表</span>
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>dis bgp rou
+ BGP Local router ID is <span class="token number">12.1</span>.1.2 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">4</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>i  <span class="token number">1.1</span>.1.1/32         <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+ *<span class="token operator">&gt;</span>   <span class="token number">4.4</span>.4.4/32         <span class="token number">23.1</span>.1.3                              <span class="token number">0</span>      24i
+ *                       <span class="token number">26.1</span>.1.6                              <span class="token number">0</span>      24i
+   i  <span class="token number">12.1</span>.1.0/24        <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+
+<span class="token comment"># todo AR2：BGP启用路由策略</span>
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>bgp <span class="token number">1</span>
+<span class="token punctuation">[</span>R2-bgp<span class="token punctuation">]</span>peer <span class="token number">26.1</span>.1.6 route-policy LP <span class="token function">import</span> 
+
+<span class="token comment"># todo AR2：查看BGP路由表</span>
+<span class="token punctuation">[</span>R2-bgp<span class="token punctuation">]</span>dis bgp rou
+ BGP Local router ID is <span class="token number">12.1</span>.1.2 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">4</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>i  <span class="token number">1.1</span>.1.1/32         <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+ *<span class="token operator">&gt;</span>   <span class="token number">4.4</span>.4.4/32         <span class="token number">26.1</span>.1.6                   <span class="token number">110</span>        <span class="token number">0</span>      24i
+ *                       <span class="token number">23.1</span>.1.3                              <span class="token number">0</span>      24i
+   i  <span class="token number">12.1</span>.1.0/24        <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i</code></pre>
+
+<p>配置路由策略前后，AR2到<code>4.4.4.4</code>的下一跳地址优先级改变。</p>
+<ul>
+<li><strong>STEP4.1：</strong> 删除配置</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR2：删除配置</span>
+<span class="token punctuation">[</span>R2-bgp<span class="token punctuation">]</span>un peer <span class="token number">26.1</span>.1.6 route-policy LP <span class="token function">import</span></code></pre>
+
+<ul>
+<li><strong>STEP4.2：</strong> 做一个无效配置，给EBGP修改Out方向的LocPrf值</li>
+</ul>
+<p>选AR6(一个EBGP)作为配置对象</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR2：查看路由表</span>
+<span class="token punctuation">[</span>R2-bgp<span class="token punctuation">]</span>dis bgp rou
+ BGP Local router ID is <span class="token number">12.1</span>.1.2 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">4</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>i  <span class="token number">1.1</span>.1.1/32         <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+ *<span class="token operator">&gt;</span>   <span class="token number">4.4</span>.4.4/32         <span class="token number">23.1</span>.1.3                              <span class="token number">0</span>      24i
+ *                       <span class="token number">26.1</span>.1.6                              <span class="token number">0</span>      24i
+   i  <span class="token number">12.1</span>.1.0/24        <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+
+<span class="token comment"># todo AR6：配置前缀列表</span>
+<span class="token punctuation">[</span>R6<span class="token punctuation">]</span>ip ip-prefix dcm4 permit <span class="token number">4.4</span>.4.4 <span class="token number">32</span>
+
+<span class="token comment"># todo AR6：配置路由策略</span>
+<span class="token punctuation">[</span>R6<span class="token punctuation">]</span>route-policy LP permit <span class="token function">node</span> <span class="token number">10</span>
+Info: New Sequence of this List.
+<span class="token punctuation">[</span>R6-route-policy<span class="token punctuation">]</span>if-match ip-prefix dcm4  <span class="token comment"># 应用前缀列表</span>
+<span class="token punctuation">[</span>R6-route-policy<span class="token punctuation">]</span>apply local-preference <span class="token number">120</span>  <span class="token comment"># 修改LocPrf</span>
+
+<span class="token comment"># todo AR6：将路由策略应用到发送给AR2的反向</span>
+<span class="token punctuation">[</span>R6<span class="token punctuation">]</span>bgp <span class="token number">24</span>
+<span class="token punctuation">[</span>R6-bgp<span class="token punctuation">]</span>peer <span class="token number">26.1</span>.1.2 route-policy LP <span class="token builtin class-name">export</span>  <span class="token comment"># 注意是出方向</span>
+
+<span class="token comment"># todo AR2：重置邻居关系，一般配置后BGP关系需要重置才能建立</span>
+<span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span>reset bgp all graceful
+
+<span class="token comment"># todo AR2：邻居关系建立后，再查看BGP路由表</span>
+<span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span>dis bgp rou
+ BGP Local router ID is <span class="token number">12.1</span>.1.2 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">4</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>i  <span class="token number">1.1</span>.1.1/32         <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+ *<span class="token operator">&gt;</span>   <span class="token number">4.4</span>.4.4/32         <span class="token number">23.1</span>.1.3                              <span class="token number">0</span>      24i
+ *                       <span class="token number">26.1</span>.1.6                              <span class="token number">0</span>      24i
+   i  <span class="token number">12.1</span>.1.0/24        <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i</code></pre>
+
+<p>可以看到AR2路由表的下一跳地址的LocPrf不变，证明：EBGP不能在出方向修改LocPrf(只能在入方向修改LocPrf)。</p>
+<ul>
+<li><strong>STEP4.3：</strong> 删除配置，便于做下一个实验(其实这个配置删不删无所谓，本来配置就无法生效)</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR6：删除配置</span>
+<span class="token punctuation">[</span>R6-bgp<span class="token punctuation">]</span>un peer <span class="token number">26.1</span>.1.2 route-policy LP <span class="token builtin class-name">export</span></code></pre>
+
+<ul>
+<li><strong>STEP4.4：</strong> 配置入方向</li>
+</ul>
+<p><strong>目的</strong>：在AR4上，选择AR6作为最优路径</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR6：配置前缀列表</span>
+<span class="token punctuation">[</span>R6<span class="token punctuation">]</span>ip ip-prefix dcm1 permit <span class="token number">1.1</span>.1.1 <span class="token number">32</span>
+
+<span class="token comment"># todo AR6：配置路由策略</span>
+<span class="token punctuation">[</span>R6<span class="token punctuation">]</span>route-policy LP permit <span class="token function">node</span> <span class="token number">10</span>
+Info: You are overwriting this sequence.
+
+<span class="token comment"># todo AR6：应用前缀列表</span>
+<span class="token punctuation">[</span>R6-route-policy<span class="token punctuation">]</span>if-match ip-prefix dcm1 
+
+<span class="token comment"># todo AR6：BGP应用路由策略</span>
+<span class="token punctuation">[</span>R6<span class="token punctuation">]</span>bgp <span class="token number">24</span>
+<span class="token punctuation">[</span>R6-bgp<span class="token punctuation">]</span>peer <span class="token number">64.1</span>.1.4 route-policy LP <span class="token builtin class-name">export</span>  <span class="token comment"># 注意是出方向</span>
+
+<span class="token comment"># todo AR4：重置BGP邻居关系</span>
+<span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">4</span>&gt;</span>reset bgp all graceful
+
+<span class="token comment"># todo AR4：查看BGP邻居关系</span>
+<span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">4</span>&gt;</span>dis bgp peer
+ BGP <span class="token builtin class-name">local</span> router ID <span class="token builtin class-name">:</span> <span class="token number">34.1</span>.1.4
+ Local AS number <span class="token builtin class-name">:</span> <span class="token number">24</span>
+ Total number of peers <span class="token builtin class-name">:</span> <span class="token number">2</span>		  Peers <span class="token keyword">in</span> established state <span class="token builtin class-name">:</span> <span class="token number">2</span>
+  Peer            V          AS  MsgRcvd  MsgSent  OutQ  Up/Down       State Pre fRcv
+  <span class="token number">34.1</span>.1.3        <span class="token number">4</span>          <span class="token number">24</span>        <span class="token number">3</span>        <span class="token number">4</span>     <span class="token number">0</span> 00:00:11 Established       <span class="token number">1</span>
+  <span class="token number">64.1</span>.1.6        <span class="token number">4</span>          <span class="token number">24</span>        <span class="token number">3</span>        <span class="token number">3</span>     <span class="token number">0</span> 00:00:11 Established       <span class="token number">1</span>
+
+<span class="token comment"># todo AR4：查看BGP路由表</span>
+<span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">4</span>&gt;</span>dis bgp rou
+ BGP Local router ID is <span class="token number">34.1</span>.1.4 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">3</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>i  <span class="token number">1.1</span>.1.1/32         <span class="token number">64.1</span>.1.6                   <span class="token number">120</span>        <span class="token number">0</span>      1i
+ * i                     <span class="token number">34.1</span>.1.3                   <span class="token number">100</span>        <span class="token number">0</span>      1i
+ *<span class="token operator">&gt;</span>   <span class="token number">4.4</span>.4.4/32         <span class="token number">0.0</span>.0.0         <span class="token number">0</span>                     <span class="token number">0</span>      i</code></pre>
+
+<p>可以看到AR4到<code>64.1.1.6</code>的下一跳的<code>LocPrf</code>变为120</p>
+<ul>
+<li><strong>STEP4.5：</strong> 删除配置</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR6：删除配置</span>
+<span class="token punctuation">[</span>R6-bgp<span class="token punctuation">]</span>un peer <span class="token number">64.1</span>.1.4 route-policy LP <span class="token builtin class-name">export</span></code></pre>
+
+<h3 id="实验二-3-：BGP属性-经过的所有AS号矢量AS-Path"><a href="#实验二-3-：BGP属性-经过的所有AS号矢量AS-Path" class="headerlink" title="实验二$_3$：BGP属性:经过的所有AS号矢量AS-Path"></a><strong>实验二$_3$：BGP属性:经过的所有AS号矢量AS-Path</strong></h3><p>AS-Path用于防环，经过的AS越少，那么路由越优先</p>
+<p>AS-Path只能在EBGP间使用(In和Out可以使用)，不能在IBGP间使用。</p>
+<p>AS-Path只能加，不能减。这意味着，如果想让一个路径最优，不能减少这个路径的Path值，只能让另一条路径的Path值增加。</p>
+<ul>
+<li><strong>STEP5.0：</strong> 修改AS-Path</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR2：查看BGP路由表</span>
+<span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span>dis bgp rou
+ BGP Local router ID is <span class="token number">12.1</span>.1.2 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">4</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>i  <span class="token number">1.1</span>.1.1/32         <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+ *<span class="token operator">&gt;</span>   <span class="token number">4.4</span>.4.4/32         <span class="token number">23.1</span>.1.3                              <span class="token number">0</span>      24i
+ *                       <span class="token number">26.1</span>.1.6                              <span class="token number">0</span>      24i
+   i  <span class="token number">12.1</span>.1.0/24        <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+
+<span class="token comment"># todo AR3：配置前缀列表</span>
+<span class="token punctuation">[</span>R3<span class="token punctuation">]</span>ip ip-prefix dcm4 permit <span class="token number">4.4</span>.4.4 <span class="token number">32</span>
+
+<span class="token comment"># todo AR3：配置路由策略</span>
+<span class="token punctuation">[</span>R3<span class="token punctuation">]</span>route-policy AS permit <span class="token function">node</span> <span class="token number">10</span>
+Info: New Sequence of this List.
+<span class="token punctuation">[</span>R3-route-policy<span class="token punctuation">]</span>if-match ip-prefix dcm4  <span class="token comment"># 应用前缀列表</span>
+<span class="token punctuation">[</span>R3-route-policy<span class="token punctuation">]</span>apply as-path ?
+  INTEGER<span class="token operator">&lt;</span><span class="token number">1</span>-429496729<span class="token operator"><span class="token file-descriptor important">5</span>&gt;</span>  AS number <span class="token keyword">in</span> asplain <span class="token function">format</span> <span class="token punctuation">(</span>number<span class="token operator">&lt;</span><span class="token number">1</span>-429496729<span class="token operator"><span class="token file-descriptor important">5</span>&gt;</span><span class="token punctuation">)</span>
+  STRING<span class="token operator">&lt;</span><span class="token number">3</span>-1<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span>           AS number <span class="token keyword">in</span> asdot <span class="token function">format</span>                              
+                         <span class="token punctuation">(</span>number<span class="token operator">&lt;</span><span class="token number">1</span>-6553<span class="token operator"><span class="token file-descriptor important">5</span>&gt;</span>.number<span class="token operator">&lt;</span><span class="token number">0</span>-6553<span class="token operator"><span class="token file-descriptor important">5</span>&gt;</span><span class="token punctuation">)</span>
+  none                   Clear as-path list
+<span class="token punctuation">[</span>R3-route-policy<span class="token punctuation">]</span>apply as-path <span class="token number">24</span> <span class="token number">24</span> ?
+  INTEGER<span class="token operator">&lt;</span><span class="token number">1</span>-429496729<span class="token operator"><span class="token file-descriptor important">5</span>&gt;</span>  AS number <span class="token keyword">in</span> asplain <span class="token function">format</span> <span class="token punctuation">(</span>number<span class="token operator">&lt;</span><span class="token number">1</span>-429496729<span class="token operator"><span class="token file-descriptor important">5</span>&gt;</span><span class="token punctuation">)</span>
+  STRING<span class="token operator">&lt;</span><span class="token number">3</span>-1<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span>           AS number <span class="token keyword">in</span> asdot <span class="token function">format</span>                              
+                         <span class="token punctuation">(</span>number<span class="token operator">&lt;</span><span class="token number">1</span>-6553<span class="token operator"><span class="token file-descriptor important">5</span>&gt;</span>.number<span class="token operator">&lt;</span><span class="token number">0</span>-6553<span class="token operator"><span class="token file-descriptor important">5</span>&gt;</span><span class="token punctuation">)</span>
+  additive               Append to original As Number
+  overwrite              Overwrite original As Number	
+<span class="token punctuation">[</span>R3-route-policy<span class="token punctuation">]</span>apply as-path <span class="token number">24</span> <span class="token number">24</span> additive ?
+  <span class="token operator">&lt;</span>cr<span class="token operator">&gt;</span>  Please press ENTER to execute <span class="token builtin class-name">command</span> 
+<span class="token punctuation">[</span>R3-route-policy<span class="token punctuation">]</span>apply as-path <span class="token number">24</span> <span class="token number">24</span> additive  <span class="token comment"># 修改as-path</span>
+
+<span class="token comment"># todo AR3：BGP应用路由策略</span>
+<span class="token punctuation">[</span>R3<span class="token punctuation">]</span>bgp <span class="token number">24</span>
+<span class="token punctuation">[</span>R3-bgp<span class="token punctuation">]</span>peer <span class="token number">23.1</span>.1.2 route-policy AS <span class="token builtin class-name">export</span> 
+
+<span class="token comment"># todo AR2：重启BGP邻居关系</span>
+<span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span>reset bgp all graceful 
+
+<span class="token comment"># todo AR2：查看BGP路由表</span>
+<span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span>dis bgp rou
+ BGP Local router ID is <span class="token number">12.1</span>.1.2 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">4</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>i  <span class="token number">1.1</span>.1.1/32         <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+ *<span class="token operator">&gt;</span>   <span class="token number">4.4</span>.4.4/32         <span class="token number">26.1</span>.1.6                              <span class="token number">0</span>      24i
+ *                       <span class="token number">23.1</span>.1.3                              <span class="token number">0</span>      <span class="token number">24</span> <span class="token number">24</span> 24i
+   i  <span class="token number">12.1</span>.1.0/24        <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i</code></pre>
+
+<p>注：<br>1.additive：在原来AS-Path上增加几个AS-Path，这样既防环，又不会因为水平分割而无法进入某些AS中<br>2.修改AS-Path前，只有一个24<br>3.修改AS-Path后，一共3个24，如果用override就是覆盖，就只有2个24</p>
+<ul>
+<li><strong>STEP5.1：</strong> 删除配置</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR3：删除配置</span>
+<span class="token punctuation">[</span>R3-bgp<span class="token punctuation">]</span>un peer <span class="token number">23.1</span>.1.2 route-policy AS <span class="token builtin class-name">export</span></code></pre>
+
+<h3 id="实验二-4-：BGP属性-起源属性Origin"><a href="#实验二-4-：BGP属性-起源属性Origin" class="headerlink" title="实验二$_4$：BGP属性:起源属性Origin"></a><strong>实验二$_4$：BGP属性:起源属性Origin</strong></h3><p>起源属性Origin全局范围有效<br>优先级由高到低：i（IBGP） &gt; e（EBGP） &gt; ?（重分发）</p>
+<ul>
+<li><strong>STEP6.0：</strong> 修改起源属性Origin</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR3：</span>
+<span class="token punctuation">[</span>R3<span class="token punctuation">]</span>route-policy OR permit <span class="token function">node</span> <span class="token number">10</span>
+Info: New Sequence of this List.
+
+<span class="token punctuation">[</span>R3-route-policy<span class="token punctuation">]</span>if-match ip-prefix dcm4
+
+<span class="token punctuation">[</span>R3-route-policy<span class="token punctuation">]</span>apply origin ?
+  egp         Remote EGP
+  igp         Local IGP
+  incomplete  Unknown heritage
+<span class="token punctuation">[</span>R3-route-policy<span class="token punctuation">]</span>apply origin incomplete
+
+<span class="token comment"># todo AR3：</span>
+<span class="token punctuation">[</span>R3<span class="token punctuation">]</span>bgp <span class="token number">24</span>
+<span class="token punctuation">[</span>R3-bgp<span class="token punctuation">]</span>peer <span class="token number">23.1</span>.1.2 route-policy OR <span class="token builtin class-name">export</span> 
+
+<span class="token comment"># todo AR2：查看BGP路由表</span>
+<span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span>dis bgp rou
+ BGP Local router ID is <span class="token number">12.1</span>.1.2 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">4</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>i  <span class="token number">1.1</span>.1.1/32         <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+ *<span class="token operator">&gt;</span>   <span class="token number">4.4</span>.4.4/32         <span class="token number">23.1</span>.1.3                              <span class="token number">0</span>      24i
+ *                       <span class="token number">26.1</span>.1.6                              <span class="token number">0</span>      24i
+   i  <span class="token number">12.1</span>.1.0/24        <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+
+<span class="token comment"># todo AR2：重置BGP邻居关系</span>
+<span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span>reset bgp all
+
+<span class="token comment"># todo AR2：查看BGP路由表</span>
+<span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span>dis bgp rou
+ BGP Local router ID is <span class="token number">12.1</span>.1.2 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">4</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>i  <span class="token number">1.1</span>.1.1/32         <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+ *<span class="token operator">&gt;</span>   <span class="token number">4.4</span>.4.4/32         <span class="token number">26.1</span>.1.6                              <span class="token number">0</span>      24i
+ *                       <span class="token number">23.1</span>.1.3                              <span class="token number">0</span>      <span class="token number">24</span>?
+   i  <span class="token number">12.1</span>.1.0/24        <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i</code></pre>
+
+<ul>
+<li><strong>STEP6.1：</strong> 删除配置</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR3：删除配置</span>
+<span class="token punctuation">[</span>R3-bgp<span class="token punctuation">]</span>un peer <span class="token number">23.1</span>.1.2 route-policy OR <span class="token builtin class-name">export</span> </code></pre>
+
+<p>STEAM上的编程游戏：Linux】Hacknet、while True: learn()、汇编】SHENZHEN I/O</p>
+<h3 id="实验二-5-：BGP属性-代价值MED"><a href="#实验二-5-：BGP属性-代价值MED" class="headerlink" title="实验二$_5$：BGP属性:代价值MED"></a><strong>实验二$_5$：BGP属性:代价值MED</strong></h3><p>重分发进来的路由条目的度量值，在<strong>AS内</strong>有效，即EBGP之间</p>
+<ul>
+<li><strong>STEP7：</strong> 配置MED(静态路由&amp;路由引入)</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR1：静态路由</span>
+<span class="token punctuation">[</span>R1<span class="token punctuation">]</span>ip route-static <span class="token number">11.11</span>.11.11 <span class="token number">32</span> NULL <span class="token number">0</span>
+
+<span class="token comment"># todo AR1：设置路由引入的MED</span>
+<span class="token punctuation">[</span>R1<span class="token punctuation">]</span>bgp <span class="token number">1</span>
+<span class="token punctuation">[</span>R1-bgp<span class="token punctuation">]</span>import-route static ?  
+  med           Med <span class="token keyword">for</span> imported route
+  route-policy  Specify a route policy
+  <span class="token operator">&lt;</span>cr<span class="token operator">&gt;</span>          Please press ENTER to execute <span class="token builtin class-name">command</span> 
+<span class="token punctuation">[</span>R1-bgp<span class="token punctuation">]</span>import-route static med <span class="token number">666</span>
+
+<span class="token comment"># todo AR2：查看EBGP的BGP路由表</span>
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>dis bgp rou
+ BGP Local router ID is <span class="token number">12.1</span>.1.2 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">5</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>i  <span class="token number">1.1</span>.1.1/32         <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+ *<span class="token operator">&gt;</span>   <span class="token number">4.4</span>.4.4/32         <span class="token number">23.1</span>.1.3                              <span class="token number">0</span>      24i
+ *                       <span class="token number">26.1</span>.1.6                              <span class="token number">0</span>      24i
+ *<span class="token operator">&gt;</span>i  <span class="token number">11.11</span>.11.11/32     <span class="token number">12.1</span>.1.1        <span class="token number">666</span>        <span class="token number">100</span>        <span class="token number">0</span>      ?
+   i  <span class="token number">12.1</span>.1.0/24        <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+
+<span class="token comment"># todo AR4：查看IBGP的BGP路由表</span>
+<span class="token operator">&lt;</span>R<span class="token operator"><span class="token file-descriptor important">4</span>&gt;</span>dis bgp rou
+ BGP Local router ID is <span class="token number">34.1</span>.1.4 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">5</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>i  <span class="token number">1.1</span>.1.1/32         <span class="token number">34.1</span>.1.3                   <span class="token number">100</span>        <span class="token number">0</span>      1i
+ * i                     <span class="token number">64.1</span>.1.6                   <span class="token number">100</span>        <span class="token number">0</span>      1i
+ *<span class="token operator">&gt;</span>   <span class="token number">4.4</span>.4.4/32         <span class="token number">0.0</span>.0.0         <span class="token number">0</span>                     <span class="token number">0</span>      i
+ *<span class="token operator">&gt;</span>i  <span class="token number">11.11</span>.11.11/32     <span class="token number">34.1</span>.1.3                   <span class="token number">100</span>        <span class="token number">0</span>      <span class="token number">1</span>?
+ * i                     <span class="token number">64.1</span>.1.6                   <span class="token number">100</span>        <span class="token number">0</span>      <span class="token number">1</span>?</code></pre>
+
+<h2 id="实验三：BGP链路聚合"><a href="#实验三：BGP链路聚合" class="headerlink" title="实验三：BGP链路聚合"></a><strong>实验三：BGP链路聚合</strong></h2><p>BGP聚合方式：自动聚合、手动聚合<br>BGP只能对<strong>重分发</strong>进来的路由条目进行聚合，且全部按<strong>主类网络掩码</strong>进行聚合</p>
+<ul>
+<li><strong>STEP8.0：</strong> 配置链路聚合(自动聚合)</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR1：配置链路自动聚合</span>
+<span class="token punctuation">[</span>R1-bgp<span class="token punctuation">]</span>summary automatic 
+Info: Automatic summarization is valid only <span class="token keyword">for</span> the routes imported through the import-route command.
+
+<span class="token comment"># todo AR2：查看BGP路由表</span>
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>dis bgp rou
+ BGP Local router ID is <span class="token number">12.1</span>.1.2 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">5</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>i  <span class="token number">1.1</span>.1.1/32         <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+ *<span class="token operator">&gt;</span>   <span class="token number">4.4</span>.4.4/32         <span class="token number">23.1</span>.1.3                              <span class="token number">0</span>      24i
+ *                       <span class="token number">26.1</span>.1.6                              <span class="token number">0</span>      24i
+ *<span class="token operator">&gt;</span>i  <span class="token number">11.0</span>.0.0           <span class="token number">12.1</span>.1.1                   <span class="token number">100</span>        <span class="token number">0</span>      ?
+   i  <span class="token number">12.1</span>.1.0/24        <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i</code></pre>
+
+<ul>
+<li><strong>STEP8.1：</strong> 配置链路聚合(手动聚合)</li>
+</ul>
+<p>先添加聚合需要使用的环回地址：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR1：配置环回地址</span>
+<span class="token punctuation">[</span>R1-bgp<span class="token punctuation">]</span>int lo <span class="token number">5</span>
+<span class="token punctuation">[</span>R1-LoopBack5<span class="token punctuation">]</span>ip <span class="token function">add</span> <span class="token number">10.0</span>.0.1 <span class="token number">24</span>
+<span class="token punctuation">[</span>R1-LoopBack5<span class="token punctuation">]</span>ip <span class="token function">add</span> <span class="token number">10.0</span>.1.1 <span class="token number">24</span> sub
+<span class="token punctuation">[</span>R1-LoopBack5<span class="token punctuation">]</span>ip <span class="token function">add</span> <span class="token number">10.0</span>.2.1 <span class="token number">24</span> sub
+<span class="token punctuation">[</span>R1-LoopBack5<span class="token punctuation">]</span>ip <span class="token function">add</span> <span class="token number">10.0</span>.3.1 <span class="token number">24</span> sub
+
+<span class="token comment"># todo AR1：BGP宣告网段</span>
+<span class="token punctuation">[</span>R1<span class="token punctuation">]</span>bgp <span class="token number">1</span>
+<span class="token punctuation">[</span>R1-bgp<span class="token punctuation">]</span>network <span class="token number">10.0</span>.0.1 <span class="token number">24</span>
+<span class="token punctuation">[</span>R1-bgp<span class="token punctuation">]</span>network <span class="token number">10.0</span>.1.1 <span class="token number">24</span>
+<span class="token punctuation">[</span>R1-bgp<span class="token punctuation">]</span>network <span class="token number">10.0</span>.2.1 <span class="token number">24</span>
+<span class="token punctuation">[</span>R1-bgp<span class="token punctuation">]</span>network <span class="token number">10.0</span>.3.1 <span class="token number">24</span>
+
+<span class="token comment"># todo AR2：查看BGP路由表</span>
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>dis bgp rou
+ BGP Local router ID is <span class="token number">12.1</span>.1.2 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">9</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>i  <span class="token number">1.1</span>.1.1/32         <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+ *<span class="token operator">&gt;</span>   <span class="token number">4.4</span>.4.4/32         <span class="token number">23.1</span>.1.3                              <span class="token number">0</span>      24i
+ *                       <span class="token number">26.1</span>.1.6                              <span class="token number">0</span>      24i
+ *<span class="token operator">&gt;</span>i  <span class="token number">10.0</span>.0.0/24        <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+ *<span class="token operator">&gt;</span>i  <span class="token number">10.0</span>.1.0/24        <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+ *<span class="token operator">&gt;</span>i  <span class="token number">10.0</span>.2.0/24        <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+ *<span class="token operator">&gt;</span>i  <span class="token number">10.0</span>.3.0/24        <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+ *<span class="token operator">&gt;</span>i  <span class="token number">11.0</span>.0.0           <span class="token number">12.1</span>.1.1                   <span class="token number">100</span>        <span class="token number">0</span>      ?
+   i  <span class="token number">12.1</span>.1.0/24        <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i</code></pre>
+
+<p>此时AR2学到的是明细路由，这种情况该使用手动聚合：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR1：配置手动聚合</span>
+<span class="token punctuation">[</span>R1-bgp<span class="token punctuation">]</span>aggregate <span class="token number">10.0</span>.0.0 <span class="token number">22</span> detail-suppressed
+
+<span class="token comment"># todo AR2：查看BGP路由表</span>
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>dis bgp rou
+ BGP Local router ID is <span class="token number">12.1</span>.1.2 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">9</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>i  <span class="token number">1.1</span>.1.1/32         <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+ *<span class="token operator">&gt;</span>   <span class="token number">4.4</span>.4.4/32         <span class="token number">23.1</span>.1.3                              <span class="token number">0</span>      24i
+ *                       <span class="token number">26.1</span>.1.6                              <span class="token number">0</span>      24i
+ *<span class="token operator">&gt;</span>i  <span class="token number">10.0</span>.0.0/22        <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i
+ *<span class="token operator">&gt;</span>i  <span class="token number">11.0</span>.0.0           <span class="token number">12.1</span>.1.1                   <span class="token number">100</span>        <span class="token number">0</span>      ?
+   i  <span class="token number">12.1</span>.1.0/24        <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      i</code></pre>
+
+<p>detail-suppressed：详细抑制，只有汇总，不要明细<br>如果不加，仍然有明细路由，而且多了一个汇总</p>
+<p><code>undo sync</code><br>同步是用来防止路由黑洞的<br>同步：如果BGP打开了同步，意思是说<br>BGP与IGP的同步功能。</p>
+<p>缺省情况下，同步功能是关闭的。</p>
+<h2 id="BGP路由反射器与联盟"><a href="#BGP路由反射器与联盟" class="headerlink" title="BGP路由反射器与联盟"></a>BGP路由反射器与联盟</h2><h3 id="实验四-1-：路由反射器"><a href="#实验四-1-：路由反射器" class="headerlink" title="实验四$_1$：路由反射器"></a><strong>实验四$_1$：路由反射器</strong></h3><p>RR反射器防环：解决BGP水平分割问题(IBGP和EBGP的水平分割)<br>IBGP水平分割：通过IBGP学习的条目不能再发送给其他IBGP<br>EBGP水平分割：从某个接口上学习来的路由信息将不再从该接口上通告出去。就是从那个口进来的不再从这个口出去。</p>
+<p>路由发射器RR：<br>1.当RR从客户机收到一个路由更新时，会将它发送给客户机和非客户机。<br>2.当RR从非客户机收到一个路由更新时，只发送给客户机路由器，而不发送给其他非客户机路由器<br>3.当RR从EBGP收到一个路由更新时，会将它发送给客户机和非客户机。</p>
+<ul>
+<li><strong>STEP1.0：</strong> 网络拓扑</li>
+</ul>
+<p>直接打开老师拓扑：</p>
+<img src="/2022/06/29/ict-zhan-dui-di-9-ci-bi-ji/5d9cd2cec6bc4b1d8f2dbc0185c9cb1f.png">
+
+<p>设备角色：R3服务器，其余客户机</p>
+<ul>
+<li><p><strong>STEP1.1：</strong> 改名(略)</p>
+</li>
+<li><p><strong>STEP2：</strong> 配置路由发射器</p>
+</li>
+</ul>
+<p><strong>目的</strong>：AR4从IBGP学习到1.1.1.1条目</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR4：查看BGP路由表</span>
+<span class="token punctuation">[</span>R4<span class="token punctuation">]</span>dis bgp rou  <span class="token comment"># 目前没有BGP路由条目</span>
+
+<span class="token comment"># todo AR3：设置RR和Client</span>
+<span class="token punctuation">[</span>R3<span class="token punctuation">]</span>bgp <span class="token number">2</span>     
+<span class="token punctuation">[</span>R3-bgp<span class="token punctuation">]</span>peer <span class="token number">23.1</span>.1.2 reflect-client  <span class="token comment"># 设置为RR，23.1.1.2为client</span>
+
+<span class="token comment"># todo AR4：查看BGP路由表</span>
+<span class="token punctuation">[</span>R4<span class="token punctuation">]</span>dis bgp rou
+ BGP Local router ID is <span class="token number">34.1</span>.1.4 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">1</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>i  <span class="token number">1.1</span>.1.1/32         <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      1i
+
+<span class="token comment"># todo AR3：设置RR和Client</span>
+<span class="token punctuation">[</span>R3-bgp<span class="token punctuation">]</span>peer <span class="token number">34.1</span>.1.4 reflect-client  <span class="token comment"># 设置为RR，34.1.1.4为client</span></code></pre>
+
+<p><strong>目的</strong>：AR5从IBGP学习到<code>1.1.1.1</code>条目</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR5：查看BGP路由表</span>
+<span class="token punctuation">[</span>R5<span class="token punctuation">]</span>dis bgp rou  <span class="token comment"># 目前没有BGP路由条目</span>
+
+<span class="token comment"># todo AR4：设置RR和Client</span>
+<span class="token punctuation">[</span>R4<span class="token punctuation">]</span>bgp <span class="token number">2</span>
+<span class="token punctuation">[</span>R4-bgp<span class="token punctuation">]</span>peer <span class="token number">45.1</span>.1.5 reflect-client  <span class="token comment"># 设置为RR，45.1.1.5为client</span>
+
+<span class="token comment"># todo AR5：查看BGP路由表</span>
+<span class="token punctuation">[</span>R5<span class="token punctuation">]</span>dis bgp rou
+ BGP Local router ID is <span class="token number">45.1</span>.1.5 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">1</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>i  <span class="token number">1.1</span>.1.1/32         <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      1i
+
+<span class="token comment"># todo AR5：BGP详细信息</span>
+<span class="token punctuation">[</span>R5<span class="token punctuation">]</span>dis bgp rou <span class="token number">1.1</span>.1.1
+
+ BGP <span class="token builtin class-name">local</span> router ID <span class="token builtin class-name">:</span> <span class="token number">45.1</span>.1.5
+ Local AS number <span class="token builtin class-name">:</span> <span class="token number">2</span>
+ Paths:   <span class="token number">1</span> available, <span class="token number">1</span> best, <span class="token number">1</span> <span class="token keyword">select</span>
+ BGP routing table entry information of <span class="token number">1.1</span>.1.1/32:
+ From: <span class="token number">45.1</span>.1.4 <span class="token punctuation">(</span><span class="token number">34.1</span>.1.4<span class="token punctuation">)</span>
+ Route Duration: 00h01m00s  
+ Relay IP Nexthop: <span class="token number">45.1</span>.1.4
+ Relay IP Out-Interface: GigabitEthernet0/0/0
+ Original nexthop: <span class="token number">12.1</span>.1.1
+ Qos information <span class="token builtin class-name">:</span> 0x0
+ AS-path <span class="token number">1</span>, origin igp, MED <span class="token number">0</span>, localpref <span class="token number">100</span>, pref-val <span class="token number">0</span>, valid, internal, best, select, active, pre <span class="token number">255</span>, IGP cost <span class="token number">4</span>
+ Originator:  <span class="token number">12.1</span>.1.2
+ Cluster list: <span class="token number">34.1</span>.1.4, <span class="token number">23.1</span>.1.3
+ Not advertised to any peer yet</code></pre>
+
+<h3 id="实验四-2-：联邦"><a href="#实验四-2-：联邦" class="headerlink" title="实验四$_2$：联邦"></a><strong>实验四$_2$：联邦</strong></h3><p>大AS中建立小AS，AS外部建立邻居关系通过大AS，</p>
+<ul>
+<li><p>AS1：</p>
+<ul>
+<li>AR1</li>
+</ul>
+</li>
+<li><p>AS2：</p>
+<ul>
+<li>64512：AR2、AR3</li>
+<li>64513：AR4、AR5</li>
+</ul>
+</li>
+<li><p><strong>STEP3.0：</strong> 删除旧的BGP配置</p>
+</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR2：删除旧的BGP配置</span>
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>un bgp <span class="token number">2</span>
+Warning: All BGP configurations will be deleted. Continue? <span class="token punctuation">[</span>Y/N<span class="token punctuation">]</span>: y
+
+<span class="token comment"># todo AR3：删除旧的BGP配置</span>
+<span class="token punctuation">[</span>R3<span class="token punctuation">]</span>un bgp <span class="token number">2</span>
+Warning: All BGP configurations will be deleted. Continue? <span class="token punctuation">[</span>Y/N<span class="token punctuation">]</span>: y
+
+<span class="token comment"># todo AR4：删除旧的BGP配置</span>
+<span class="token punctuation">[</span>R4<span class="token punctuation">]</span>undo bgp <span class="token number">2</span>
+Warning: All BGP configurations will be deleted. Continue? <span class="token punctuation">[</span>Y/N<span class="token punctuation">]</span>: y
+
+<span class="token comment"># todo AR5：删除旧的BGP配置</span>
+<span class="token punctuation">[</span>R5<span class="token punctuation">]</span>undo bgp <span class="token number">2</span>
+Warning: All BGP configurations will be deleted. Continue? <span class="token punctuation">[</span>Y/N<span class="token punctuation">]</span>: y</code></pre>
+
+<ul>
+<li><strong>STEP3.1：</strong> 配置联邦</li>
+</ul>
+<p><strong>目的</strong>：让AR2和AR3建立IBGP邻居关系，AR2和AR1建立EBGP邻居关系，AR3和AR4建立EBGP邻居关系</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR2：配置联邦</span>
+<span class="token punctuation">[</span>R2<span class="token punctuation">]</span>bgp <span class="token number">64512</span>
+<span class="token punctuation">[</span>R2-bgp<span class="token punctuation">]</span>confederation <span class="token function">id</span> <span class="token number">2</span>  <span class="token comment"># 声明大AS号</span>
+<span class="token punctuation">[</span>R2-bgp<span class="token punctuation">]</span>peer <span class="token number">23.1</span>.1.3 as-number <span class="token number">64512</span>  <span class="token comment"># 建立IBGP关系</span>
+<span class="token punctuation">[</span>R2-bgp<span class="token punctuation">]</span>peer <span class="token number">12.1</span>.1.1 as-number <span class="token number">1</span>  <span class="token comment"># 建立EBGP关系</span>
+
+<span class="token comment"># todo AR3：配置联邦</span>
+<span class="token punctuation">[</span>R3<span class="token punctuation">]</span>bgp <span class="token number">64512</span>
+<span class="token punctuation">[</span>R3-bgp<span class="token punctuation">]</span>confederation <span class="token function">id</span> <span class="token number">2</span>  <span class="token comment"># 声明大AS号</span>
+<span class="token punctuation">[</span>R3-bgp<span class="token punctuation">]</span>peer <span class="token number">23.1</span>.1.2 as-number <span class="token number">64512</span>  <span class="token comment"># 建立EBGP关系</span>
+<span class="token punctuation">[</span>R3-bgp<span class="token punctuation">]</span>peer <span class="token number">34.1</span>.1.4 as-number <span class="token number">64513</span>  <span class="token comment"># 建立IBGP关系</span>
+
+<span class="token comment"># todo AR2：查看BGP邻居关系</span>
+<span class="token punctuation">[</span>R2-bgp<span class="token punctuation">]</span>dis bgp peer
+ BGP <span class="token builtin class-name">local</span> router ID <span class="token builtin class-name">:</span> <span class="token number">12.1</span>.1.2
+ Local AS number <span class="token builtin class-name">:</span> <span class="token number">16</span>
+ Total number of peers <span class="token builtin class-name">:</span> <span class="token number">1</span>                Peers <span class="token keyword">in</span> established state <span class="token builtin class-name">:</span> <span class="token number">1</span>
+  Peer            V          AS  MsgRcvd  MsgSent  OutQ  Up/Down       State PrefRcv
+  <span class="token number">12.1</span>.1.1        <span class="token number">4</span>           <span class="token number">1</span>        <span class="token number">3</span>        <span class="token number">2</span>      <span class="token number">0</span> 00:00:50 Established       <span class="token number">1</span>
+  <span class="token number">23.1</span>.1.3        <span class="token number">4</span>       <span class="token number">64512</span>        <span class="token number">6</span>        <span class="token number">8</span>      <span class="token number">0</span> 00:24:20 Established       <span class="token number">0</span>
+
+<span class="token comment"># todo AR1：查看BGP邻居关系</span>
+<span class="token punctuation">[</span>R1<span class="token punctuation">]</span>dis bgp peer
+ BGP <span class="token builtin class-name">local</span> router ID <span class="token builtin class-name">:</span> <span class="token number">12.1</span>.1.1
+ Local AS number <span class="token builtin class-name">:</span> <span class="token number">1</span>
+ Total number of peers <span class="token builtin class-name">:</span> <span class="token number">1</span>                Peers <span class="token keyword">in</span> established state <span class="token builtin class-name">:</span> <span class="token number">0</span>
+  Peer            V          AS  MsgRcvd  MsgSent  OutQ  Up/Down       State PrefRcv
+  <span class="token number">12.1</span>.1.2        <span class="token number">4</span>           <span class="token number">2</span>        <span class="token number">0</span>        <span class="token number">0</span>     <span class="token number">0</span> 00:06:36      Active       <span class="token number">0</span></code></pre>
+
+<p>此时，AR1的邻居<code>12.1.1.1</code>的AS号为2，没问题。<br>但是AR3的AS号为64513，对AR4来说，AR4不知道AR3的AS号64513是大AS还是小AS，就用AS2建立邻居关系，邻居关系就建立不起来，因此需要使用以下命令，让AS号为64512和AS号为64513的路由器建立邻居关系</p>
+<ul>
+<li><strong>STEP3.2：</strong> 配置联邦</li>
+</ul>
+<p><strong>目的</strong>：让AR3和AR4建立IBGP邻居关系，AR4和AR5建立EBGP邻居关系，都和AR1建立IBGP邻居关系</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo AR3：配置联邦</span>
+<span class="token punctuation">[</span>R3-bgp<span class="token punctuation">]</span>un peer <span class="token number">34.1</span>.1.4 as-number <span class="token number">64513</span>  <span class="token comment"># 不能先指邻居，应该先confederation peer-as再peer</span>
+<span class="token punctuation">[</span>R3-bgp<span class="token punctuation">]</span>confederation peer-as <span class="token number">64513</span>  <span class="token comment"># 指定属于同一个联盟的各子自治系统号，即让(自己)64512和(对方)64513建立邻居关系使用小AS号</span>
+<span class="token punctuation">[</span>R3-bgp<span class="token punctuation">]</span>peer <span class="token number">34.1</span>.1.4 as-number <span class="token number">64513</span>  <span class="token comment"># 建立EBGP关系</span>
+
+<span class="token comment"># todo AR4：配置联邦</span>
+<span class="token punctuation">[</span>R4<span class="token punctuation">]</span>bgp <span class="token number">64513</span>
+<span class="token punctuation">[</span>R4-bgp<span class="token punctuation">]</span>confederation <span class="token function">id</span> <span class="token number">2</span>  <span class="token comment"># 声明大AS号</span>
+<span class="token punctuation">[</span>R4-bgp<span class="token punctuation">]</span>confederation peer-as <span class="token number">64512</span>
+<span class="token punctuation">[</span>R4-bgp<span class="token punctuation">]</span>peer <span class="token number">34.1</span>.1.3 as-number <span class="token number">64512</span>  <span class="token comment"># 建立IBGP关系</span>
+<span class="token punctuation">[</span>R4-bgp<span class="token punctuation">]</span>peer <span class="token number">45.1</span>.1.5 as-number <span class="token number">64513</span>  <span class="token comment"># 建立EBGP关系</span>
+
+<span class="token comment"># todo AR5：配置联邦</span>
+<span class="token punctuation">[</span>R5<span class="token punctuation">]</span>bgp <span class="token number">64513</span>
+<span class="token punctuation">[</span>R5-bgp<span class="token punctuation">]</span>confederation <span class="token function">id</span> <span class="token number">2</span>  <span class="token comment"># 声明大AS号</span>
+<span class="token punctuation">[</span>R5-bgp<span class="token punctuation">]</span>peer <span class="token number">45.1</span>.1.4 as-number <span class="token number">64513</span>  <span class="token comment"># 建立IBGP关系</span>
+
+<span class="token comment"># todo AR5：查看BGP路由表</span>
+<span class="token punctuation">[</span>R5-bgp<span class="token punctuation">]</span>dis bgp rou
+ BGP Local router ID is <span class="token number">45.1</span>.1.5 
+ Status codes: * - valid, <span class="token operator">&gt;</span> - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin <span class="token builtin class-name">:</span> i - IGP, e - EGP, ? - incomplete
+ Total Number of Routes: <span class="token number">1</span>
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+ *<span class="token operator">&gt;</span>i  <span class="token number">1.1</span>.1.1/32         <span class="token number">12.1</span>.1.1        <span class="token number">0</span>          <span class="token number">100</span>        <span class="token number">0</span>      <span class="token punctuation">(</span><span class="token number">64512</span><span class="token punctuation">)</span> 1i</code></pre>
+<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">hhhhmdzz</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://hhhhmdzz.github.io/2022/06/29/ict-zhan-dui-di-9-ci-bi-ji/">https://hhhhmdzz.github.io/2022/06/29/ict-zhan-dui-di-9-ci-bi-ji/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">hhhhmdzz</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/HCIA/">
+                                    <span class="chip bg-color">HCIA</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%8D%8E%E4%B8%BAeNSP/">
+                                    <span class="chip bg-color">华为eNSP</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="https://unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    // new Valine({
+    //     el: '#vcomments',
+    //     appId: 'Ei1XiJqo7bzRu5lBjbBUXPIu-gzGzoHsz',
+    //     appKey: 'Ojx0e72LHhv1hUfFNQO9tInO',
+    //     serverURLs: '',
+    //     notify: 'false' === 'true',
+    //     verify: 'false' === 'true',
+    //     visitor: 'true' === 'true',
+    //     avatar: 'mm',
+    //     pageSize: '10',
+    //     lang: 'zh-cn',
+    //     placeholder: 'just go go'
+    // });
+    new Valine({
+        el: '#vcomments',
+        appId: 'Ei1XiJqo7bzRu5lBjbBUXPIu-gzGzoHsz',
+        appKey: 'Ojx0e72LHhv1hUfFNQO9tInO',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go',
+        enableQQ: true,
+        emojiCDN: '//i0.hdslb.com/bfs/emote/', 
+        // 表情title和图片映射
+        emojiMaps: {
+        "tv_doge": "6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png",
+        "tv_亲亲": "a8111ad55953ef5e3be3327ef94eb4a39d535d06.png",
+        "tv_偷笑": "bb690d4107620f1c15cff29509db529a73aee261.png",
+        "tv_再见": "180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png",
+        "tv_冷漠": "b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png",
+        "tv_发怒": "34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png",
+        "tv_发财": "34db290afd2963723c6eb3c4560667db7253a21a.png",
+        "tv_可爱": "9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png",
+        "tv_吐血": "09dd16a7aa59b77baa1155d47484409624470c77.png",
+        "tv_呆": "fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png",
+        "tv_呕吐": "9f996894a39e282ccf5e66856af49483f81870f3.png",
+        "tv_困": "241ee304e44c0af029adceb294399391e4737ef2.png",
+        "tv_坏笑": "1f0b87f731a671079842116e0991c91c2c88645a.png",
+        "tv_大佬": "093c1e2c490161aca397afc45573c877cdead616.png",
+        "tv_大哭": "23269aeb35f99daee28dda129676f6e9ea87934f.png",
+        "tv_委屈": "d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png",
+        "tv_害羞": "a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png",
+        "tv_尴尬": "7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png",
+        "tv_微笑": "70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png",
+        "tv_思考": "90cf159733e558137ed20aa04d09964436f618a1.png",
+        "tv_惊吓": "0d15c7e2ee58e935adc6a7193ee042388adc22af.png",
+        "tv_打脸": "56ab10b624063e966bfcb76ea5dc4794d87dfd47.png",
+        "tv_抓狂": "fe31c08edad661d63762b04e17b8d5ae3c71a757.png",
+        "tv_抠鼻": "c666f55e88d471e51bbd9fab9bb308110824a6eb.png",
+        "tv_斜眼笑": "911f987aa8bc1bee12d52aafe62bc41ef4474e6c.png",
+        "tv_无奈": "ea8ed89ee9878f2fece2dda0ea8a5dbfe21b5751.png",
+        "tv_晕": "5443c22b4d07fb1907ccc610c8e6db254f2461b7.png",
+        "tv_流汗": "cead1c351ab8d79e9f369605beb90148db0fbed3.png",
+        "tv_流泪": "7e71cde7858f0cd50d74b0264aa26db612a8a167.png",
+        "tv_流鼻血": "c32d39db2737f89b904ca32700d140a9241b0767.png",
+        "tv_点赞": "f85c354995bd99e28fc76c869bfe42ba6438eff4.png",
+        "tv_生气": "26702dcafdab5e8225b43ffd23c94ac1ff932654.png",
+        "tv_生病": "8b0ec90e6b86771092a498c54f09fc94621c1900.png",
+        "tv_疑问": "0793d949b18d7be716078349c202c15ff166f314.png",
+        "tv_白眼": "c1d59f439e379ee50eef488bcb5e5378e5044ea4.png",
+        "tv_皱眉": "72ccad6679fea0d14cce648b4d818e09b8ffea2d.png",
+        "tv_目瞪口呆": "0b8cb81a68de5d5365212c99375e7ace3e7891b7.png",
+        "tv_睡着": "8b196675b53af58264f383c50ad0945048290b33.png",
+        "tv_笑哭": "1abc628f6d4f4caf9d0e7800878f4697abbc8273.png",
+        "tv_腼腆": "89712c0d4af73e67f89e35cbc518420380a7f6f4.png",
+        "tv_色": "61822c7e9aae5da76475e7892534545336b23a6f.png",
+        "tv_调侃": "4bc022533ef31544ca0d72c12c808cf4a1cce3e3.png",
+        "tv_调皮": "b9c41de8e82dd7a8515ae5e3cb63e898bf245186.png",
+        "tv_鄙视": "6e72339f346a692a495b123174b49e4e8e781303.png",
+        "tv_闭嘴": "c9e990da7f6e93975e25fd8b70e2e290aa4086ef.png",
+        "tv_难过": "87f46748d3f142ebc6586ff58860d0e2fc8263ba.png",
+        "tv_馋": "fc7e829b845c43c623c8b490ee3602b7f0e76a31.png",
+        "tv_鬼脸": "0ffbbddf8a94d124ca2f54b360bbc04feb6bbfea.png",
+        "tv_黑人问号": "45821a01f51bc867da9edbaa2e070410819a95b2.png",
+        "tv_鼓掌": "1d21793f96ef4e6f48b23e53e3b9e42da833a0f6.png"
+        },
+        requiredFields: ['nick','mail'], //设置必填项
+    });
+</script>
+
+<!--酷Q推送-->
+
+
+<!-- 自己添加的内容 -->
+
+<!-- 直达评论 -->
+<div id="to_comment" class="comment-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#vcomments" title="直达评论">
+        <i class="fas fa-comments"></i>
+    </a>
+</div>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/06/29/fbprophet/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="fbprophet">
+                        
+                        <span class="card-title">fbprophet</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Facebook Prophet 时间序列预测库的原理及使用
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-29
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/python/" class="post-category">
+                                    python
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B/">
+                        <span class="chip bg-color">时间序列预测</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/06/29/ict-zhan-dui-di-8-ci-bi-ji/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="ICT战队-第8次笔记">
+                        
+                        <span class="card-title">ICT战队-第8次笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            ACL访问控制列表 prefix-list前缀列表
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-29
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/ICT%E6%88%98%E9%98%9F%E6%95%B0%E6%8D%AE%E9%80%9A%E4%BF%A1/" class="post-category">
+                                    ICT战队数据通信
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/HCIA/">
+                        <span class="chip bg-color">HCIA</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%8D%8E%E4%B8%BAeNSP/">
+                        <span class="chip bg-color">华为eNSP</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="tencent"
+                   type="playlist"
+                   id="8531859362"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021-2022</span>
+            
+            <a href="/about" target="_blank">hhhhmdzz</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">87.7k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2021";
+                        var startMonth = "6";
+                        var startDate = "28";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+                        
+                        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+                        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+                        
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                // yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天' + diffHours + '小时' + diffMinutes + '分钟' + diffSeconds + '秒';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    // calcSiteTime();
+                    setInterval("calcSiteTime()", 250);
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/hhhhmdzz" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1453584196@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1453584196" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1453584196" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            mermaid.initialize({theme: 'forest'});
+          }
+        </script>
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

@@ -1,0 +1,2076 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="ICT战队-第3次笔记, python,Linux,C/C++,LaTeX,Markdown等">
+    <meta name="description" content="VLAN技术 DHCP协议 STP协议">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>ICT战队-第3次笔记 | HMZ-blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">HMZ-blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/navigate" class="waves-effect waves-light">
+      
+      <i class="fas fa-location-arrow" style="zoom: 0.6;"></i>
+      
+      <span>导航</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">HMZ-blog</div>
+        <div class="logo-desc">
+            
+            本网站是个人兴趣爱好，总结分享经验，记录生活点滴的平台，希望在以后的学习旅途中，走出自己的风景。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/navigate" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-location-arrow"></i>
+			
+			导航
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/hhhhmdzz/hhhhmdzz.github.io" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/hhhhmdzz/hhhhmdzz.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">ICT战队-第3次笔记</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/HCIA/">
+                                <span class="chip bg-color">HCIA</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%8D%8E%E4%B8%BAeNSP/">
+                                <span class="chip bg-color">华为eNSP</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/ICT%E6%88%98%E9%98%9F%E6%95%B0%E6%8D%AE%E9%80%9A%E4%BF%A1/" class="post-category">
+                                ICT战队数据通信
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-06-29
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2022-06-30
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.2k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    18 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="ICT战队-第3次笔记"><a href="#ICT战队-第3次笔记" class="headerlink" title="ICT战队-第3次笔记"></a>ICT战队-第3次笔记</h1><p>[toc]</p>
+<h2 id="数据中心IDC机房"><a href="#数据中心IDC机房" class="headerlink" title="数据中心IDC机房"></a>数据中心IDC机房</h2><p><strong>1.光纤接口</strong>：</p>
+<p>SC：大方<br>LC：小方(交换机上的光模块基本上插的都是LC接头)<br>FC、ST：一般运营商用</p>
+<img src="/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/03 光纤接口-16564712016121.png">
+
+<p><strong>2.光纤跳线</strong>：</p>
+<p>多模光纤(青色)、单模光纤(黄色)<br><img src="/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/03 光纤跳线-16564712016142.png"></p>
+<p>OM2<br>OM3，蓝色<br>OM4，紫色，传输带宽最大</p>
+<p><strong>3.光纤模块</strong>：</p>
+<img src="/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/03 光纤模块-16564712016143.png">
+
+<p>基带宽带</p>
+<h2 id="VLAN技术原理与配置"><a href="#VLAN技术原理与配置" class="headerlink" title="VLAN技术原理与配置"></a>VLAN技术原理与配置</h2><p><font color="#999AAA">VLAN虚拟局域网：逻辑上把交换机分成两个交换机，一个VLAN等于一个广播域，等于一个网段。</font>目的是为了隔离广播域。</p>
+<br>
+
+<h3 id="实验一：单个交换机相同VLAN间的通信"><a href="#实验一：单个交换机相同VLAN间的通信" class="headerlink" title="实验一：单个交换机相同VLAN间的通信"></a>实验一：单个交换机相同VLAN间的通信</h3><br>
+
+<ul>
+<li><strong>Step1：</strong> 画出网络拓扑图</li>
+</ul>
+<img src="/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/03 实验一——网络拓扑-16564712016144.png">
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo 查看Huawei交换机默认VLAN信息</span>
+<span class="token operator">&lt;</span>Huawei<span class="token operator">&gt;</span>display vlan  <span class="token comment"># 查看所有VLAN信息</span>
+<span class="token operator">&lt;</span>Huawei<span class="token operator">&gt;</span>display port vlan  <span class="token comment"># 查看各个接口类型</span></code></pre>
+
+<p><font color="#999AAA">1.华为设备上默认有一个VLAN，为VLAN1<br>2.电脑的VLAN不是电脑的配置，而是电脑连接的端口对应的VLAN</font></p>
+<ul>
+<li><strong>Step2：</strong> 配置主机IP地址和子网掩码</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">主机</th>
+<th align="center">IP地址</th>
+<th align="center">子网掩码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">PC1</td>
+<td align="center">10.1.1.1</td>
+<td align="center">255.255.255.0</td>
+</tr>
+<tr>
+<td align="center">PC2</td>
+<td align="center">10.1.1.2</td>
+<td align="center">255.255.255.0</td>
+</tr>
+<tr>
+<td align="center">PC3</td>
+<td align="center">10.1.2.3</td>
+<td align="center">255.255.255.0</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>Step3：</strong> 创建VLAN</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo 配置VLAN</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>vlan <span class="token number">2</span>  <span class="token comment"># 创建VLAN</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>undo vlan <span class="token number">2</span>  <span class="token comment"># 删除VLAN</span>
+<span class="token punctuation">[</span>Huawei-vlan2<span class="token punctuation">]</span>describtion something  <span class="token comment"># 对VLAN添加描述</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>vlan batch <span class="token number">2</span> to <span class="token number">10</span>  <span class="token comment"># 批量创建VLAN</span></code></pre>
+
+<p>一个交换机上最多可以创建4095个VLAN</p>
+<ul>
+<li><strong>Step4：</strong> 把端口加入到创建的VLAN</li>
+</ul>
+<p>法1：直接在VLAN模式下添加(<strong>前提</strong>：把端口改成access模式)</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo 错误示范</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>vlan <span class="token number">2</span>
+<span class="token punctuation">[</span>Huawei-vlan2<span class="token punctuation">]</span>port GigabitEthernet <span class="token number">0</span>/0/3
+Error: Trunk or Hybrid port<span class="token punctuation">(</span>s<span class="token punctuation">)</span> can not be added or deleted <span class="token keyword">in</span> this manner.
+<span class="token punctuation">[</span>Huawei-vlan2<span class="token punctuation">]</span></code></pre>
+
+<p>法2：在端口试图下将端口划入对应的VLAN</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo 进入交换机g0/0/3接口</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>inter g0/0/3
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/3<span class="token punctuation">]</span>port link-type ?
+  access        Access port
+  dot1q-tunnel  QinQ port
+  hybrid        Hybrid port
+  trunk         Trunk port
+<span class="token comment"># todo 指定端口类型，将交换机接口类型设置为接入模式</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/3<span class="token punctuation">]</span>port link-type access
+
+<span class="token comment"># todo 应用相应的VLAN到该端口上，将某个接口加入VLAN</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/3<span class="token punctuation">]</span>port default vlan <span class="token number">2</span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="center">端口类型</th>
+<th align="center">使用说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>access</code></td>
+<td align="center">交换机连终端设备(网络电视、PC……)</td>
+</tr>
+<tr>
+<td align="center"><code>trunk</code></td>
+<td align="center">交换机连交换机</td>
+</tr>
+<tr>
+<td align="center"><code>hybrid</code></td>
+<td align="center">混合类型</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>Step5：</strong> 使用其中一个VLAN(冲突域)的主机ping交换机内<strong>其他</strong>VLAN(冲突域)的主机即可ping通</li>
+</ul>
+<h3 id="实验二：不同交换机相同VLAN间的通信"><a href="#实验二：不同交换机相同VLAN间的通信" class="headerlink" title="实验二：不同交换机相同VLAN间的通信"></a><strong>实验二：不同交换机相同VLAN间的通信</strong></h3><ul>
+<li><p><strong>一、使用两根线实现VLAN</strong></p>
+</li>
+<li><p><strong>Step1：</strong> 画出网络拓扑图(书接上回<span class="github-emoji"><span>😄</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span>)</p>
+</li>
+</ul>
+<img src="/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/03 实验二——网络拓扑1-16564712016146.png">
+
+<ul>
+<li><strong>Step2：</strong> 在两台交换机上各自配置VLAN(把某一条线路的端口加入创建的VLAN)</li>
+</ul>
+<p>交换机LSW1的配置：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo 配置LSW1的VLAN</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>inter g0/0/4  <span class="token comment"># 进入端口</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/4<span class="token punctuation">]</span>port link-type access  <span class="token comment"># 指定端口类型</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/4<span class="token punctuation">]</span>port default vlan <span class="token number">2</span>  <span class="token comment"># todo 应用相应的VLAN到该端口上，将某个接口加入VLAN</span></code></pre>
+
+<p>交换机LSW2的配置：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo 配置LSW2的VLAN</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>inter g0/0/2  <span class="token comment"># 进入端口</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/2<span class="token punctuation">]</span>port link-type access  <span class="token comment"># 指定端口类型</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/2<span class="token punctuation">]</span>port default vlan <span class="token number">2</span>  <span class="token comment"># todo 应用相应的VLAN到该端口上，将某个接口加入VLAN</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/2<span class="token punctuation">]</span>inter g0/0/3  <span class="token comment"># 进入端口</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/3<span class="token punctuation">]</span>port link-type access  <span class="token comment"># 指定端口类型</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/3<span class="token punctuation">]</span>port default vlan <span class="token number">2</span>  <span class="token comment"># todo 应用相应的VLAN到该端口上，将某个接口加入VLAN</span></code></pre>
+
+<ul>
+<li><strong>Step3.5：</strong> 关闭STP生成树协议</li>
+</ul>
+<p><font color="#999AAA">由于生成树阻塞的问题，冲突域之内的主机无法ping通，所以要关闭Huawei交换机的STP生成树协议。</font></p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>display stp  <span class="token comment"># 显示STP信息</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>display stp brief  <span class="token comment"># 显示STP简要信息</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>undo stp <span class="token builtin class-name">enable</span>  <span class="token comment"># 关闭STP生成树协议</span>
+Warning: The global STP state will be changed. Continue? <span class="token punctuation">[</span>Y/N<span class="token punctuation">]</span>y
+Info: This operation may take a few seconds. Please <span class="token function">wait</span> <span class="token keyword">for</span> a moment<span class="token punctuation">..</span>.done.
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span></code></pre>
+
+<ul>
+<li><p><strong>Step4：</strong> 使用其中一个交换机的一个VLAN(冲突域)的主机ping其他交换机内<strong>同一个</strong>VLAN(冲突域)的主机即可ping通</p>
+</li>
+<li><p><strong>二、使用一根线(通过标签管理)实现VLAN</strong></p>
+</li>
+</ul>
+<img src="/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/03 VLAN标签-16564712016145.png">
+
+<p>UT：untagged 不打标<br>TG：tagged 打标</p>
+<ul>
+<li><strong>Step1：</strong> 画出网络拓扑图(书接上回<span class="github-emoji"><span>😏</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f60f.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span>)</li>
+</ul>
+<img src="/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/03 实验二——网络拓扑2-16564712016147.png">
+
+<ul>
+<li><strong>Step2：</strong> 在两台交换机上各自配置VLAN</li>
+</ul>
+<p>注：<br><strong>1.</strong> 需要一层一层的来删除配置，直到恢复到默认的配置。否则会出现错误：<code>Error: Please renew the default configurations.</code><br><strong>2.</strong> 或者直接删除线路直接配置。</p>
+<p>交换机LSW1的配置：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo 配置LSW1的VLAN(删除线路)</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>inter g0/0/4  <span class="token comment"># 进入端口</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/4<span class="token punctuation">]</span>port link-type trunk  <span class="token comment"># 指定端口类型</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/4<span class="token punctuation">]</span>port trunk allow-pass vlan <span class="token number">2</span>  <span class="token comment"># 设置端口允许通过的VLAN</span>
+<span class="token comment"># [Huawei-GigabitEthernet0/0/4]port trunk allow-pass vlan all  # 设置所有端口允许通过的VLAN</span></code></pre>
+
+<p>交换机LSW2的配置：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo 配置LSW2的VLAN(删除配置)</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>inter g0/0/3  <span class="token comment"># 进入端口</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/3<span class="token punctuation">]</span>undo port default vlan
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/3<span class="token punctuation">]</span>undo port link-type
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/3<span class="token punctuation">]</span>port link-type trunk  <span class="token comment"># 指定端口类型</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/3<span class="token punctuation">]</span>port trunk allow-pass vlan <span class="token number">2</span>  <span class="token comment"># 设置端口允许通过的VLAN</span>
+<span class="token comment"># [Huawei-GigabitEthernet0/0/3]port trunk allow-pass vlan all  # 设置所有端口允许通过的VLAN</span></code></pre>
+
+<ul>
+<li><p><strong>Step3：</strong> 使用其中一个交换机的一个VLAN(冲突域)的主机ping其他交换机内<strong>同一个</strong>VLAN(冲突域)的主机即可ping通</p>
+</li>
+<li><p><strong>Step4.1：</strong> 抓包测试(开始抓包即可查看数据帧信息)</p>
+</li>
+</ul>
+<p>注：<br><strong>1.</strong> trunk封装的标签802.1Q(思科有私有的协议ISL)<br><strong>2.</strong> 本征VLAN(Navtive Vlan)，只要不打标的帧就是转发到本征VLAN的帧。<br><font color="#999AAA">例如，如果 VLAN 99 被配置为本征 VLAN，则PVID为 99，那么所有的无标记流量都被转发到 VLAN 99。</font><br><strong>3.</strong> 所以，两个直连的交换机端口的本征VLAN必须相同<br><strong>4.</strong> Huawei真机上可以同时进两个端口进行相同的操作</p>
+<ul>
+<li><strong>三、使用三个交换机一根线实现VLAN</strong></li>
+</ul>
+<p><font color="#999AAA">交换机之间要通，要设置<strong>相同</strong>的VLAN。</font></p>
+<ul>
+<li><strong>Step1：</strong> 画出网络拓扑图(书接上回<span class="github-emoji"><span>😄</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span>)</li>
+</ul>
+<img src="/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/03 实验二——网络拓扑3-16564712016148.png">
+
+<ul>
+<li><strong>Step2：</strong> 在三台交换机上各自配置VLAN</li>
+</ul>
+<p>交换机LSW1和LSW2的配置：略</p>
+<p>交换机LSW3的配置：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo 配置LSW2的VLAN</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>vlan <span class="token number">2</span>
+<span class="token punctuation">[</span>Huawei-vlan2<span class="token punctuation">]</span>inter g0/0/2  <span class="token comment"># 进入端口</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/2<span class="token punctuation">]</span>port link-type trunk  <span class="token comment"># 指定端口类型</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/2<span class="token punctuation">]</span>port trunk allow-pass vlan <span class="token number">2</span>  <span class="token comment"># 设置端口允许通过的VLAN</span>
+<span class="token comment"># [Huawei-GigabitEthernet0/0/2]port trunk allow-pass vlan all  # 设置端口允许通过的VLAN</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/2<span class="token punctuation">]</span>inter g0/0/3  <span class="token comment"># 进入端口</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/3<span class="token punctuation">]</span>port link-type trunk  <span class="token comment"># 指定端口类型</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/3<span class="token punctuation">]</span>port trunk allow-pass vlan <span class="token number">2</span>  <span class="token comment"># 设置端口允许通过的VLAN</span>
+<span class="token comment"># [Huawei-GigabitEthernet0/0/3]port trunk allow-pass vlan all  # 设置端口允许通过的VLAN</span></code></pre>
+
+<ul>
+<li><strong>Step3：</strong> 使用其中一个交换机的一个VLAN(冲突域)的主机ping其他交换机内<strong>同一个</strong>VLAN(冲突域)的主机即可ping通</li>
+</ul>
+<h3 id="实验三：VLAN间路由-单臂路由"><a href="#实验三：VLAN间路由-单臂路由" class="headerlink" title="实验三：VLAN间路由(单臂路由)"></a><strong>实验三：VLAN间路由(单臂路由)</strong></h3><p>通过路由器转发不同网段的数据。</p>
+<ul>
+<li><strong>Step1：</strong> 画出网络拓扑图(书接上回<span class="github-emoji"><span>😏</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f60f.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span>)</li>
+</ul>
+<p><font color="#999AAA">路由器AR1选AR2220</font><br><img src="/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/03 实验三——网络拓扑-16564712016149.png"></p>
+<ul>
+<li><strong>Step2：</strong> 配置交换机的VLAN</li>
+</ul>
+<p>把交换机的接口接入模式全部设置成trunk。</p>
+<p>连接主机的交换机的接口：略</p>
+<p>连接路由器的交换机的接口：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo 设置交换机接口模式为trunk</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>inter g0/0/4
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/4<span class="token punctuation">]</span>port link-type trunk
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/4<span class="token punctuation">]</span>port trunk allow-pass vlan all</code></pre>
+
+<ul>
+<li><strong>Step3：</strong> 配置路由器</li>
+</ul>
+<p><font color="#999AAA">路由器：用来转发不同网段的设备</font></p>
+<p><font color="#999AAA">在本实验中：</font><br>VLAN1 要通信，在物理接口上配IP即可<br>VLAN2 要通信，则要用打标签的方法</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo 配置路由器</span>
+<span class="token comment"># todo 配置g0/0/0接口</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>inter g0/0/0  <span class="token comment"># 进入接口</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/0<span class="token punctuation">]</span>ip address <span class="token number">10.1</span>.1.254 <span class="token number">24</span>  <span class="token comment"># 配置IP</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/0<span class="token punctuation">]</span>display this  <span class="token comment"># 显示配置信息</span>
+<span class="token punctuation">[</span>V200R003C00<span class="token punctuation">]</span>
+<span class="token comment">#</span>
+interface GigabitEthernet0/0/0
+ <span class="token function">ip</span> address <span class="token number">10.1</span>.1.254 <span class="token number">255.255</span>.255.0 
+<span class="token comment">#</span>
+<span class="token builtin class-name">return</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/0<span class="token punctuation">]</span>
+
+<span class="token comment"># todo 配置g0/0/0.2子接口(逻辑接口)</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/0<span class="token punctuation">]</span>inter g0/0/0.2  <span class="token comment"># 进入接口</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/0.2<span class="token punctuation">]</span>dot1q termination vid <span class="token number">2</span>  <span class="token comment"># 封装dot1q协议，该子接口对应VLAN2，该接口收发的数据帧都要打上标签2</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/0.2<span class="token punctuation">]</span>ip address <span class="token number">10.1</span>.2.254 <span class="token number">24</span>  <span class="token comment"># 添加IP</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/0.2<span class="token punctuation">]</span>arp broadcast <span class="token builtin class-name">enable</span>  <span class="token comment"># 开启终结子接口的ARP广播功能</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/0.2<span class="token punctuation">]</span>display this  <span class="token comment"># 显示配置信息</span>
+<span class="token punctuation">[</span>V200R003C00<span class="token punctuation">]</span>
+<span class="token comment">#</span>
+interface GigabitEthernet0/0/0.2
+ dot1q termination vid <span class="token number">2</span>
+ <span class="token function">ip</span> address <span class="token number">10.1</span>.2.254 <span class="token number">255.255</span>.255.0 
+ arp broadcast <span class="token builtin class-name">enable</span>
+<span class="token comment">#</span>
+<span class="token builtin class-name">return</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/0.2<span class="token punctuation">]</span></code></pre>
+
+<p>注：<br><strong>1.</strong> 物理接口数据帧不打标，逻辑接口数据帧才打标。(逻辑接口依赖物理接口通信)<br><strong>2.</strong> g0/0/0.1和VLAN1没有对应关系，g0/0/0.x随便用。<br><strong>3.</strong> <strong>跨VLAN通信过程</strong>！！！</p>
+<ul>
+<li><p><strong>Step3.5：</strong> 主机配置相应的网关</p>
+</li>
+<li><p><strong>Step4：</strong> 使用其中一个VLAN(冲突域)的主机ping其他VLAN(冲突域)的主机即可</p>
+</li>
+</ul>
+<h3 id="实验四：VLAN间路由-三层交换"><a href="#实验四：VLAN间路由-三层交换" class="headerlink" title="实验四：VLAN间路由(三层交换)"></a><strong>实验四：VLAN间路由(三层交换)</strong></h3><ul>
+<li><p><strong>一、使用两个交换机实现VLAN间通信(三层交换机之间的VLAN路由)</strong></p>
+</li>
+<li><p><strong>Step1：</strong> 画出网络拓扑图(书接上回<span class="github-emoji"><span>😄</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span>)</p>
+</li>
+</ul>
+<img src="/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/03 实验四——网络拓扑1-165647120161410.png">
+
+<ul>
+<li><p><strong>Step1.5：</strong> 配置主机的IP地址、子网掩码、网关(略)</p>
+</li>
+<li><p><strong>Step2：</strong> 配置交换机的VLAN</p>
+</li>
+</ul>
+<p>为交换机端口划分VLAN：略</p>
+<p>为交换机接口配置IP：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo 为交换机接口配置IP</span>
+<span class="token punctuation">[</span>Huawei-Vlanif2<span class="token punctuation">]</span>int vlan <span class="token number">1</span>
+<span class="token punctuation">[</span>Huawei-Vlanif1<span class="token punctuation">]</span>ip <span class="token function">add</span> <span class="token number">10.1</span>.1.254 <span class="token number">24</span>
+<span class="token punctuation">[</span>Huawei-Vlanif1<span class="token punctuation">]</span>int vlan <span class="token number">2</span>
+<span class="token punctuation">[</span>Huawei-Vlanif2<span class="token punctuation">]</span>ip <span class="token function">add</span> <span class="token number">10.1</span>.2.254 <span class="token number">24</span>
+<span class="token punctuation">[</span>Huawei-Vlanif2<span class="token punctuation">]</span></code></pre>
+
+<ul>
+<li><strong>Step2.5：</strong> 主机配置网关</li>
+<li><strong>Step3：</strong> 使用其中一个VLAN的主机ping其他VLAN的主机即可</li>
+<li><strong>Step4：</strong> 抓包</li>
+</ul>
+<p>经过交换机转发的数据帧<strong>不打</strong>标签，因为其连接各主机是 <strong>access</strong> 模式。</p>
+<h2 id="DHCP原理与配置"><a href="#DHCP原理与配置" class="headerlink" title="DHCP原理与配置"></a>DHCP原理与配置</h2><ul>
+<li><p><strong>一、使用交换机配置DHCP和DNS</strong></p>
+</li>
+<li><p><strong>Step1：</strong> 画出网络拓扑图(书接上回<span class="github-emoji"><span>😏</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f60f.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span>)</p>
+</li>
+</ul>
+<img src="/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/03 DHCP实验1——网络拓扑-165647120161411.png">
+
+<ul>
+<li><strong>Step2：</strong> 配置三层交换机的DHCP和DNS服务</li>
+</ul>
+<p><strong>法1：</strong> 基于接口DHCP配置</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo 配置DHCP和DNS</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>dhcp <span class="token builtin class-name">enable</span>  <span class="token comment"># 开启DHCP服务</span>
+Info: The operation may take a few seconds. Please <span class="token function">wait</span> <span class="token keyword">for</span> a moment.done.
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>inter vlan <span class="token number">1</span>  <span class="token comment"># 进入VLAN1</span>
+<span class="token punctuation">[</span>Huawei-Vlanif1<span class="token punctuation">]</span>dhcp <span class="token keyword">select</span> interface  <span class="token comment"># 使用接口的IP作为网关</span>
+<span class="token punctuation">[</span>Huawei-Vlanif1<span class="token punctuation">]</span>dhcp server lease day <span class="token number">0</span> hour <span class="token number">2</span> minute <span class="token number">0</span>  <span class="token comment"># 设置DHCP租约时间</span>
+<span class="token punctuation">[</span>Huawei-Vlanif1<span class="token punctuation">]</span>dhcp server dns-list <span class="token number">114.114</span>.114.114  <span class="token comment"># 设置DNS服务器地址114.114.114.114(万能DNS地址)</span>
+<span class="token punctuation">[</span>Huawei-Vlanif1<span class="token punctuation">]</span></code></pre>
+
+<p><strong>法2：</strong> 基于DHCP地址池分配全局配置</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo 配置DHCP和DNS</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>ip pool <span class="token number">1</span>  <span class="token comment"># 创建IP地址池</span>
+Info:It's successful to create an IP address pool.
+<span class="token punctuation">[</span>Huawei-ip-pool-1<span class="token punctuation">]</span>network <span class="token number">10.1</span>.2.0 mask <span class="token number">24</span>  <span class="token comment"># 配置网段和掩码</span>
+<span class="token punctuation">[</span>Huawei-ip-pool-1<span class="token punctuation">]</span>gateway-list <span class="token number">10.1</span>.2.254  <span class="token comment"># 配置网关</span>
+<span class="token punctuation">[</span>Huawei-ip-pool-1<span class="token punctuation">]</span>dns-list <span class="token number">114.114</span>.114.114  <span class="token comment"># 设置DNS地址</span>
+<span class="token punctuation">[</span>Huawei-ip-pool-1<span class="token punctuation">]</span>lease day <span class="token number">0</span> hour <span class="token number">2</span> minute <span class="token number">0</span>  <span class="token comment"># 设置DHCP租约时间</span>
+<span class="token punctuation">[</span>Huawei-ip-pool-1<span class="token punctuation">]</span>excluded-ip-address <span class="token number">10.1</span>.2.200 <span class="token number">10.1</span>.2.250  <span class="token comment"># 这些地址不会被分配出去</span>
+<span class="token punctuation">[</span>Huawei-ip-pool-1<span class="token punctuation">]</span>inter vlan <span class="token number">2</span>  <span class="token comment"># 进入VLAN2</span>
+<span class="token punctuation">[</span>Huawei-Vlanif2<span class="token punctuation">]</span>dhcp <span class="token keyword">select</span> global  <span class="token comment"># 设置DHCP基于全局配置</span></code></pre>
+
+<p>注：<br><strong>1.</strong> DHCP获取的地址有祖约时间<br><strong>2.</strong> 给别人分祖约时间一般分2h<br><strong>3.</strong> 一般过了租约时间的2/3，PC会发送请求，服务器会继续续租</p>
+<ul>
+<li><p><strong>Step3：</strong> 主机开启并应用DHCP配置，即可获得DHCP自动分配的IP地址</p>
+</li>
+<li><p><strong>二、使用DHCP中继配置DHCP和DNS</strong></p>
+</li>
+<li><p><strong>Step1：</strong> 画出网络拓扑图(书不接上回)</p>
+</li>
+</ul>
+<img src="/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/03 DHCP实验2——网络拓扑-165647120161512.png">
+
+<ul>
+<li><strong>Step2：</strong> 配置路由器的DHCP和DNS服务</li>
+</ul>
+<p>配置路由器<strong>AR2</strong>：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo 配置接口IP、静态路由</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>dhcp <span class="token builtin class-name">enable</span>  <span class="token comment"># 开启DHCP服务</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>int g0/0/0  <span class="token comment"># 进入接口</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/0<span class="token punctuation">]</span>ip <span class="token function">add</span> <span class="token number">23.1</span>.1.3 <span class="token number">24</span>  <span class="token comment"># 添加IP地址、掩码</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/0<span class="token punctuation">]</span>q
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>ip route-static <span class="token number">0.0</span>.0.0 <span class="token number">0.0</span>.0.0 <span class="token number">23.1</span>.1.2  <span class="token comment"># 缺省路由，所有网络到达所有网络的路径都是通过23.1.1.2这个地址转发的</span>
+
+<span class="token comment"># todo 创建DHCP地址池分配IP</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/0<span class="token punctuation">]</span>ip pool pc  <span class="token comment"># 创建IP地址池</span>
+Info: It's successful to create an IP address pool.
+<span class="token punctuation">[</span>Huawei-ip-pool-pc<span class="token punctuation">]</span>network <span class="token number">192.168</span>.1.0 mask <span class="token number">255.255</span>.255.0  <span class="token comment"># 设置网段、掩码</span>
+<span class="token punctuation">[</span>Huawei-ip-pool-pc<span class="token punctuation">]</span>gateway-list <span class="token number">192.168</span>.1.1  <span class="token comment"># 设置网关</span>
+<span class="token punctuation">[</span>Huawei-ip-pool-pc<span class="token punctuation">]</span>dns-list <span class="token number">114.114</span>.114.114  <span class="token comment"># 设置DNS地址</span>
+<span class="token punctuation">[</span>Huawei-ip-pool-pc<span class="token punctuation">]</span>dis th  <span class="token comment"># 显示本配置</span>
+<span class="token punctuation">[</span>V200R003C00<span class="token punctuation">]</span>
+<span class="token comment">#</span>
+<span class="token function">ip</span> pool pc
+ gateway-list <span class="token number">192.168</span>.1.1 
+ network <span class="token number">192.168</span>.1.0 mask <span class="token number">255.255</span>.255.0 
+ dns-list <span class="token number">114.114</span>.114.114 
+<span class="token comment">#</span>
+<span class="token builtin class-name">return</span>
+
+<span class="token comment"># todo 启用DHCP</span>
+<span class="token punctuation">[</span>Huawei-ip-pool-pc<span class="token punctuation">]</span>inter g0/0/0  <span class="token comment"># 进入接口</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/0<span class="token punctuation">]</span>dhcp <span class="token keyword">select</span> global  <span class="token comment"># 设置DHCP全局配置</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/0<span class="token punctuation">]</span>dis th  <span class="token comment"># 显示本配置</span>
+<span class="token punctuation">[</span>V200R003C00<span class="token punctuation">]</span>
+<span class="token comment">#</span>
+interface GigabitEthernet0/0/0
+ <span class="token function">ip</span> address <span class="token number">23.1</span>.1.3 <span class="token number">255.255</span>.255.0 
+ dhcp <span class="token keyword">select</span> global
+<span class="token comment">#</span>
+<span class="token builtin class-name">return</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/0<span class="token punctuation">]</span></code></pre>
+
+<p>配置路由器<strong>AR1</strong>：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo 配置IP地址</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>inter g0/0/1  <span class="token comment"># 进入接口</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/1<span class="token punctuation">]</span>ip <span class="token function">add</span> <span class="token number">23.1</span>.1.2 <span class="token number">24</span>  <span class="token comment"># 添加IP</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/1<span class="token punctuation">]</span>ping <span class="token number">23.1</span>.1.3  <span class="token comment"># 测试网络连通性</span>
+  PING <span class="token number">23.1</span>.1.3: <span class="token number">56</span>  data bytes, press CTRL_C to <span class="token builtin class-name">break</span>
+    Reply from <span class="token number">23.1</span>.1.3: <span class="token assign-left variable">bytes</span><span class="token operator">=</span><span class="token number">56</span> <span class="token assign-left variable">Sequence</span><span class="token operator">=</span><span class="token number">1</span> <span class="token assign-left variable">ttl</span><span class="token operator">=</span><span class="token number">255</span> <span class="token assign-left variable">time</span><span class="token operator">=</span><span class="token number">100</span> ms
+    Reply from <span class="token number">23.1</span>.1.3: <span class="token assign-left variable">bytes</span><span class="token operator">=</span><span class="token number">56</span> <span class="token assign-left variable">Sequence</span><span class="token operator">=</span><span class="token number">2</span> <span class="token assign-left variable">ttl</span><span class="token operator">=</span><span class="token number">255</span> <span class="token assign-left variable">time</span><span class="token operator">=</span><span class="token number">20</span> ms
+    Reply from <span class="token number">23.1</span>.1.3: <span class="token assign-left variable">bytes</span><span class="token operator">=</span><span class="token number">56</span> <span class="token assign-left variable">Sequence</span><span class="token operator">=</span><span class="token number">3</span> <span class="token assign-left variable">ttl</span><span class="token operator">=</span><span class="token number">255</span> <span class="token assign-left variable">time</span><span class="token operator">=</span><span class="token number">30</span> ms
+    Reply from <span class="token number">23.1</span>.1.3: <span class="token assign-left variable">bytes</span><span class="token operator">=</span><span class="token number">56</span> <span class="token assign-left variable">Sequence</span><span class="token operator">=</span><span class="token number">4</span> <span class="token assign-left variable">ttl</span><span class="token operator">=</span><span class="token number">255</span> <span class="token assign-left variable">time</span><span class="token operator">=</span><span class="token number">30</span> ms
+
+  --- <span class="token number">23.1</span>.1.3 <span class="token function">ping</span> statistics ---
+    <span class="token number">4</span> packet<span class="token punctuation">(</span>s<span class="token punctuation">)</span> transmitted
+    <span class="token number">4</span> packet<span class="token punctuation">(</span>s<span class="token punctuation">)</span> received
+    <span class="token number">0.00</span>% packet loss
+    round-trip min/avg/max <span class="token operator">=</span> <span class="token number">20</span>/45/100 ms
+
+<span class="token comment"># todo DHCP中继</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>dhcp <span class="token builtin class-name">enable</span>  <span class="token comment"># 开启DHCP服务</span>
+Info: The operation may take a few seconds. Please <span class="token function">wait</span> <span class="token keyword">for</span> a moment.done.
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>inter g0/0/0  <span class="token comment"># 进入接口</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/0<span class="token punctuation">]</span>ip <span class="token function">add</span> <span class="token number">192.168</span>.1.1 <span class="token number">24</span>  <span class="token comment"># 添加IP地址</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/0<span class="token punctuation">]</span>dhcp <span class="token keyword">select</span> relay
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/0<span class="token punctuation">]</span>dhcp relay server-ip <span class="token number">23.1</span>.1.3  <span class="token comment"># 指向DHCP服务器IP</span></code></pre>
+
+<p>AR2根据源IP地址判断应该用哪一个地址池分配IP地址<br>广播包-&gt;单播包</p>
+<ul>
+<li><strong>Step3：</strong> 抓包测试(略)</li>
+</ul>
+<h2 id="STP原理与配置"><a href="#STP原理与配置" class="headerlink" title="STP原理与配置"></a>STP原理与配置</h2><p>STP作用：消除环路、阻塞端口、链路备份</p>
+<img src="/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/../../STDATA/VSCodeData/MarkDown/ICT战队/ICT数通/03/03 STP作用——消除环路.png">
+<img src="/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/03 STP作用——阻塞端口-165647120161514.png">
+<img src="/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/../../STDATA/VSCodeData/MarkDown/ICT战队/ICT数通/03/03 STP作用——链路备份.png">
+
+<h3 id="环路引起的问题"><a href="#环路引起的问题" class="headerlink" title="环路引起的问题"></a>环路引起的问题</h3><p><strong>交换机转发流程</strong>：交换机收到数据帧，先把源MAC添加到MAC表中，然后根据目标MAC转发 。如果MAC表中没有目的MAC则泛洪(把帧复制成多份，向除了接收端口外其他<strong>相同VLAN</strong>下的所有接口以及<strong>trunk接口</strong>转发单播帧)。</p>
+<img src="/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/03 交换机转发流程-165647120161516.png">
+
+<p><strong>问题</strong>：</p>
+<p><strong>环路引起的问题之一——广播风暴</strong>.<br><img src="/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/03 广播风暴-165647120161517.png"></p>
+<p><strong>环路引起的问题之二——MAC地址表不稳定</strong>.<br><img src="/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/03 MAC地址表不稳定-165647120161518.png"></p>
+<p><strong>环路引起的问题之三——帧的多个副本</strong>.</p>
+<h3 id="生成树基本计算过程"><a href="#生成树基本计算过程" class="headerlink" title="生成树基本计算过程"></a>生成树基本计算过程</h3><ul>
+<li>Step1. 选取根桥/根交换机(一个广播域内桥ID<font color="#999AAA">(桥ID由网桥优先级和MAC地址组成)</font>最小的交换机)</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>dis stp  <span class="token comment"># 查看交换机STP信息</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>dis stp brief  <span class="token comment"># 查看交换机STP信息</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span>stp priorit <span class="token number">4096</span>  <span class="token comment"># 修改交换机优先级</span></code></pre>
+
+<p><strong>1.</strong> 优先级步长 4096<br><strong>2.</strong> Huawei 交换机端口开销默认为 2000</p>
+<img src="/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/03 交换机端口角色-165647120161519.png">
+
+<ul>
+<li>Step2. <strong>Root Port</strong> 根端口(<strong>非根</strong>交换机到达<strong>根</strong>交换机累计路径开销最小的接口)</li>
+</ul>
+<p>根端口RP比较优先级：</p>
+<ol>
+<li>根桥ID大小</li>
+<li>到达根桥累计路径开销</li>
+<li>指定桥ID/<strong>发送者</strong>桥ID</li>
+<li>指定PID(端口ID：port id)/<strong>发送者</strong>端口ID = 端口优先级(默认128) + 端口号</li>
+<li><strong>本地</strong>端口ID</li>
+</ol>
+<p>注：<br><strong>1.</strong> <strong>根桥</strong>上的端口<strong>不是</strong>根端口！！！<br><strong>2.</strong> <strong>根端口</strong>是在<strong>非根桥</strong>上的端口！！！<br><strong>3.</strong> 根桥确定之前，交换机只能发送BPDU，不能转发BPDU<br><strong>4.</strong> 一旦根桥被选出来，非根桥没有权利发送BPDU</p>
+<p>转发：不改动数据帧<br>中继：改动数据帧，然后转发</p>
+<ul>
+<li>Step3. <strong>Designated Port</strong> 指定端口(一个网段/冲突域内到达根桥累计开销最小的接口)</li>
+</ul>
+<p>一个<strong>冲突域</strong>就要选一个<strong>指定端口</strong></p>
+<p>指定端口比较优先级：</p>
+<ol>
+<li>到达根桥累计开销</li>
+<li>指定桥ID</li>
+</ol>
+<ul>
+<li>Step4. <strong>Alternate Port</strong> 非指定/预备端口(非根交换机上除根端口和指定端口外的其他端口)</li>
+</ul>
+<img src="/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/03 端口状态描述-165647120161520.png">
+
+<p><strong>Discarding</strong> = Blocking + Listening</p>
+<p><strong>端口状态变换：</strong><br><img src="/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/03 端口状态变换-165647120161521.png"></p>
+<p><strong>Blocking：</strong> 只收BPDU<br>如果要维持Blocking，那么20s内就要收到根桥发送的配置BPDU。如果连续20s没收到根桥发送的配置BPDU，就自动从Blocking进入Listening状态。或者其他接口断掉直接进入Listening状态。<br><strong>Listening：</strong> 收发BPDU<br>该状态下，如果发现自己是非指定端口，那么将该端口转为Blocking状态，如果发现自己是根桥端口，再等15s，此时还是Listening状态(能收发配置BPDU，但是不能收发用户数据，因为要通过配置BPDU判断自己的端口角色)。如果发现自己真的是根桥端口，那么会变成Learning(Learning再持续15s变成Forwarding)。<br><strong>Learning:</strong> 收发BPDU，只收用户数据(不转发数据帧、学习MAC地址表)<br><strong>Forwarding：</strong> 收发BPDU，收发用户数据(转发数据帧、学习MAC地址表)</p>
+<p>注：<br><strong>1.</strong> 一个老化时间 20s，最大转发延迟 15s<br><strong>2.</strong> 一个端口从 Blocking 到 Forwarding 所需最大时间 = 20s(老化) + 15s(Listening) + 15s(Learning) = 50s<br><strong>3.</strong> MAC地址表快速老化，老化时间缩短</p>
+<blockquote>
+<p><strong>问题：</strong> 左右两根线断掉之后，LSW1的端口GE 0/0/2从Blocking到Forwarding需要多长时间？</p>
+</blockquote>
+<img src="/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/03 生成树问题-165647120161522.png">
+
+<blockquote>
+<p><strong>答：</strong><br>左线断30s = 0s(LSW1：Blocking-&gt;Listening) + 15s(LSW1：Listening-&gt;Learning) + 15s(LSW1：Learning-&gt;Forwarding)<br>右线断50s = 20s(LSW1：Blocking-&gt;Listening) + 15s(LSW1：Listening-&gt;Learning) + 15s(LSW1：Learning-&gt;Forwarding)</p>
+</blockquote>
+<br>
+
+<h3 id="生成树简单配置"><a href="#生成树简单配置" class="headerlink" title="生成树简单配置"></a>生成树简单配置</h3><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>sw<span class="token punctuation">]</span>stp <span class="token builtin class-name">enable</span>
+<span class="token punctuation">[</span>sw<span class="token punctuation">]</span>stp mode stp
+<span class="token punctuation">[</span>sw<span class="token punctuation">]</span>stp priority <span class="token number">8192</span></code></pre>
+
+<p><font color="#999AAA">资料：《H3C STP技术白皮书》</font></p>
+<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">hhhhmdzz</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://hhhhmdzz.github.io/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/">https://hhhhmdzz.github.io/2022/06/29/ict-zhan-dui-di-3-ci-bi-ji/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">hhhhmdzz</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/HCIA/">
+                                    <span class="chip bg-color">HCIA</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%8D%8E%E4%B8%BAeNSP/">
+                                    <span class="chip bg-color">华为eNSP</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="https://unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    // new Valine({
+    //     el: '#vcomments',
+    //     appId: 'Ei1XiJqo7bzRu5lBjbBUXPIu-gzGzoHsz',
+    //     appKey: 'Ojx0e72LHhv1hUfFNQO9tInO',
+    //     serverURLs: '',
+    //     notify: 'false' === 'true',
+    //     verify: 'false' === 'true',
+    //     visitor: 'true' === 'true',
+    //     avatar: 'mm',
+    //     pageSize: '10',
+    //     lang: 'zh-cn',
+    //     placeholder: 'just go go'
+    // });
+    new Valine({
+        el: '#vcomments',
+        appId: 'Ei1XiJqo7bzRu5lBjbBUXPIu-gzGzoHsz',
+        appKey: 'Ojx0e72LHhv1hUfFNQO9tInO',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go',
+        enableQQ: true,
+        emojiCDN: '//i0.hdslb.com/bfs/emote/', 
+        // 表情title和图片映射
+        emojiMaps: {
+        "tv_doge": "6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png",
+        "tv_亲亲": "a8111ad55953ef5e3be3327ef94eb4a39d535d06.png",
+        "tv_偷笑": "bb690d4107620f1c15cff29509db529a73aee261.png",
+        "tv_再见": "180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png",
+        "tv_冷漠": "b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png",
+        "tv_发怒": "34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png",
+        "tv_发财": "34db290afd2963723c6eb3c4560667db7253a21a.png",
+        "tv_可爱": "9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png",
+        "tv_吐血": "09dd16a7aa59b77baa1155d47484409624470c77.png",
+        "tv_呆": "fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png",
+        "tv_呕吐": "9f996894a39e282ccf5e66856af49483f81870f3.png",
+        "tv_困": "241ee304e44c0af029adceb294399391e4737ef2.png",
+        "tv_坏笑": "1f0b87f731a671079842116e0991c91c2c88645a.png",
+        "tv_大佬": "093c1e2c490161aca397afc45573c877cdead616.png",
+        "tv_大哭": "23269aeb35f99daee28dda129676f6e9ea87934f.png",
+        "tv_委屈": "d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png",
+        "tv_害羞": "a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png",
+        "tv_尴尬": "7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png",
+        "tv_微笑": "70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png",
+        "tv_思考": "90cf159733e558137ed20aa04d09964436f618a1.png",
+        "tv_惊吓": "0d15c7e2ee58e935adc6a7193ee042388adc22af.png",
+        "tv_打脸": "56ab10b624063e966bfcb76ea5dc4794d87dfd47.png",
+        "tv_抓狂": "fe31c08edad661d63762b04e17b8d5ae3c71a757.png",
+        "tv_抠鼻": "c666f55e88d471e51bbd9fab9bb308110824a6eb.png",
+        "tv_斜眼笑": "911f987aa8bc1bee12d52aafe62bc41ef4474e6c.png",
+        "tv_无奈": "ea8ed89ee9878f2fece2dda0ea8a5dbfe21b5751.png",
+        "tv_晕": "5443c22b4d07fb1907ccc610c8e6db254f2461b7.png",
+        "tv_流汗": "cead1c351ab8d79e9f369605beb90148db0fbed3.png",
+        "tv_流泪": "7e71cde7858f0cd50d74b0264aa26db612a8a167.png",
+        "tv_流鼻血": "c32d39db2737f89b904ca32700d140a9241b0767.png",
+        "tv_点赞": "f85c354995bd99e28fc76c869bfe42ba6438eff4.png",
+        "tv_生气": "26702dcafdab5e8225b43ffd23c94ac1ff932654.png",
+        "tv_生病": "8b0ec90e6b86771092a498c54f09fc94621c1900.png",
+        "tv_疑问": "0793d949b18d7be716078349c202c15ff166f314.png",
+        "tv_白眼": "c1d59f439e379ee50eef488bcb5e5378e5044ea4.png",
+        "tv_皱眉": "72ccad6679fea0d14cce648b4d818e09b8ffea2d.png",
+        "tv_目瞪口呆": "0b8cb81a68de5d5365212c99375e7ace3e7891b7.png",
+        "tv_睡着": "8b196675b53af58264f383c50ad0945048290b33.png",
+        "tv_笑哭": "1abc628f6d4f4caf9d0e7800878f4697abbc8273.png",
+        "tv_腼腆": "89712c0d4af73e67f89e35cbc518420380a7f6f4.png",
+        "tv_色": "61822c7e9aae5da76475e7892534545336b23a6f.png",
+        "tv_调侃": "4bc022533ef31544ca0d72c12c808cf4a1cce3e3.png",
+        "tv_调皮": "b9c41de8e82dd7a8515ae5e3cb63e898bf245186.png",
+        "tv_鄙视": "6e72339f346a692a495b123174b49e4e8e781303.png",
+        "tv_闭嘴": "c9e990da7f6e93975e25fd8b70e2e290aa4086ef.png",
+        "tv_难过": "87f46748d3f142ebc6586ff58860d0e2fc8263ba.png",
+        "tv_馋": "fc7e829b845c43c623c8b490ee3602b7f0e76a31.png",
+        "tv_鬼脸": "0ffbbddf8a94d124ca2f54b360bbc04feb6bbfea.png",
+        "tv_黑人问号": "45821a01f51bc867da9edbaa2e070410819a95b2.png",
+        "tv_鼓掌": "1d21793f96ef4e6f48b23e53e3b9e42da833a0f6.png"
+        },
+        requiredFields: ['nick','mail'], //设置必填项
+    });
+</script>
+
+<!--酷Q推送-->
+
+
+<!-- 自己添加的内容 -->
+
+<!-- 直达评论 -->
+<div id="to_comment" class="comment-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#vcomments" title="直达评论">
+        <i class="fas fa-comments"></i>
+    </a>
+</div>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/06/29/ict-zhan-dui-di-4-ci-bi-ji/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="ICT战队-第4次笔记">
+                        
+                        <span class="card-title">ICT战队-第4次笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            STP生成树协议 VRRP虚拟路由冗余协议 逻辑链路聚合 交换机端口安全技术 AAA认证
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-29
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/ICT%E6%88%98%E9%98%9F%E6%95%B0%E6%8D%AE%E9%80%9A%E4%BF%A1/" class="post-category">
+                                    ICT战队数据通信
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/HCIA/">
+                        <span class="chip bg-color">HCIA</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%8D%8E%E4%B8%BAeNSP/">
+                        <span class="chip bg-color">华为eNSP</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/06/29/ict-zhan-dui-di-2-ci-bi-ji/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="ICT战队-第2次笔记">
+                        
+                        <span class="card-title">ICT战队-第2次笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            eNSP基础 telnet远程登录 ssh远程登录
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-29
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/ICT%E6%88%98%E9%98%9F%E6%95%B0%E6%8D%AE%E9%80%9A%E4%BF%A1/" class="post-category">
+                                    ICT战队数据通信
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/HCIA/">
+                        <span class="chip bg-color">HCIA</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%8D%8E%E4%B8%BAeNSP/">
+                        <span class="chip bg-color">华为eNSP</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="tencent"
+                   type="playlist"
+                   id="8531859362"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021-2022</span>
+            
+            <a href="/about" target="_blank">hhhhmdzz</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">87.7k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2021";
+                        var startMonth = "6";
+                        var startDate = "28";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+                        
+                        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+                        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+                        
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                // yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天' + diffHours + '小时' + diffMinutes + '分钟' + diffSeconds + '秒';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    // calcSiteTime();
+                    setInterval("calcSiteTime()", 250);
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/hhhhmdzz" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1453584196@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1453584196" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1453584196" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            mermaid.initialize({theme: 'forest'});
+          }
+        </script>
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

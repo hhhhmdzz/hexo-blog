@@ -1,0 +1,2539 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="python线程, python,Linux,C/C++,LaTeX,Markdown等">
+    <meta name="description" content="python线程相关模块的使用">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>python线程 | HMZ-blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">HMZ-blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/navigate" class="waves-effect waves-light">
+      
+      <i class="fas fa-location-arrow" style="zoom: 0.6;"></i>
+      
+      <span>导航</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">HMZ-blog</div>
+        <div class="logo-desc">
+            
+            本网站是个人兴趣爱好，总结分享经验，记录生活点滴的平台，希望在以后的学习旅途中，走出自己的风景。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/navigate" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-location-arrow"></i>
+			
+			导航
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/hhhhmdzz/hhhhmdzz.github.io" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/hhhhmdzz/hhhhmdzz.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">python线程</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/python/">
+                                <span class="chip bg-color">python</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%BA%BF%E7%A8%8B/">
+                                <span class="chip bg-color">线程</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/python/" class="post-category">
+                                python
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-03-09
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2022-08-17
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    6.6k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    26 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="python线程"><a href="#python线程" class="headerlink" title="python线程"></a>python线程</h1><p>[toc]</p>
+<h2 id="线程的概念"><a href="#线程的概念" class="headerlink" title="线程的概念"></a>线程的概念</h2><ul>
+<li><p>outline</p>
+<ul>
+<li><a href="#procss thread">进程 vs 线程</a></li>
+<li><a href="#calculate IO">计算密集型 vs IO密集型</a></li>
+<li><a href="#char">线程特点</a></li>
+<li><a href="#CPU thread">CPU &amp; 线程</a></li>
+<li><a href="#thread module">python线程模块</a><br></li>
+</ul>
+</li>
+<li><p><a id="procss thread"><font color="lightblue">进程 vs 线程</font></a></p>
+<ul>
+<li>进程：稳定性高(优)、开销大(缺)</li>
+</ul>
+<ol>
+<li>进程是资源分配的最小单位(程序由若干进程组成)，一个程序至少有一个进程。</li>
+<li>进程都有自己独立的地址空间，内存，数据栈等，所以进程占用资源多。  由于进程的资源独立，所以通讯不方便，只能使用进程间通讯（IPC）。</li>
+</ol>
+<ul>
+<li>线程：稳定性差(缺)、效率高(优)</li>
+</ul>
+<ol>
+<li>线程是程序执行的最小单位(进程由若干线程组成)，一个进程至少有一个线程。</li>
+<li>线程共享进程中的数据，他们使用相同的地址空间，使用线程创建快捷，创建开销比进程小。  同一进程下的线程共享全局变量、静态变量等数据，所以线程通讯非常方便，但会存在数据同步与互斥的问题，如何处理好同步与互斥是编写多线程程序的难点。</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>注：<br>1.一个进程中可以存在多个线程，在单核CPU中每个进程中同时刻只能运行一个线程，只有在多核CPU中才能存在线程并发的情况。<br>2.当线程需要运行但没有运行空间时，会对线程的优先级进行判断，高优先级先运行，低优先级进程让行。<br>3.多任务(无论是多进程还是多线程)一旦多到一个限度，就会消耗掉系统所有的资源，结果效率急剧下，所有任务都做不好。<br>4.线程间的切换是要快于进程间的切换</p>
+</blockquote>
+<p>————————————————————</p>
+<ul>
+<li><p><a id="calculate IO"><font color="lightblue">计算密集型 vs IO密集型</font></a></p>
+<ul>
+<li>计算密集型：主要消耗CPU资源</li>
+</ul>
+<p>计算密集型任务的特点是要进行大量的计算，花在任务切换的时间就越多，CPU执行任务的效率就越低，所以，要最高效地利用CPU，计算密集型任务同时进行的数量应当等于CPU的核心数。(脚本语言python运行效率低，完全不适合计算密集型任务，而C语言在这方面效率要高得多)</p>
+<ul>
+<li>IO密集型：大部分时间都在等待IO操作完成</li>
+</ul>
+<p>涉及到网络、磁盘IO的任务都是IO密集型任务，这类任务的特点是CPU消耗很少，任务的大部分时间都在等待IO操作完成（因为IO的速度远远低于CPU和内存的速度）。IO密集型任务执行期间，99%的时间都花在IO上，花在CPU上的时间很少，所以对于IO密集型任务，最合适的语言就是开发效率最高（代码量最少）的语言，脚本语言是首选，C语言最差。</p>
+</li>
+</ul>
+<p>简言之：Python的多线程，只有用于I/O密集型程序时效率才会有明显的提高。</p>
+<details>
+<summary>原因</summary>
+
+<p>Python代码的执行是由Python虚拟机(也叫解释器主循环)进行控制。它在主循环中同时只能有一个控制线程在执行，意思就是Python解释器中可以运行多个线程，但是在执行的只有一个线程，其他的处于等待状态。这些线程执行是有全局解释器锁（GIL）控制，它来保证同时只有一个线程在运行。在多线程运行环境中，Python虚拟机执行方式如下：</p>
+<ol>
+<li>设置GIL</li>
+<li>切换进线程</li>
+<li>执行下面操作之一<br>　1. 运行指定数量的字节码指令<br>　2. 线程主动让出控制权</li>
+<li>切换出线程（线程处于睡眠状态）</li>
+<li>解锁GIL</li>
+<li>再次重复以上所有步骤</li>
+</ol>
+<blockquote>
+<p>在调用外部代码(如 C/C++扩展函数)的时候，GIL将会被锁定，直到这个函数结束为止(由于在这期间没有Python的字节码被运行，所以不会做线程切换)编写扩展的程序员可以主动解锁GIL。</p>
+</blockquote>
+</details>
+
+<p>————————————————————</p>
+<ul>
+<li><a id="char"><font color="lightblue">线程特点</font></a></li>
+</ul>
+<ol>
+<li>轻型实体<br>线程中的实体基本上不拥有系统资源，但是能保证独立运行的资源</li>
+<li>独立调度和分派的基本单位<br>线程是能独立运行的基本单位</li>
+<li>共享进程资源<br>所有线程都具有相同的进程id</li>
+<li>可并发执行<br>允许在一个进程中所有线程都能并发执行</li>
+</ol>
+<p>————————————————————</p>
+<ul>
+<li><a id="CPU thread">CPU &amp; 线程</a></li>
+</ul>
+<p>打开 Mac OS X 的 Activity Monitor 或者 Windows 的 Task Manager，都可以监控某个进程的CPU使用率。</p>
+<p>我们可以监控到一个死循环线程会100%占用一个CPU。如果有两个死循环线程，在多核CPU中，可以监控到会占用200%的CPU，也就是占用两个CPU核心。要想把N核CPU的核心全部跑满，就必须启动N个死循环线程。</p>
+<p>尝试在python启动与CPU核心数量相同的N个线程：</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> threading<span class="token punctuation">,</span> multiprocessing
+
+<span class="token keyword">def</span> <span class="token function">loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    x <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+        x <span class="token operator">=</span> x <span class="token operator">^</span> <span class="token number">1</span>
+
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>multiprocessing<span class="token punctuation">.</span>cpu_count<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    t <span class="token operator">=</span> threading<span class="token punctuation">.</span>Thread<span class="token punctuation">(</span>target<span class="token operator">=</span>loop<span class="token punctuation">)</span>
+    t<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+
+<p>这个Python程序在4核CPU上可以监控到CPU占用率仅有102%，也就是仅使用了一核。但是用C、C++或Java来改写相同的死循环，直接可以把全部核心跑满，4核就跑到400%，8核就跑到800%。</p>
+<p>为什么？因为Python的线程虽然是真正的线程，但解释器执行代码时，有一个GIL锁(Global Interpreter Lock)，任何Python线程执行前，必须先获得GIL锁，然后，每执行100条字节码，解释器就自动释放GIL锁，让别的线程有机会执行。这个GIL全局锁实际上把所有线程的执行代码都给上了锁，所以，多线程在Python中只能交替执行，即使100个线程跑在100核CPU上，也只能用到1个核。</p>
+<p>所以，如果一定要通过多线程利用多核，那只能通过C扩展来实现。但是Python可以通过多进程实现多核任务。多个Python进程有各自独立的GIL锁，互不影响。</p>
+<p>————————————————————</p>
+<ul>
+<li><p><a id="thread module"><font color="lightblue">python线程模块</font></a></p>
+<ul>
+<li>_thread：低级模块</li>
+</ul>
+<p>_thread模块不支持守护线程，当主线程退出时，所有的子线程不论它们是否还在工作，都会被强行退出。</p>
+<ul>
+<li>threading：高级模块，对_thread进行了封装，更先进、完善</li>
+</ul>
+<p>threading模块支持守护线程，守护线程一般是一个等待客户请求的服务器，如果没有客户提出请求它就在那等着，如果设定一个线程为守护线程，就表示这个线程是不重要的，在进程退出的时候，不用等待这个线程退出。</p>
+</li>
+</ul>
+<details>
+<summary>threading 模块对象、方法</summary>
+
+<table>
+<thead>
+<tr>
+<th align="center">对象</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>Thread</code></td>
+<td align="center">表示一个执行线程的对象</td>
+</tr>
+<tr>
+<td align="center"><code>Lock</code></td>
+<td align="center">锁原语对象</td>
+</tr>
+<tr>
+<td align="center"><code>RLock</code></td>
+<td align="center">可重入锁对象，使单一线程可以（再次）获得已持有的锁（递归锁）</td>
+</tr>
+<tr>
+<td align="center"><code>Condition</code></td>
+<td align="center">条件变量对象，使得一个线程等待另一个线程满足特定的“条件”，比如改变状态或某个数据值</td>
+</tr>
+<tr>
+<td align="center"><code>Event</code></td>
+<td align="center">条件变量的通用版本，任意数量的线程等待某个事件的发生，在该事件发生后所有线程将被激活</td>
+</tr>
+<tr>
+<td align="center"><code>Semaphore</code></td>
+<td align="center">为线程间共享的有限资源提供了一个“计数器”，如果没有可用资源时会被阻塞</td>
+</tr>
+<tr>
+<td align="center"><code>BoundedSemaphore</code></td>
+<td align="center">与<code>Semaphore</code>相似，不过它不允许超过初始值</td>
+</tr>
+<tr>
+<td align="center"><code>Timer</code></td>
+<td align="center">与<code>Thread</code>相似，不过它要在运行前等待一段时间</td>
+</tr>
+<tr>
+<td align="center"><code>Barrier</code></td>
+<td align="center">创建一个障碍，必须达到指定数量的线程才可以继续</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>activeCount()</code></td>
+<td align="center">获取当前活动中的Thread对象个数</td>
+</tr>
+<tr>
+<td align="center"><code>currentThread()</code></td>
+<td align="center">获取当前的Thread对象</td>
+</tr>
+<tr>
+<td align="center"><code>enumerate()</code></td>
+<td align="center">获取当前活动的Thread对象列表</td>
+</tr>
+<tr>
+<td align="center"><code>settrace(func)</code></td>
+<td align="center">为所有线程设置一个跟踪（trace）函数</td>
+</tr>
+<tr>
+<td align="center"><code>setprofile(func)</code></td>
+<td align="center">为所有线程设置配置文件（profile）函数</td>
+</tr>
+<tr>
+<td align="center"><code>stack_size(size=None)</code></td>
+<td align="center">获取新创建线程的栈大小，也可设置线程栈的大小为size</td>
+</tr>
+</tbody></table>
+</details>
+
+<hr>
+<h2 id="线程的基本操作"><a href="#线程的基本操作" class="headerlink" title="线程的基本操作"></a>线程的基本操作</h2><h3 id="threading-Thread-类"><a href="#threading-Thread-类" class="headerlink" title="threading.Thread 类"></a><code>threading.Thread</code> 类</h3><ul>
+<li>outline<ul>
+<li><strong><a href="#Thread intro">Thread类介绍</a></strong></li>
+<li><strong><a href="#Thread examp">Thread类实例</a></strong><ul>
+<li><strong><a href="#使用Thread创建实例对象">使用Thread创建实例对象</a></strong></li>
+<li><strong><a href="#继承Thread创建实例对象">继承Thread创建实例对象</a></strong></li>
+<li><strong><a href="#内存数据的共享问题">内存数据的共享问题</a></strong></li>
+<li><strong><a href="#多线程实现socket">多线程实现socket</a></strong></li>
+<li><strong><a href="#守护线程">守护线程</a></strong><br></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><a id="Thread intro"><font color="black"></font></a></p><h4><a id="Thread intro"><font color="black">Thread类介绍</font></a></h4><p></p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Thread</span><span class="token punctuation">{</span>
+    group<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span>   <span class="token comment"># 为了日后扩展 ThreadGroup 类实现而保留</span>
+    target<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span>  <span class="token comment"># 用于 run() 方法调用的可调用对象</span>
+    name<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span>    <span class="token comment"># 线程名称</span>
+    args<span class="token operator">=</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>      <span class="token comment"># 调用目标函数的参数元组</span>
+    kwargs<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>    <span class="token comment"># 调用目标函数的关键字参数字典</span>
+    daemon<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span>  <span class="token comment"># 守护模式</span>
+<span class="token punctuation">}</span></code></pre>
+
+<blockquote>
+<p><code>daemon = None</code>：线程将继承当前线程的守护模式属性<br><code>daemon != None</code>：设置该线程是否为守护模式</p>
+</blockquote>
+<details>
+<summary>Thread类实例对象的方法、属性</summary>
+
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token comment"># todo 方法</span>
+t <span class="token operator">=</span> Thread<span class="token punctuation">(</span><span class="token punctuation">)</span>           <span class="token comment"># 实例化线程</span>
+t<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>              <span class="token comment"># 开始执行该线程</span>
+t<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span>                <span class="token comment"># 定义线程功能的方法（通常在子类中被应用开发者重写）</span>
+t<span class="token punctuation">.</span>join<span class="token punctuation">(</span>timeout<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span>   <span class="token comment"># 阻塞，直至启动的线程终止之前一直挂起；除非给出了 timeout（秒），否则会一直阻塞</span>
+t<span class="token punctuation">.</span>getName<span class="token punctuation">(</span><span class="token punctuation">)</span>            <span class="token comment"># 返回线程名</span>
+t<span class="token punctuation">.</span>setName<span class="token punctuation">(</span>name<span class="token punctuation">)</span>        <span class="token comment"># 设定线程名</span>
+t<span class="token punctuation">.</span>isAlivel<span class="token punctuation">(</span><span class="token punctuation">)</span>           <span class="token comment"># 该线程是否还存活</span>
+t<span class="token punctuation">.</span>is_alive<span class="token punctuation">(</span><span class="token punctuation">)</span>           <span class="token comment"># 该线程是否还存活</span>
+t<span class="token punctuation">.</span>isDaemon<span class="token punctuation">(</span><span class="token punctuation">)</span>           <span class="token comment"># 如果是守护线程，则返回 True；否则，返回 False</span>
+t<span class="token punctuation">.</span>setDaemon<span class="token punctuation">(</span>daemonic<span class="token punctuation">)</span>  <span class="token comment"># 把线程的守护标志设定为布尔值 daemonic（必须在线程 start()之前调用）</span>
+
+<span class="token comment"># todo 属性</span>
+t<span class="token punctuation">.</span>name       <span class="token comment"># 线程名</span>
+t<span class="token punctuation">.</span>ident      <span class="token comment"># 线程标识符（通过t.get_ident()获取）</span>
+t<span class="token punctuation">.</span>native_id  <span class="token comment"># 此线程的原生集成线程 TID，类似于进程 PID（通过t.get_native_id()获取）</span>
+t<span class="token punctuation">.</span>daemon     <span class="token comment"># 守护线程</span></code></pre>
+
+</details>
+
+<details>
+<summary>Thread类的方法、属性</summary>
+
+<pre class="language-python" data-language="python"><code class="language-python">threading<span class="token punctuation">.</span>currentThread<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 返回当前的线程变量（对象）。</span>
+threading<span class="token punctuation">.</span><span class="token builtin">enumerate</span><span class="token punctuation">(</span><span class="token punctuation">)</span>      <span class="token comment"># 返回一个包含正在运行的线程的list。正在运行指线程启动后、结束前，不包括启动前和终止后的线程。</span>
+threading<span class="token punctuation">.</span>activeCount<span class="token punctuation">(</span><span class="token punctuation">)</span>    <span class="token comment"># 返回正在运行的线程数量，与len(threading.enumerate())有相同的结果。</span></code></pre>
+
+</details>
+
+<p><a id="Thread examp"></a></p><h4><a id="Thread examp"><font color="black">Thread类实例</font></a></h4><p></p>
+<ul>
+<li><a id="使用Thread创建实例对象">使用Thread创建实例对象</a></li>
+</ul>
+<p>同一进程的线程有相同的PID，但是TID不同！</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> os<span class="token punctuation">,</span> time
+<span class="token keyword">import</span> threading
+<span class="token keyword">from</span> threading <span class="token keyword">import</span> Thread
+
+<span class="token keyword">def</span> <span class="token function">loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">)</span>
+    loop_thread <span class="token operator">=</span> threading<span class="token punctuation">.</span>current_thread<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"线程 </span><span class="token interpolation"><span class="token punctuation">{</span>loop_thread<span class="token punctuation">.</span>name<span class="token punctuation">}</span></span><span class="token string"> 开始......"</span></span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"线程 </span><span class="token interpolation"><span class="token punctuation">{</span>loop_thread<span class="token punctuation">.</span>name<span class="token punctuation">}</span></span><span class="token string"> PID：</span><span class="token interpolation"><span class="token punctuation">{</span>os<span class="token punctuation">.</span>getpid<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"线程 </span><span class="token interpolation"><span class="token punctuation">{</span>loop_thread<span class="token punctuation">.</span>name<span class="token punctuation">}</span></span><span class="token string"> TID：</span><span class="token interpolation"><span class="token punctuation">{</span>loop_thread<span class="token punctuation">.</span>native_id<span class="token punctuation">}</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"线程 </span><span class="token interpolation"><span class="token punctuation">{</span>loop_thread<span class="token punctuation">.</span>name<span class="token punctuation">}</span></span><span class="token string"> 结束......"</span></span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    main_thread <span class="token operator">=</span> threading<span class="token punctuation">.</span>current_thread<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"线程 </span><span class="token interpolation"><span class="token punctuation">{</span>main_thread<span class="token punctuation">.</span>name<span class="token punctuation">}</span></span><span class="token string"> 开始......"</span></span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"线程 </span><span class="token interpolation"><span class="token punctuation">{</span>main_thread<span class="token punctuation">.</span>name<span class="token punctuation">}</span></span><span class="token string"> PID：</span><span class="token interpolation"><span class="token punctuation">{</span>os<span class="token punctuation">.</span>getpid<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"线程 </span><span class="token interpolation"><span class="token punctuation">{</span>main_thread<span class="token punctuation">.</span>name<span class="token punctuation">}</span></span><span class="token string"> TID：</span><span class="token interpolation"><span class="token punctuation">{</span>main_thread<span class="token punctuation">.</span>native_id<span class="token punctuation">}</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+    
+    t1 <span class="token operator">=</span> Thread<span class="token punctuation">(</span>target<span class="token operator">=</span>loop<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">"Loopthread-1"</span><span class="token punctuation">,</span> <span class="token punctuation">)</span>
+    t2 <span class="token operator">=</span> Thread<span class="token punctuation">(</span>target<span class="token operator">=</span>loop<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">"Loopthread-2"</span><span class="token punctuation">,</span> <span class="token punctuation">)</span>
+    
+    t1<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    t2<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    t1<span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    t2<span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"线程 </span><span class="token interpolation"><span class="token punctuation">{</span>main_thread<span class="token punctuation">.</span>name<span class="token punctuation">}</span></span><span class="token string"> 结束......"</span></span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    main<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+
+<blockquote>
+<p>注：<br>1.主线程：任何进程默认就会启动一个线程，我们把该线程称为主线程，主线程又可以启动新的线程</p>
+</blockquote>
+<ul>
+<li><a id="继承Thread创建实例对象">继承Thread创建实例对象</a></li>
+</ul>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> time
+<span class="token keyword">from</span> threading <span class="token keyword">import</span> Thread
+
+<span class="token keyword">class</span> <span class="token class-name">MyThread</span><span class="token punctuation">(</span>Thread<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> target<span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>target <span class="token operator">=</span> target
+        self<span class="token punctuation">.</span>name <span class="token operator">=</span> name
+
+    <span class="token keyword">def</span> <span class="token function">run</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>target<span class="token punctuation">(</span>self<span class="token punctuation">.</span>name<span class="token punctuation">)</span>
+        time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">say_hi</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"hello, this's </span><span class="token interpolation"><span class="token punctuation">{</span>name<span class="token punctuation">}</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    mythread <span class="token operator">=</span> MyThread<span class="token punctuation">(</span>target<span class="token operator">=</span>say_hi<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">"my thread"</span><span class="token punctuation">)</span>
+    mythread<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    mythread<span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    main<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+
+<blockquote>
+<p>注：<br>1.继承必须实现<code>run()</code>函数！</p>
+</blockquote>
+<ul>
+<li><a id="内存数据的共享问题">内存数据的共享问题</a></li>
+</ul>
+<pre class="language-python" data-language="python"><code class="language-python">
+<span class="token keyword">import</span> os<span class="token punctuation">,</span> time
+<span class="token keyword">import</span> threading
+<span class="token keyword">from</span> threading <span class="token keyword">import</span> Thread
+<span class="token keyword">from</span> multiprocessing <span class="token keyword">import</span> Process
+
+<span class="token keyword">def</span> <span class="token function">work</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">global</span> n
+    n <span class="token operator">=</span> <span class="token number">0</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    n <span class="token operator">=</span> <span class="token number">100</span>
+    p <span class="token operator">=</span> Process<span class="token punctuation">(</span>target<span class="token operator">=</span>work<span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'主进程的 n = '</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span>
+
+    n <span class="token operator">=</span> <span class="token number">1</span>
+    t <span class="token operator">=</span> Thread<span class="token punctuation">(</span>target<span class="token operator">=</span>work<span class="token punctuation">)</span>
+    t<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    t<span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'主线程的 n = '</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span></code></pre>
+
+<blockquote>
+<p>注：<br>1.子进程p已经将自己的全局的n改成了0（具体来说是将数据拷贝了一份，然后再修改），但改的仅仅是它自己的，父进程的n仍然为100，所以进程之间数据不共享<br>2.主线程n的结果为0，同一进程内的线程之间共享进程内的数据</p>
+</blockquote>
+<ul>
+<li><a id="多线程实现socket">多线程实现socket</a></li>
+</ul>
+<p>server端</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token comment">#_*_coding:utf-8_*_</span>
+<span class="token comment">#!/usr/bin/env python</span>
+<span class="token keyword">import</span> threading
+<span class="token keyword">import</span> multiprocessing
+ 
+<span class="token keyword">import</span> socket
+s <span class="token operator">=</span> socket<span class="token punctuation">.</span>socket<span class="token punctuation">(</span>socket<span class="token punctuation">.</span>AF_INET<span class="token punctuation">,</span>socket<span class="token punctuation">.</span>SOCK_STREAM<span class="token punctuation">)</span>
+s<span class="token punctuation">.</span>bind<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token string">'127.0.0.1'</span><span class="token punctuation">,</span><span class="token number">8080</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+s<span class="token punctuation">.</span>listen<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">action</span><span class="token punctuation">(</span>conn<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+        data<span class="token operator">=</span>conn<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token number">1024</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+        conn<span class="token punctuation">.</span>send<span class="token punctuation">(</span>data<span class="token punctuation">.</span>upper<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+ 
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+        conn<span class="token punctuation">,</span>addr<span class="token operator">=</span>s<span class="token punctuation">.</span>accept<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        p<span class="token operator">=</span>threading<span class="token punctuation">.</span>Thread<span class="token punctuation">(</span>target<span class="token operator">=</span>action<span class="token punctuation">,</span>args<span class="token operator">=</span><span class="token punctuation">(</span>conn<span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        p<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+
+<p>client端</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token comment">#_*_coding:utf-8_*_</span>
+<span class="token comment">#!/usr/bin/env python</span>
+<span class="token keyword">import</span> socket
+ 
+s <span class="token operator">=</span> socket<span class="token punctuation">.</span>socket<span class="token punctuation">(</span>socket<span class="token punctuation">.</span>AF_INET<span class="token punctuation">,</span>socket<span class="token punctuation">.</span>SOCK_STREAM<span class="token punctuation">)</span>
+s<span class="token punctuation">.</span>connect<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token string">'127.0.0.1'</span><span class="token punctuation">,</span><span class="token number">8080</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+ 
+<span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+    msg <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">'&gt;&gt;: '</span><span class="token punctuation">)</span><span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token keyword">not</span> msg<span class="token punctuation">:</span><span class="token keyword">continue</span>
+ 
+    s<span class="token punctuation">.</span>send<span class="token punctuation">(</span>msg<span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    data <span class="token operator">=</span> s<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token number">1024</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span></code></pre>
+
+<ul>
+<li><a id="守护线程">守护线程</a></li>
+</ul>
+<p><b>无论是进程还是线程，都遵循：守护xx会等待主xx运行完毕后被销毁。需要强调的是：运行完毕并非终止运行</b></p>
+<blockquote>
+<p><b>守护线程运行完毕</b><br>1.对主进程来说，运行完毕指的是主进程代码运行完毕<br>2.对主线程来说，运行完毕指的是主线程所在的进程内所有非守护线程通通运行完毕，主线程才算运行完毕</p>
+<blockquote>
+<p><b>详细解释</b><br>1.主进程在其代码结束后就已经算运行完毕了（守护进程在此时就被回收）,然后主进程会一直等非守护的子进程都运行完毕后回收子进程的资源(否则会产生僵尸进程)，才会结束。<br>2.主线程在其他非守护线程运行完毕后才算运行完毕（守护线程在此时就被回收）。因为主线程的结束意味着进程的结束，进程整体的资源都将被回收，而进程必须保证非守护线程都运行完毕后才能结束。</p>
+</blockquote>
+</blockquote>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> os<span class="token punctuation">,</span> time
+<span class="token keyword">import</span> threading
+<span class="token keyword">from</span> threading <span class="token keyword">import</span> Thread
+
+<span class="token keyword">def</span> <span class="token function">bar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"thread bar is running......"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"thread foo is running......"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    t1 <span class="token operator">=</span> Thread<span class="token punctuation">(</span>target<span class="token operator">=</span>bar<span class="token punctuation">,</span><span class="token punctuation">)</span>
+    t2 <span class="token operator">=</span> Thread<span class="token punctuation">(</span>target<span class="token operator">=</span>foo<span class="token punctuation">,</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># t1.daemon = True</span>
+    t1<span class="token punctuation">.</span>setDaemon<span class="token punctuation">(</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+
+    t1<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    t2<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"thread bar is alive </span><span class="token interpolation"><span class="token punctuation">{</span>t1<span class="token punctuation">.</span>is_alive<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"thread foo is alive </span><span class="token interpolation"><span class="token punctuation">{</span>t2<span class="token punctuation">.</span>is_alive<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+
+    t1<span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    t2<span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"thread bar is alive </span><span class="token interpolation"><span class="token punctuation">{</span>t1<span class="token punctuation">.</span>is_alive<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"thread foo is alive </span><span class="token interpolation"><span class="token punctuation">{</span>t2<span class="token punctuation">.</span>is_alive<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token string">"</span></span><span class="token punctuation">)</span></code></pre>
+
+<blockquote>
+<p>守护进程必须设置在<code>t.start()</code>之前！</p>
+</blockquote>
+<hr>
+<h4 id="结束线程方法"><a href="#结束线程方法" class="headerlink" title="结束线程方法"></a>结束线程方法</h4><p>见；<a target="_blank" rel="noopener" href="https://blog.csdn.net/fenglepeng/article/details/103186966">python threading 结束线程</a></p>
+<h3 id="threading-Lock-类"><a href="#threading-Lock-类" class="headerlink" title="threading.Lock 类"></a><code>threading.Lock</code> 类</h3><p>多线程是在同一个进程下运行的，因此在进程中的全局变量所有线程都是共享的，这就造成一个问题，因为线程执行的顺序是无序的，有可能会造成数据错误，所以引入锁机制。</p>
+<ul>
+<li>outline<ul>
+<li><strong><a href="#Lock intro">Lock类介绍</a></strong></li>
+<li><strong><a href="#Lock examp">Lock类实例</a></strong><ul>
+<li><strong><a href="#share data prob">多线程数据共享的问题</a></strong></li>
+<li><strong><a href="#share data solu">Lock解决多线程数据共享的问题</a></strong></li>
+<li><strong><a href="#Lock0">Lock买票问题</a></strong><br></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><a id="Lock intro"><font color="b"></font></a></p><h4><a id="Lock intro"><font color="b">Lock类介绍</font></a></h4><p></p>
+<details>
+<summary>Lock类对象方法</summary>
+
+<pre class="language-python" data-language="python"><code class="language-python">l <span class="token operator">=</span> Lock<span class="token punctuation">(</span><span class="token punctuation">)</span>                               <span class="token comment"># 实例化锁对象</span>
+l<span class="token punctuation">.</span>acquire<span class="token punctuation">(</span>blocking<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> timeout<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>	 <span class="token comment"># 获取锁（阻塞或非阻塞）</span>
+l<span class="token punctuation">.</span>release<span class="token punctuation">(</span><span class="token punctuation">)</span>	                         <span class="token comment"># 释放锁</span>
+l<span class="token punctuation">.</span>locked<span class="token punctuation">(</span><span class="token punctuation">)</span>                               <span class="token comment"># 如果获得了锁则返回真值</span></code></pre>
+
+</details>
+
+<p>锁有两种状态：<font color="red">锁定</font>和<font color="red">未锁定</font>。而且也只有两个函数：<font color="red">获取锁</font>和<font color="red">释放锁</font>。当多线程争夺锁的时候，允许第一个获得锁的线程进入临界区，并执行代码，之后所有的线程都被阻塞，当第一个线程执行结束，退出临界区，释放锁，此时，其他等待的线程可以获得锁进入临界区，不过要记住，被阻塞的线程是<font color="red">无序</font>的。</p>
+<p><a id="Lock examp"><font color="b"></font></a></p><h4><a id="Lock examp"><font color="b">Lock类实例</font></a></h4><p></p>
+<ul>
+<li><a id="share data prob">多线程数据共享的问题</a></li>
+</ul>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> threading <span class="token keyword">import</span> Thread
+
+<span class="token keyword">def</span> <span class="token function">add_v</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">global</span> value
+    <span class="token keyword">for</span> x <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">1000000</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        value <span class="token operator">+=</span> <span class="token number">1</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"value: </span><span class="token interpolation"><span class="token punctuation">{</span>value<span class="token punctuation">}</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+
+value <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    threads <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        threads<span class="token punctuation">.</span>append<span class="token punctuation">(</span>Thread<span class="token punctuation">(</span>target<span class="token operator">=</span>add_v<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        threads<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo 结果</span>
+value: <span class="token number">1398771</span>
+value: <span class="token number">1555540</span></code></pre>
+
+<ul>
+<li><a id="share data solu">Lock解决多线程数据共享的问题</a></li>
+</ul>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> threading <span class="token keyword">import</span> Lock<span class="token punctuation">,</span> Thread
+
+<span class="token keyword">def</span> <span class="token function">add_value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">global</span> value
+    lock<span class="token punctuation">.</span>acquire<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 获取锁</span>
+    <span class="token keyword">for</span> x <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">1000000</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        value <span class="token operator">+=</span> <span class="token number">1</span>
+    lock<span class="token punctuation">.</span>release<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 释放锁</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"value: </span><span class="token interpolation"><span class="token punctuation">{</span>value<span class="token punctuation">}</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+
+value <span class="token operator">=</span> <span class="token number">0</span>
+lock <span class="token operator">=</span> Lock<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    threads <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        threads<span class="token punctuation">.</span>append<span class="token punctuation">(</span>Thread<span class="token punctuation">(</span>target<span class="token operator">=</span>add_v<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        threads<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># todo 结果</span>
+value: <span class="token number">1000000</span>
+value: <span class="token number">2000000</span></code></pre>
+
+<ul>
+<li><a id="Lock0">Lock卖票问题</a></li>
+</ul>
+<p>假设有3个卖票窗口，一共10张票，每个窗口排队买票，每人最多购买2张，请使用多线程模拟该场景。</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token comment"># to be continue</span></code></pre>
+
+<hr>
+<h3 id="threading-RLock-类"><a href="#threading-RLock-类" class="headerlink" title="threading.RLock 类"></a><code>threading.RLock</code> 类</h3><p>递归锁RLock和普通锁Lock的差别在于加入了“所属线程”和“递归等级”的概念，释放锁必须由获取锁的线程来进行释放。同时，同一个线程在释放锁之前再次获取锁将不会阻塞当前线程，只是在锁的递归等级上加了1（获得锁时的初始递归等级为1）。</p>
+<p>说白了递归锁就是——普通锁的套娃：递归锁RLock可以上很多次锁，上了几次锁就得解几次锁才能解开，但是必须得完全解开之后，其他线程才能使用其中的资源。</p>
+<ul>
+<li>outline<ul>
+<li><strong><a href="#RLock intro">RLock类介绍</a></strong></li>
+<li><strong><a href="#RLock examp">RLock类实例</a></strong><ul>
+<li><strong><a href="#deadlock prob">死锁问题</a></strong></li>
+<li><strong><a href="#deadlock solu">RLock解决死锁问题</a></strong><br></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><a id="RLock intro"><font color="black"></font></a></p><h4><a id="RLock intro"><font color="black">RLock类介绍</font></a></h4><p></p>
+<details>
+<summary>RLock类方法(略)</summary>
+
+<pre class="language-python" data-language="python"><code class="language-python">rl <span class="token operator">=</span> RLock<span class="token punctuation">(</span><span class="token punctuation">)</span>                           <span class="token comment"># 实例化递归锁对象</span>
+rl<span class="token punctuation">.</span>acquire<span class="token punctuation">(</span>blocking<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> timeout<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>  <span class="token comment"># 递归锁的递归等级加1</span>
+rl<span class="token punctuation">.</span>release<span class="token punctuation">(</span><span class="token punctuation">)</span>                           <span class="token comment"># 递归锁的递归等级减1</span></code></pre>
+
+</details>
+
+<details>
+<summary>RLock类方法(详)</summary>
+
+<pre class="language-python" data-language="python"><code class="language-python">rl <span class="token operator">=</span> RLock<span class="token punctuation">(</span><span class="token punctuation">)</span>
+rl<span class="token punctuation">.</span>acquire<span class="token punctuation">(</span>blocking<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> timeout<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token triple-quoted-string string">"""
+    与普通锁的不同之处在于：当使用默认值时，如果这个线程已经拥有锁，那么锁的递归等级加1。
+    线程获得锁时，该锁的递归等级被初始化为1。
+    当多个线程被阻塞时，只有一个线程能在锁被解时获得锁，这种情况下，acquire()是没有返回值的。
+    """</span>
+rl<span class="token punctuation">.</span>release<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token triple-quoted-string string">"""
+    没有返回值，调用一次则递归等级减1，
+    递归等级为零时表示这个线程的锁已经被释放掉，其他线程可以获取锁了。
+    可能在一个线程中调用了多次acquire()，导致锁的递归等级大于了1，
+    那么就需要调用对应次数的release()来完全释放锁，
+    并将它的递归等级减到零，其他的线程才能获取锁，不然就会一直被阻塞着。
+    """</span></code></pre>
+
+</details>
+
+<p><a id="RLock examp"><font color="black"></font></a></p><h4><a id="RLock examp"><font color="black">RLock类实例</font></a></h4><p></p>
+<ul>
+<li><a id="deadlock prob">死锁问题</a></li>
+</ul>
+<p><strong>死锁</strong>：指的是两个或两个以上的线程或进程在请求锁的时候形成了互相等待阻塞的情况，导致这些线程或进程无法继续执行下去，这时候称系统处于死锁状态或者系统产生了死锁，这些线程或进程就称为死锁线程或死锁进程。</p>
+<p><strong>举个例子</strong>：我有一个苹果，你有一个香蕉，我想要你的香蕉，你想要我的苹果。但是，我要求：你得先给我香蕉我才能给你苹果，你也要求：我得给你苹果你才能给我香蕉。所以，双方就无法完成交换，即造成死锁。</p>
+<blockquote>
+<p>死锁问题实例：<br><code>func1()</code>：得到苹果-&gt;得到香蕉-&gt;释放香蕉-&gt;释放苹果<br><code>func1()</code>：得到香蕉-&gt;得到苹果-&gt;释放苹果-&gt;释放香蕉</p>
+<blockquote>
+<p>造成死锁流程：<br>1.<code>thread-1</code>在<code>func1</code>中，依次得到并释放苹果和香蕉<br>2.接着，<code>thread-1</code>在<code>func2</code>中得到香蕉，然后<code>sleep(0.1)</code><br>3.此时，趁<code>thread-1</code>在休眠，<code>thread-2</code>开始执行<br>4.<code>thread-2</code>在<code>func1</code>中，先得到苹果，但是无法得到香蕉（因为香蕉在<code>thread-1</code>里面）<br>5.这样，就出现了死锁：<code>thread-1</code>等<code>thread-2</code>释放苹果，<code>thread-2</code>等<code>thread-1</code>释放香蕉</p>
+</blockquote>
+</blockquote>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> time
+<span class="token keyword">import</span> threading
+
+lock_apple <span class="token operator">=</span> threading<span class="token punctuation">.</span>Lock<span class="token punctuation">(</span><span class="token punctuation">)</span>
+lock_banana <span class="token operator">=</span> threading<span class="token punctuation">.</span>Lock<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">MyThread</span><span class="token punctuation">(</span>threading<span class="token punctuation">.</span>Thread<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        threading<span class="token punctuation">.</span>Thread<span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>self<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">run</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>fun1<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>fun2<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">fun1</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        lock_apple<span class="token punctuation">.</span>acquire<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 如果锁被占用,则阻塞在这里,等待锁的释放</span>
+        <span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"线程 %s , 想拿: %s--%s"</span> <span class="token operator">%</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token string">"苹果"</span><span class="token punctuation">,</span> time<span class="token punctuation">.</span>ctime<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        lock_banana<span class="token punctuation">.</span>acquire<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"线程 %s , 想拿: %s--%s"</span> <span class="token operator">%</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token string">"香蕉"</span><span class="token punctuation">,</span> time<span class="token punctuation">.</span>ctime<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+        lock_banana<span class="token punctuation">.</span>release<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"线程 %s , 释放: %s--%s"</span> <span class="token operator">%</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token string">"香蕉"</span><span class="token punctuation">,</span> time<span class="token punctuation">.</span>ctime<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        lock_apple<span class="token punctuation">.</span>release<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"线程 %s , 释放: %s--%s"</span> <span class="token operator">%</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token string">"苹果"</span><span class="token punctuation">,</span> time<span class="token punctuation">.</span>ctime<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">fun2</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        lock_banana<span class="token punctuation">.</span>acquire<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"线程 %s , 想拿: %s--%s"</span> <span class="token operator">%</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token string">"香蕉"</span><span class="token punctuation">,</span> time<span class="token punctuation">.</span>ctime<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+        time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">0.1</span><span class="token punctuation">)</span>  <span class="token comment"># 休眠，让其他线程开启</span>
+        lock_apple<span class="token punctuation">.</span>acquire<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"线程 %s , 想拿: %s--%s"</span> <span class="token operator">%</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token string">"苹果"</span><span class="token punctuation">,</span> time<span class="token punctuation">.</span>ctime<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+        lock_apple<span class="token punctuation">.</span>release<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"线程 %s , 释放: %s--%s"</span> <span class="token operator">%</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token string">"苹果"</span><span class="token punctuation">,</span> time<span class="token punctuation">.</span>ctime<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+        lock_banana<span class="token punctuation">.</span>release<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"线程 %s , 释放: %s--%s"</span> <span class="token operator">%</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token string">"香蕉"</span><span class="token punctuation">,</span> time<span class="token punctuation">.</span>ctime<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment"># 建立5个线程</span>
+        my_thread <span class="token operator">=</span> MyThread<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        my_thread<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+
+<ul>
+<li><a id="deadlock solu">RLock解决死锁问题</a></li>
+</ul>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> time
+<span class="token keyword">import</span> threading
+
+lock <span class="token operator">=</span> threading<span class="token punctuation">.</span>RLock<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment">#递归锁</span>
+
+<span class="token keyword">class</span> <span class="token class-name">MyThread</span><span class="token punctuation">(</span>threading<span class="token punctuation">.</span>Thread<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        threading<span class="token punctuation">.</span>Thread<span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>self<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">run</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>fun1<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>fun2<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">fun1</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        lock<span class="token punctuation">.</span>acquire<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 如果锁被占用,则阻塞在这里,等待锁的释放</span>
+        <span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"线程 %s , 想拿: %s--%s"</span> <span class="token operator">%</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token string">"苹果"</span><span class="token punctuation">,</span>time<span class="token punctuation">.</span>ctime<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+        lock<span class="token punctuation">.</span>acquire<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"线程 %s , 想拿: %s--%s"</span> <span class="token operator">%</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token string">"香蕉"</span><span class="token punctuation">,</span>time<span class="token punctuation">.</span>ctime<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+        lock<span class="token punctuation">.</span>release<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"线程 %s , 释放: %s--%s"</span> <span class="token operator">%</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token string">"香蕉"</span><span class="token punctuation">,</span>time<span class="token punctuation">.</span>ctime<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+        lock<span class="token punctuation">.</span>release<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"线程 %s , 释放: %s--%s"</span> <span class="token operator">%</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token string">"苹果"</span><span class="token punctuation">,</span>time<span class="token punctuation">.</span>ctime<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">fun2</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        lock<span class="token punctuation">.</span>acquire<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"线程 %s , 想拿: %s--%s"</span> <span class="token operator">%</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token string">"香蕉"</span><span class="token punctuation">,</span>time<span class="token punctuation">.</span>ctime<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+        time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">0.1</span><span class="token punctuation">)</span>
+        lock<span class="token punctuation">.</span>acquire<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"线程 %s , 想拿: %s--%s"</span> <span class="token operator">%</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token string">"苹果"</span><span class="token punctuation">,</span>time<span class="token punctuation">.</span>ctime<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+        lock<span class="token punctuation">.</span>release<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"线程 %s , 释放: %s--%s"</span> <span class="token operator">%</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token string">"苹果"</span><span class="token punctuation">,</span>time<span class="token punctuation">.</span>ctime<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+        lock<span class="token punctuation">.</span>release<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"线程 %s , 释放: %s--%s"</span> <span class="token operator">%</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token string">"香蕉"</span><span class="token punctuation">,</span>time<span class="token punctuation">.</span>ctime<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment">#建立10个线程</span>
+        my_thread <span class="token operator">=</span> MyThread<span class="token punctuation">(</span><span class="token punctuation">)</span> 
+        my_thread<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+
+<hr>
+<h3 id="threading-Condition-类"><a href="#threading-Condition-类" class="headerlink" title="threading.Condition 类"></a><code>threading.Condition</code> 类</h3><p>Lock锁机制存在一个问题，上锁是一个很耗费CPU资源的行为，这时候就可以考虑使用Condition对象，<code>threading.Condition()</code>可以在<font color="orange">没有数据的时候处于阻塞等待状态</font>，<font color="orange">一旦有合适的数据，还可以使用<code>notify()</code>相关的函数来通知其他处于等待状态的线程</font>，这样就可以<font color="orange">不用做一些无用的上锁和解锁操作</font>，可以提高程序的性能。</p>
+<ul>
+<li>outline<ul>
+<li><strong><a href="#Condition intro">Condition类介绍</a></strong></li>
+<li><strong><a href="#Condition examp">Condition类实例</a></strong><ul>
+<li><strong><a href="#Condition0">Condition示例</a></strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><a id="Condition intro"><font color="black"></font></a></p><h4><a id="Condition intro"><font color="black">Condition类介绍</font></a></h4><p></p>
+<details>
+<summary>Condition类对象方法</summary>
+
+<pre class="language-python" data-language="python"><code class="language-python">c <span class="token operator">=</span> Condition<span class="token punctuation">(</span><span class="token punctuation">)</span>    <span class="token comment"># 实例化条件对象</span>
+c<span class="token punctuation">.</span>acquire<span class="token punctuation">(</span><span class="token punctuation">)</span>        <span class="token comment"># 获取锁</span>
+c<span class="token punctuation">.</span>release<span class="token punctuation">(</span><span class="token punctuation">)</span>        <span class="token comment"># 释放锁</span>
+c<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span>           <span class="token comment"># 将当前线程处于等待状态，并释放锁。可以被其他线程使用 notify 和 notify_all 函数唤醒，被唤醒后会继续等待上锁，上锁后继续执行下面代码</span>
+c<span class="token punctuation">.</span>notify<span class="token punctuation">(</span><span class="token punctuation">)</span>         <span class="token comment"># 通知正在等待的某个线程，默认是第一个等待的线程</span>
+c<span class="token punctuation">.</span>nofity_all<span class="token punctuation">(</span><span class="token punctuation">)</span>     <span class="token comment"># 通知所有正在等待的线程，notify和nofify_all不会释放锁，并且需要在release（）之前调用</span></code></pre>
+
+</details>
+
+<p><a id="Condition examp"><font color="black"></font></a></p><h4><a id="Condition examp"><font color="black">Condition类实例</font></a></h4><p></p>
+<ul>
+<li><a id="Condition0">Condition示例</a></li>
+</ul>
+<p>Condition实现生产和消费多对多模型</p>
+<p>创建两个类：Producer和Consumer。Producer用于赚钱，规定每个线程只需要工作10次即可；Consumer用于消费。</p>
+<p>Consumer每次花钱的时候会看一下金库的总额够不够，如果不够就会调用<code>gCondition.wait()</code>将线程处于等待.当Producer赚钱了，就会调用<code>gCondition.notify_all()</code>，提醒真正等待的线程，当线程被唤醒之后会继续等待上锁，上锁后继续执行下面的代码。</p>
+<pre class="language-python" data-language="python"><div class="caption"><span>{.line-numbers}</span></div><code class="language-python"><span class="token keyword">import</span> time<span class="token punctuation">,</span> random
+<span class="token keyword">from</span> threading <span class="token keyword">import</span> Thread<span class="token punctuation">,</span> Lock<span class="token punctuation">,</span> RLock<span class="token punctuation">,</span> Condition<span class="token punctuation">,</span> current_thread
+
+g_money <span class="token operator">=</span> <span class="token number">1000</span>
+g_condition <span class="token operator">=</span> Condition<span class="token punctuation">(</span><span class="token punctuation">)</span>
+g_times <span class="token operator">=</span> <span class="token number">0</span>
+g_totaltimes <span class="token operator">=</span> <span class="token number">10</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Producer</span><span class="token punctuation">(</span>Thread<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>name <span class="token operator">=</span> name
+
+    <span class="token keyword">def</span> <span class="token function">run</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">global</span> g_money
+        <span class="token keyword">global</span> g_times
+        <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+            money <span class="token operator">=</span> random<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span>
+            g_condition<span class="token punctuation">.</span>acquire<span class="token punctuation">(</span><span class="token punctuation">)</span>        <span class="token comment"># 获得锁</span>
+            <span class="token keyword">if</span> g_times <span class="token operator">&gt;=</span> g_totaltimes<span class="token punctuation">:</span>
+                g_condition<span class="token punctuation">.</span>release<span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token keyword">break</span>
+            g_money <span class="token operator">+=</span> money
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"生产者</span><span class="token interpolation"><span class="token punctuation">{</span>current_thread<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token string">生产了</span><span class="token interpolation"><span class="token punctuation">{</span>money<span class="token punctuation">}</span></span><span class="token string">元，余额：</span><span class="token interpolation"><span class="token punctuation">{</span>g_money<span class="token punctuation">}</span></span><span class="token string">元"</span></span><span class="token punctuation">)</span>
+            g_times <span class="token operator">+=</span> <span class="token number">1</span>
+            g_condition<span class="token punctuation">.</span>notify_all<span class="token punctuation">(</span><span class="token punctuation">)</span>     <span class="token comment"># 通知所有正在等待的线程</span>
+            g_condition<span class="token punctuation">.</span>release<span class="token punctuation">(</span><span class="token punctuation">)</span>        <span class="token comment"># 释放锁</span>
+            time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Consumer</span><span class="token punctuation">(</span>Thread<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>name <span class="token operator">=</span> name
+
+    <span class="token keyword">def</span> <span class="token function">run</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">global</span> g_money
+        <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+            price <span class="token operator">=</span> random<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span>
+            g_condition<span class="token punctuation">.</span>acquire<span class="token punctuation">(</span><span class="token punctuation">)</span>            <span class="token comment"># 获得锁</span>
+            <span class="token keyword">while</span> g_money <span class="token operator">&lt;</span> price<span class="token punctuation">:</span>
+                <span class="token keyword">if</span> g_times <span class="token operator">&gt;=</span> g_totaltimes<span class="token punctuation">:</span>
+                    g_condition<span class="token punctuation">.</span>release<span class="token punctuation">(</span><span class="token punctuation">)</span>
+                    <span class="token keyword">return</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"消费者</span><span class="token interpolation"><span class="token punctuation">{</span>current_thread<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token string">准备消费</span><span class="token interpolation"><span class="token punctuation">{</span>price<span class="token punctuation">}</span></span><span class="token string">，余额不足！余额：</span><span class="token interpolation"><span class="token punctuation">{</span>g_money<span class="token punctuation">}</span></span><span class="token string">元"</span></span><span class="token punctuation">)</span>
+                g_condition<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span>           <span class="token comment"># 钱不够了，等待并释放锁</span>
+            g_money <span class="token operator">-=</span> price
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"消费者</span><span class="token interpolation"><span class="token punctuation">{</span>current_thread<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token string">消费了</span><span class="token interpolation"><span class="token punctuation">{</span>price<span class="token punctuation">}</span></span><span class="token string">元，余额：</span><span class="token interpolation"><span class="token punctuation">{</span>g_money<span class="token punctuation">}</span></span><span class="token string">元"</span></span><span class="token punctuation">)</span>
+            g_condition<span class="token punctuation">.</span>release<span class="token punctuation">(</span><span class="token punctuation">)</span>            <span class="token comment"># 完成消费，释放锁</span>
+            time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> x <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment"># 添加并开启消费线程</span>
+        t <span class="token operator">=</span> Consumer<span class="token punctuation">(</span>name<span class="token operator">=</span><span class="token string-interpolation"><span class="token string">f"consumer</span><span class="token interpolation"><span class="token punctuation">{</span>x<span class="token punctuation">}</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+        t<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> x <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment"># 添加并开启生产线程</span>
+        t <span class="token operator">=</span> Producer<span class="token punctuation">(</span>name<span class="token operator">=</span><span class="token string-interpolation"><span class="token string">f"producer</span><span class="token interpolation"><span class="token punctuation">{</span>x<span class="token punctuation">}</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+        t<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+
+<p>一个线程使用 <code>g_condition.acquire()</code> <code>g_condition.wait()</code> 获得锁并等待，其子线程不会等待，而是继续运行。</p>
+<hr>
+<h3 id="threading-Semaphore-类"><a href="#threading-Semaphore-类" class="headerlink" title="threading.Semaphore 类"></a><code>threading.Semaphore</code> 类</h3><hr>
+<h3 id="threading-Event-类"><a href="#threading-Event-类" class="headerlink" title="threading.Event 类"></a><code>threading.Event</code> 类</h3><hr>
+<h3 id="threading-Timer-类"><a href="#threading-Timer-类" class="headerlink" title="threading.Timer 类"></a><code>threading.Timer</code> 类</h3><hr>
+<h3 id="threading-Barrier-类"><a href="#threading-Barrier-类" class="headerlink" title="threading.Barrier 类"></a><code>threading.Barrier</code> 类</h3><hr>
+<h3 id="threading-loacl-类"><a href="#threading-loacl-类" class="headerlink" title="threading.loacl 类"></a><code>threading.loacl</code> 类</h3><ul>
+<li>outline<ul>
+<li><strong><a href="#local intro">local类介绍</a></strong></li>
+<li><strong><a href="#local examp">local类实例</a></strong><ul>
+<li><strong><a href="#local0">local示例</a></strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><a id="local intro"><font color="black"></font></a></p><h4><a id="local intro"><font color="black">local类介绍</font></a></h4><p></p>
+<ul>
+<li><strong><code>ThreadLocal</code>的由来</strong></li>
+</ul>
+<p>在多线程中，使用局部变量比使用全局变量要好，因此每个线程都有自己的数据，那么如果想要分享线程的数据，就得传参，但是在调用函数传参的时候会有点麻烦，因此就出现了<code>ThreadLocal</code>。</p>
+<ul>
+<li><strong><code>ThreadLocal</code>的理解</strong></li>
+</ul>
+<p><code>ThreadLocal</code>（线程本地变量，或者线程本地存储）在每一个变量中都会创建一个副本，每个线程都可以访问自己内部的副本变量。通俗点说，<code>ThreadLocal</code>就像一个字典，字典的<font color="orange">键值对</font>就像<font color="orange">线程的变量及其数据。</font><font color="lightgrey">所以按理来说，只要你想，完全可以使用字典来保存线程的数据，只是<code>ThreadLocal</code>更好更有优势。</font></p>
+<ul>
+<li><strong><code>ThreadLocal</code>的使用</strong></li>
+</ul>
+<p><code>ThreadLocal</code>是一个<font color="orange">全局变量</font>，但每个线程都<font color="orange">只能读写自己线程的独立副本，互不干扰</font>。<code>ThreadLocal</code>解决了参数在一个线程中各个函数之间互相传递的问题，真正做到了线程之间的数据隔离。</p>
+<img src="/2022/03/09/python-xian-cheng/python线程-ThreadLocal.png" height="600">
+
+<details>
+<summary>local类对象方法</summary>
+
+<pre class="language-python" data-language="python"><code class="language-python">tl <span class="token operator">=</span> local<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 实例化ThreadLocal对象</span>
+tl<span class="token punctuation">.</span>xxx <span class="token operator">=</span> dat  <span class="token comment"># 动态绑定</span></code></pre>
+
+</details>
+
+<p><a id="local examp"><font color="black"></font></a></p><h4><a id="local examp"><font color="black">local类实例</font></a></h4><p></p>
+<ul>
+<li><a id="local0">local示例</a></li>
+</ul>
+<p>每一个线程都可以通过<code>local_school.student</code>获取自己独有的数据，并且每个线程读取到的<code>local_school.student</code>都不同，真正做到线程之间的隔离。</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> threading
+
+local_school <span class="token operator">=</span> threading<span class="token punctuation">.</span>local<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 创建全局ThreadLocal对象</span>
+
+<span class="token keyword">def</span> <span class="token function">process_student</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment"># 获取当前线程关联的student</span>
+    std <span class="token operator">=</span> local_school<span class="token punctuation">.</span>student
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Hello, %s (in %s)'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>std<span class="token punctuation">,</span> threading<span class="token punctuation">.</span>current_thread<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">process_thread</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment"># 绑定ThreadLocal的student</span>
+    local_school<span class="token punctuation">.</span>student <span class="token operator">=</span> name
+    process_student<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    t1 <span class="token operator">=</span> threading<span class="token punctuation">.</span>Thread<span class="token punctuation">(</span>target<span class="token operator">=</span>process_thread<span class="token punctuation">,</span> args<span class="token operator">=</span><span class="token punctuation">(</span><span class="token string">'Alice'</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'Thread-A'</span><span class="token punctuation">)</span>
+    t2 <span class="token operator">=</span> threading<span class="token punctuation">.</span>Thread<span class="token punctuation">(</span>target<span class="token operator">=</span>process_thread<span class="token punctuation">,</span> args<span class="token operator">=</span><span class="token punctuation">(</span><span class="token string">'Bob'</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'Thread-B'</span><span class="token punctuation">)</span>
+    t1<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    t2<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    t1<span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    t2<span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+
+<hr>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><table>
+<thead>
+<tr>
+<th align="center">链接</th>
+<th align="center">标签</th>
+<th align="center">说明</th>
+<th align="center">网站</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://www.cnblogs.com/guyuyun/p/11185832.html">Python内置库：threading（多线程）</a></td>
+<td align="center"><code>threading</code></td>
+<td align="center">内容很多很全、讲原理、解释参数、实例多、通俗</td>
+<td align="center">博客园</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://blog.csdn.net/briblue/category_8520204.html">Python 基本功-线程</a></td>
+<td align="center"><code>threading</code></td>
+<td align="center">这个专栏系列内容很多很全、讲原理、解释参数、实例多、通俗</td>
+<td align="center">CSDN</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41922768/category_7767239.html">python基础-线程</a></td>
+<td align="center"><code>threading</code></td>
+<td align="center">这个专栏系列内容很多很全、讲原理、解释参数、实例多</td>
+<td align="center">CSDN</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/91601448">Python threading实现多线程 基础篇</a></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">知乎</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/94344847">Python threading实现多线程 提高篇 线程同步，以及各种锁</a></td>
+<td align="center"><code>Lock</code> <code>RLock</code> <code>Semaphore</code> <code>Condition</code> <code>Event</code> <code>Barrie</code> <code>queue</code></td>
+<td align="center"></td>
+<td align="center">知乎</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017629247922688">多线程</a></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">廖雪峰的官方网站</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://blog.csdn.net/l835311324/article/details/86608850">threading模块基本使用</a></td>
+<td align="center"><code>Thread</code> <code>LOCK</code> <code>Condition</code></td>
+<td align="center">模块对象方法较全</td>
+<td align="center">CSDN</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3.8/library/threading.html">threading — 基于线程的并行</a></td>
+<td align="center"><code>threading</code></td>
+<td align="center">教程</td>
+<td align="center">python官网</td>
+</tr>
+</tbody></table>
+<p>锁：</p>
+<table>
+<thead>
+<tr>
+<th align="center">链接</th>
+<th align="center">标签</th>
+<th align="center">说明</th>
+<th align="center">网站</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1419992">一篇文章理清Python多线程同步锁，死锁和递归锁</a></td>
+<td align="center"><code>Lock</code> <code>RLock</code></td>
+<td align="center">详细讲了<code>RLock</code>解决死锁的问题</td>
+<td align="center">CSDN</td>
+</tr>
+</tbody></table>
+<p>ThreadLocal：</p>
+<table>
+<thead>
+<tr>
+<th align="center">链接</th>
+<th align="center">标签</th>
+<th align="center">说明</th>
+<th align="center">网站</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://www.cnblogs.com/linpd/p/10051945.html">Python中ThreadLocal的理解与使用</a></td>
+<td align="center"><code>ThreadLocal</code></td>
+<td align="center"></td>
+<td align="center">博客园</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/74640d22a72f">深入理解Python中的ThreadLocal变量（上）</a></td>
+<td align="center"><code>ThreadLocal</code></td>
+<td align="center"></td>
+<td align="center">简书</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/474ecc81d756">深入理解Python中的ThreadLocal变量（中）</a></td>
+<td align="center"><code>ThreadLocal</code></td>
+<td align="center"></td>
+<td align="center">简书</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/0e12c1397bfd">深入理解Python中的ThreadLocal变量（下）</a></td>
+<td align="center"><code>ThreadLocal</code></td>
+<td align="center"></td>
+<td align="center">简书</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017630786314240">ThreadLocal</a></td>
+<td align="center"><code>ThreadLocal</code></td>
+<td align="center"></td>
+<td align="center">廖雪峰的官方网站</td>
+</tr>
+</tbody></table>
+<h2 id="待完成"><a href="#待完成" class="headerlink" title="待完成"></a>待完成</h2><ul>
+<li><input checked="" disabled="" type="checkbox"> 通过with语句使用线程锁</li>
+<li><input disabled="" type="checkbox"> Lock卖票问题</li>
+<li><input disabled="" type="checkbox"> 信号量对象：threading.Semaphore</li>
+<li><input disabled="" type="checkbox"> 事件对象：threading.Event</li>
+<li><input disabled="" type="checkbox"> 定时器对象：threading.Timer</li>
+<li><input disabled="" type="checkbox"> 栅栏对象：threading.Barrier</li>
+</ul>
+<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">hhhhmdzz</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://hhhhmdzz.github.io/2022/03/09/python-xian-cheng/">https://hhhhmdzz.github.io/2022/03/09/python-xian-cheng/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">hhhhmdzz</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/python/">
+                                    <span class="chip bg-color">python</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%BA%BF%E7%A8%8B/">
+                                    <span class="chip bg-color">线程</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="https://unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    // new Valine({
+    //     el: '#vcomments',
+    //     appId: 'Ei1XiJqo7bzRu5lBjbBUXPIu-gzGzoHsz',
+    //     appKey: 'Ojx0e72LHhv1hUfFNQO9tInO',
+    //     serverURLs: '',
+    //     notify: 'false' === 'true',
+    //     verify: 'false' === 'true',
+    //     visitor: 'true' === 'true',
+    //     avatar: 'mm',
+    //     pageSize: '10',
+    //     lang: 'zh-cn',
+    //     placeholder: 'just go go'
+    // });
+    new Valine({
+        el: '#vcomments',
+        appId: 'Ei1XiJqo7bzRu5lBjbBUXPIu-gzGzoHsz',
+        appKey: 'Ojx0e72LHhv1hUfFNQO9tInO',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go',
+        enableQQ: true,
+        emojiCDN: '//i0.hdslb.com/bfs/emote/', 
+        // 表情title和图片映射
+        emojiMaps: {
+        "tv_doge": "6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png",
+        "tv_亲亲": "a8111ad55953ef5e3be3327ef94eb4a39d535d06.png",
+        "tv_偷笑": "bb690d4107620f1c15cff29509db529a73aee261.png",
+        "tv_再见": "180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png",
+        "tv_冷漠": "b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png",
+        "tv_发怒": "34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png",
+        "tv_发财": "34db290afd2963723c6eb3c4560667db7253a21a.png",
+        "tv_可爱": "9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png",
+        "tv_吐血": "09dd16a7aa59b77baa1155d47484409624470c77.png",
+        "tv_呆": "fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png",
+        "tv_呕吐": "9f996894a39e282ccf5e66856af49483f81870f3.png",
+        "tv_困": "241ee304e44c0af029adceb294399391e4737ef2.png",
+        "tv_坏笑": "1f0b87f731a671079842116e0991c91c2c88645a.png",
+        "tv_大佬": "093c1e2c490161aca397afc45573c877cdead616.png",
+        "tv_大哭": "23269aeb35f99daee28dda129676f6e9ea87934f.png",
+        "tv_委屈": "d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png",
+        "tv_害羞": "a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png",
+        "tv_尴尬": "7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png",
+        "tv_微笑": "70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png",
+        "tv_思考": "90cf159733e558137ed20aa04d09964436f618a1.png",
+        "tv_惊吓": "0d15c7e2ee58e935adc6a7193ee042388adc22af.png",
+        "tv_打脸": "56ab10b624063e966bfcb76ea5dc4794d87dfd47.png",
+        "tv_抓狂": "fe31c08edad661d63762b04e17b8d5ae3c71a757.png",
+        "tv_抠鼻": "c666f55e88d471e51bbd9fab9bb308110824a6eb.png",
+        "tv_斜眼笑": "911f987aa8bc1bee12d52aafe62bc41ef4474e6c.png",
+        "tv_无奈": "ea8ed89ee9878f2fece2dda0ea8a5dbfe21b5751.png",
+        "tv_晕": "5443c22b4d07fb1907ccc610c8e6db254f2461b7.png",
+        "tv_流汗": "cead1c351ab8d79e9f369605beb90148db0fbed3.png",
+        "tv_流泪": "7e71cde7858f0cd50d74b0264aa26db612a8a167.png",
+        "tv_流鼻血": "c32d39db2737f89b904ca32700d140a9241b0767.png",
+        "tv_点赞": "f85c354995bd99e28fc76c869bfe42ba6438eff4.png",
+        "tv_生气": "26702dcafdab5e8225b43ffd23c94ac1ff932654.png",
+        "tv_生病": "8b0ec90e6b86771092a498c54f09fc94621c1900.png",
+        "tv_疑问": "0793d949b18d7be716078349c202c15ff166f314.png",
+        "tv_白眼": "c1d59f439e379ee50eef488bcb5e5378e5044ea4.png",
+        "tv_皱眉": "72ccad6679fea0d14cce648b4d818e09b8ffea2d.png",
+        "tv_目瞪口呆": "0b8cb81a68de5d5365212c99375e7ace3e7891b7.png",
+        "tv_睡着": "8b196675b53af58264f383c50ad0945048290b33.png",
+        "tv_笑哭": "1abc628f6d4f4caf9d0e7800878f4697abbc8273.png",
+        "tv_腼腆": "89712c0d4af73e67f89e35cbc518420380a7f6f4.png",
+        "tv_色": "61822c7e9aae5da76475e7892534545336b23a6f.png",
+        "tv_调侃": "4bc022533ef31544ca0d72c12c808cf4a1cce3e3.png",
+        "tv_调皮": "b9c41de8e82dd7a8515ae5e3cb63e898bf245186.png",
+        "tv_鄙视": "6e72339f346a692a495b123174b49e4e8e781303.png",
+        "tv_闭嘴": "c9e990da7f6e93975e25fd8b70e2e290aa4086ef.png",
+        "tv_难过": "87f46748d3f142ebc6586ff58860d0e2fc8263ba.png",
+        "tv_馋": "fc7e829b845c43c623c8b490ee3602b7f0e76a31.png",
+        "tv_鬼脸": "0ffbbddf8a94d124ca2f54b360bbc04feb6bbfea.png",
+        "tv_黑人问号": "45821a01f51bc867da9edbaa2e070410819a95b2.png",
+        "tv_鼓掌": "1d21793f96ef4e6f48b23e53e3b9e42da833a0f6.png"
+        },
+        requiredFields: ['nick','mail'], //设置必填项
+    });
+</script>
+
+<!--酷Q推送-->
+
+
+<!-- 自己添加的内容 -->
+
+<!-- 直达评论 -->
+<div id="to_comment" class="comment-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#vcomments" title="直达评论">
+        <i class="fas fa-comments"></i>
+    </a>
+</div>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/03/09/python-xie-cheng/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="python协程">
+                        
+                        <span class="card-title">python协程</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            python协程相关模块的使用
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-09
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/python/" class="post-category">
+                                    python
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/python/">
+                        <span class="chip bg-color">python</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%8D%8F%E7%A8%8B/">
+                        <span class="chip bg-color">协程</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/03/09/python-jin-cheng/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="python进程">
+                        
+                        <span class="card-title">python进程</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            python进程相关模块的使用
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-09
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/python/" class="post-category">
+                                    python
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/python/">
+                        <span class="chip bg-color">python</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%BF%9B%E7%A8%8B/">
+                        <span class="chip bg-color">进程</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="tencent"
+                   type="playlist"
+                   id="8531859362"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021-2022</span>
+            
+            <a href="/about" target="_blank">hhhhmdzz</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">87.7k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2021";
+                        var startMonth = "6";
+                        var startDate = "28";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+                        
+                        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+                        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+                        
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                // yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天' + diffHours + '小时' + diffMinutes + '分钟' + diffSeconds + '秒';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    // calcSiteTime();
+                    setInterval("calcSiteTime()", 250);
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/hhhhmdzz" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1453584196@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1453584196" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1453584196" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            mermaid.initialize({theme: 'forest'});
+          }
+        </script>
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

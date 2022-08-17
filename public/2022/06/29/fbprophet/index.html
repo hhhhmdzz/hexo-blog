@@ -1,0 +1,2020 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="fbprophet, python,Linux,C/C++,LaTeX,Markdown等">
+    <meta name="description" content="Facebook Prophet 时间序列预测库的原理及使用">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>fbprophet | HMZ-blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">HMZ-blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/navigate" class="waves-effect waves-light">
+      
+      <i class="fas fa-location-arrow" style="zoom: 0.6;"></i>
+      
+      <span>导航</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">HMZ-blog</div>
+        <div class="logo-desc">
+            
+            本网站是个人兴趣爱好，总结分享经验，记录生活点滴的平台，希望在以后的学习旅途中，走出自己的风景。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/navigate" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-location-arrow"></i>
+			
+			导航
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/hhhhmdzz/hhhhmdzz.github.io" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/hhhhmdzz/hhhhmdzz.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">fbprophet</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B/">
+                                <span class="chip bg-color">时间序列预测</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/python/" class="post-category">
+                                python
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-06-29
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2022-08-17
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    5.8k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    23 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="fbprophet"><a href="#fbprophet" class="headerlink" title="fbprophet"></a>fbprophet</h1><p>[toc]</p>
+<h2 id="1-fbprophet介绍"><a href="#1-fbprophet介绍" class="headerlink" title="1. fbprophet介绍"></a>1. fbprophet介绍</h2><h3 id="1-1-fbprophet简介"><a href="#1-1-fbprophet简介" class="headerlink" title="1.1. fbprophet简介"></a>1.1. fbprophet简介</h3><p>Prophet（先知）是 Facebook 开源的一个时间序列预测工具，所以叫 fbprophet。Prophet 算法不仅可以处理时间序列存在一些<font color="red">异常值</font>的情况，也可以处理部分<font color="red">缺失值</font>的情形，还能够<font color="red">几乎全自动地预测</font>时间序列未来的走势。从论文上的描述来看，这个 prophet 算法是基于<font color="red">时间序列分解</font>（趋势+季节+节假日）和<font color="red">机器学习</font>的拟合来做的，其中在拟合模型的时候使用了 pyStan 这个开源工具，因此能够在较快的时间内得到需要预测的结果。</p>
+<p>Github：<a target="_blank" rel="noopener" href="https://github.com/facebook/prophet">https://github.com/facebook/prophet</a><br>官方网址：<a target="_blank" rel="noopener" href="https://facebook.github.io/prophet/">https://github.com/facebook/prophet</a><br>论文名字与网址：Forecasting at scale，<a target="_blank" rel="noopener" href="https://peerj.com/preprints/3190/">https://github.com/facebook/prophet</a></p>
+<h3 id="1-2-fbprophet原理"><a href="#1-2-fbprophet原理" class="headerlink" title="1.2. fbprophet原理"></a>1.2. fbprophet原理</h3><p><font color="grey">可以先不看原理，看完实例再回来看原理。</font></p>
+<ul>
+<li><strong>传统时间序列预测方法缺陷</strong><ul>
+<li>适用的时序数据过于局限<br>例如：最通用的 ARIMA 模型，其要求时序数据是稳定的，或者通过差分化后是稳定的，且在差分运算时提取的是固定周期的信息。<br>回忆：automated ARIMA 要求输入的参数是差分的最大阶数、自回归分量和移动平均分量。</li>
+<li>缺失值需要填补</li>
+<li>模型缺乏灵活性</li>
+<li>指导作用较弱</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><strong>prophet整体框架</strong>：<em>Modeling</em>、<em>Forecast Evaluation</em>、<em>Surface Problems</em> 以及 <em>Visually Inspect Forecasts</em><br><img src="/2022/06/29/fbprophet/fbprophet_framework.png" alt="fbprophet_framework"><ul>
+<li><em>Modeling</em>：<font color="orange">建立时间序列模型</font>。分析师根据预测问题的背景选择一个合适的模型。</li>
+<li><em>Forecast Evaluation</em>：<font color="orange">模型评估</font>。根据模型对历史数据进行仿真，在模型的参数不确定的情况下，我们可以进行多种尝试，并根据对应的仿真效果评估哪种模型更适合。</li>
+<li><em>Surface Problems</em>：<font color="orange">呈现问题</font>。如果尝试了多种参数后，模型的整体表现依然不理想，这个时候可以将误差较大的潜在原因呈现给分析师。</li>
+<li><em>Visually Inspect Forecasts</em>：<font color="orange">可视化反馈整个预测结果</font>。当问题反馈给分析师后，分析师考虑是否进一步调整和构建模型。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><strong>prophet适用场景</strong>：<br>a. 有至少几个月（最好是一年）的<font color="orange">每小时、每天或每周观察</font>的<strong>历史数据</strong>；<br>b. 有多种人类规模级别的较强的<strong>季节性趋势</strong>：<font color="orange">每周的一些天和每年的一些时间</font>；<br>c. 有事先知道的以<font color="orange">不定期的间隔</font>发生的<strong>重要节假日</strong>（比如国庆节）；<br>d. <font color="orange">缺失的历史数据或较大的异常数据的数量</font>在<strong>合理范围</strong>内；<br>e. 有<strong>历史趋势的变化</strong>（比如因为产品发布）；<br>f. 对于数据中蕴含的<font color="orange">非线性增长的趋势</font>都有一个<strong>自然极限或饱和状态</strong>。</li>
+</ul>
+<hr>
+<ul>
+<li><strong>时间序列分解的三个主要组成部分</strong>：growth 增长趋势、seasonality 季节趋势、holidays 节假日<br>$$y(t) = g(t) + s(t) + h(t) + \epsilon_t$$<ul>
+<li>$g(t)$：用于拟合时间序列中的分段线性增长或逻辑增长等<font color="orange">非周期变化</font>。</li>
+<li>$s(t)$：<font color="orange">周期变化</font>（如：每周/每年的季节性）。</li>
+<li>$h(t)$：非规律性的<font color="orange">节假日效应</font>（用户造成）。</li>
+<li>$\epsilon_t$：噪声项用来反映未在模型中体现的<font color="orange">异常变动</font>，假设服从高斯分布。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p><strong>$g(t)$ 增长趋势(growth)</strong><br>增长趋势是整个模型的核心组件，它表示认为<font color="reorange">整个时间序列是如何增长</font>的，以及<font color="reorange">预期未来时间里是如何增长</font>的。这部分为分析师提供了两种模型：<strong>Non-linear growth</strong>（非线性增长）和 <strong>Linear growth</strong>（线性增长）。</p>
+<br>
+
+<ul>
+<li><ol>
+<li><strong>Non-linear growth</strong>（非线性增长）</li>
+</ol>
+</li>
+</ul>
+<p>非线性增长的公式采用了逻辑回归的模型：${\large g(t) = \frac{C}{1 + e^{-k(t - b)}}}$</p>
+<p><br>其中，$C$ 是承载量，它限定了所能增长的最大值，$k$ 表示增长率，$b$ 为偏移量。（若 $C=1,k=1,m=0$，则是 sigmoid 函数）</p>
+<p>但是，实际的增长模型没有这么简单，所以 Prophet 的作者把这三个参数都换成了随时间变化的函数，即 $C=C(t), k=k(t), m=m(t)$</p>
+<p>而且，在现实的时间序列中，曲线的走势肯定不会一直保持不变，在某些特定的时候或者有着某种潜在的周期曲线会发生变化（变点）。</p>
+<p><br>所以，对于以上问题的解决方法：</p>
+<p><br>（1）将 $C$ 构建成随时间变化的函数：$C(t) = K$ 或者 $C(t) = Mt + K$。（确定 $C(t)$）</p>
+<p><br>（2）在 Prophet 里面设置变点的位置：1.人工指定 <code>n_changepoints</code>；2.算法自动选择。假设已经设置了 $S$ 个变点，并且变点的位置为时间戳 $s_j \ (1 \le j \le S)$。在这些时间戳上，需要知道其增长率的变化，假设有一个向量 $\delta \in \mathbb{R}^S$，其中 $\delta_j$ 表示在时间戳 $s_j$ 上的增长率的变化量。如果一开始的增长率为 $k$，那么在时间戳 $t$ 上的增长率就是 $k + \sum_{j: \ t &gt; s_j}^{}{\delta_j}$。为了简化公式，定义一个指示函数 $a(t) \in {0, 1}^S$ 为 $a_j(t) = \begin{cases}1,&amp;if \ t \ge s_j\0,&amp;otherwise\end{cases}$。那么在时间戳 $t$ 上的增长率就是 $k + a^T\delta$。（确定 $k=k(t)$）</p>
+<p><br>（3）参数 $m$ 确定线段的边界 ${\large \gamma_j = (s_j - m - \sum_{l &lt; j}^{}{\gamma_l})(1 - \frac{k + \sum_{l &lt; j}^{}{\delta_l}}{k + \sum_{l \le j}^{}{\delta_l}})}$（确定 $m=m(t)$）</p>
+<p><br>所以，分段的逻辑回归增长模型就是：<font color="orangered">${\large g(t) = \frac{C(t)}{1 + e^{-(k + a(t)^t\delta)(t - (m + a(t)^T\gamma))}}}$</font><br>其中，$a(t) = (a_1(t), \dots, a_S(t))^T, \delta = (\delta_1, \dots, \delta_S)^T, \gamma = (\gamma_1, \dots, \gamma_S)^T$<br><br></p>
+<ul>
+<li><ol start="2">
+<li><strong>Linear growth</strong>（线性增长）</li>
+</ol>
+</li>
+</ul>
+<p>线性增长采用线性模型：<font color="orangered">${\large g(t) = (k + a(t)\delta)t + (m + a(t)^T\gamma)}$</font></p>
+<p>其中，$k$ 表示增长率，$\delta$ 表示增长率的变化量，$m$ 表示偏移参数，$\gamma = (\gamma_1, \dots, \gamma_S)^T, \gamma_j = -s_j\delta_j$ 用于确定线段边界。</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li><strong>$s(t)$ 季节趋势(seasonality)</strong></li>
+</ul>
+<p>季节趋势往往呈周期性变化，那么可以通过傅里叶级数表示。傅里叶级数：$$f(x) = a_0 + \sum_{n=1}^{\infty}{(a_n \ cos(nx) + b_n \ sin(nx))}, T = 2\pi$$</p>
+<p>Prophet 作者使用傅立叶级数来模拟时间序列的周期性。假设 $P$ 表示时间序列的周期，$P = 365.25$ 表示以年为周期，$P = 7$ 表示以周为周期。它的傅立叶级数的形式都是：$$s(t) = \sum_{n = 1}^{N}{\left( a_n \ cos(\frac{2 \pi n t}{P}) + b_n \ cos(\frac{2 \pi n t}{P}) \right)}$$</p>
+<p>就 Prophet 作者经验而言，对于 $P = 365.25$，$N = 10$；对于 $P = 7$，$N = 3$。</p>
+<p>傅立叶级数的参数可以形成列向量：$$\beta = (a_1, b_1, \dots, a_N, b_N)^T$$</p>
+<p>当 $N = 10$ 时，$$X(t) = \left[cos(\frac{2 \pi (1) t}{365.25}), \dots, sin(\frac{2 \pi (10) t}{365.25}) \right]$$</p>
+<p>当 $N = 3$ 时，$$X(t) = \left[cos(\frac{2 \pi (1) t}{7}), \dots, sin(\frac{2 \pi (3) t}{7}) \right]$$</p>
+<p>所以，时间序列的季节项就是：<font color="orangered">${\large s(t) = X(t) \beta, \ \beta \sim N(0, \sigma^2)}$</font></p>
+<p>其中，$\sigma$ = <code>seasonality_prior_scale</code>，$\sigma$ 值越大，表示季节的效应越明显；$\sigma$ 值越小，表示季节的效应越不明显。</p>
+<p><code>seasonality_mode</code> 对应着两种模式： <code>"additive"</code> 加法(默认)和 <code>"multiplicative"</code> 乘法。</p>
+<p>$X(t)$ 函数是通过 <code>fourier_series</code> 来构建。</p>
+<hr>
+<ul>
+<li><strong>$h(t)$ 节假日(holidays and events)</strong></li>
+</ul>
+<p>由于每个节假日对时间序列的影响程度不一样，例如春节，国庆节则是七天的假期，对于劳动节等假期来说则假日较短。因此，不同的节假日可以看成相互独立的模型，并且可以为不同的节假日设置不同的前后窗口值，表示该节假日会影响前后一段时间的时间序列。</p>
+<p>对第 $i$ 个节假日来说，$D_i$ 表示该节假日的前后一段时间，$\kappa_i$ 表示该节假日的影响范围，有 $L$ 个节假日。那么时间序列的节假日可以表示为：<font color="orangered">${\large h(t) = Z(t) \kappa = \sum_\limits{i = 1}^{L}\kappa_i \cdot 1_{ { t \in D_i } } }$</font></p>
+<p>其中，$Z(t) = (1_{ { t \in D_1 } }, \dots, 1_{ { t \in D_L} }), \ \kappa = (\kappa_1, \dots, \kappa_L)^T, \ \kappa \sim N(0, \upsilon^2)$</p>
+<p>$\upsilon$ = <code>holidays_prior_scale</code>，默认值是 10，值越大，节假日对模型的影响越大；值越小，节假日对模型的效果越小。</p>
+<hr>
+<ul>
+<li><strong>$\epsilon_t$ 噪声</strong></li>
+</ul>
+<p>误差项，不需要考虑。。。。。。</p>
+<hr>
+<ul>
+<li><p><strong>fbprophet优点</strong></p>
+<ol>
+<li>大规模、细粒度数据<br>能进行大范围预测，并且给出置信区间；数据时间粒度可以很小，支持小时、天、月数据。</li>
+<li>自动处理缺失值数据<br>遇到有缺失的数据时其它预测方法需要先进行插值填补预处理，而 fbprophet 可以自己处理缺失值数据。</li>
+<li>更灵活，支持季节、节假日调节<br>有些突变点往往是由特别的节假日期引起的，fbprophet 支持输入这些日期以及前后影响的时间窗口，预测的时候自动适这些日期。</li>
+<li>趋势预测 + 趋势分解<br>拟合的有两种趋势：线性趋势、逻辑趋势；趋势分解有很多种：Trend、年、周、天趋势、以及节假日效应。</li>
+<li>模型参数易解释<br>模型参数很好理解，可以让分析师根据业务经验调节参数来增强某部分假设提高准确率，使模型与业务达到理想的融合。</li>
+<li>拟合速度快</li>
+<li>操作简单<br>不仅环境搭建简单，而且只要十几行代码即可完成整个预测过程。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p><strong>调参经验</strong></p>
+<ol>
+<li>首先我们去除数据中的异常点（outlier），直接赋值为 <code>None</code> 就可以，因为 Prophet 的设计中可以通过<font color="red">插值</font>处理缺失值，但是对异常值比较敏感。</li>
+<li>选择趋势模型，默认使用分段线性的趋势，但是如果认为模型的趋势是按照 log 函数方式增长的，可设置 <code>growth='logistic'</code> 从而使用分段 log 的增长方式</li>
+<li>设置趋势转折点 <code>changepoint</code>，如果我们知道时间序列的趋势会在某些位置发现转变，可以进行人工设置，比如某一天有新产品上线会影响我们的走势，我们可以将这个时刻设置为转折点。</li>
+<li>设置周期性，模型默认是带有年和星期以及天的周期性，其他月、小时的周期性需要自己根据数据的特征进行设置，或者设置将年和星期等周期关闭。</li>
+<li>设置节假日特征，如果我们的数据存在节假日的突增或者突降，我们可以设置 <code>holiday</code> 参数来进行调节，可以设置不同的 <code>holiday</code>，例如五一一种，国庆一种，影响大小不一样，时间段也不一样。</li>
+<li>此时可以简单的进行作图观察，然后可以根据经验继续调节上述模型参数，同时根据模型是否过拟合以及对什么成分过拟合，我们可以对应调节 <code>seasonality_prior_scale</code>、<code>holidays_prior_scale</code>、<code>changepoint_prior_scale</code> 参数。</li>
+<li>如果预测结果的误差很大，考虑选取的模型是否准确，尝试调整增长率模型 <code>growth</code> 的参数，在必要的情况下也需要调整季节性 <code>seasonality</code> 参数。</li>
+<li>如果在尝试的大多数方法中，某些日期的预测依然存在很大的误差，这就说明历史数据中存在异常值。最好的办法就是找到这些异常值并剔除掉。使用者无需像其他方法那样对剔除的数据进行插值拟合，可以仅保留异常值对应的时间， 并将异常值修改为空值 <code>None</code>，模型在预测时依然可以给出这个时间点对应的预测结果。</li>
+<li>如果对历史数据进行仿真预测时发现，从一个截点到下一个截点误差急剧的增加，这说明在两个截点期间数据的产生过程发生了较大的变化，此时两个截点之间应该增加一个 <code>changepoint</code> ，来对这期间的不同阶段分别建模。</li>
+</ol>
+<ul>
+<li>a. 如果预测结果的误差很大，考虑选取的模型是否准确，尝试调整<font color="orange">增长率模型</font>（<code>growth</code>）的参数，在必要的情况下也需要调整<font color="orange">季节性</font>（<code>seasonality</code>）参数。</li>
+<li>b. 如果在尝试的大多数方法中，某些日期的预测依然存在很大的误差，这就说明历史数据中存在<font color="orange">异常值</font>。最好的办法就是找到这些异常值并剔除掉。使用者无需像其他方法那样对剔除的数据进行插值拟合，可以仅保留异常值对应的时间， 并将异常值修改为空值（NA），模型在预测时依然可以给出这个时间点对应的预测结果。</li>
+<li>c. 如果对历史数据进行仿真预测时发现，<font color="orange">从一个截点到下一个截点误差急剧增加</font>，这说明在两个截点期间数据的产生过程发生了较大的变化，此时两个截点之间应该增加一个 <code>changepoint</code>，来对这期间的不同阶段分别建模。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="fbprophet使用"><a href="#fbprophet使用" class="headerlink" title="fbprophet使用"></a>fbprophet使用</h2><h3 id="入门实例"><a href="#入门实例" class="headerlink" title="入门实例"></a>入门实例</h3><pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+<span class="token keyword">from</span> fbprophet <span class="token keyword">import</span> Prophet
+
+df <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_excel<span class="token punctuation">(</span><span class="token string">'example_wp_log_peyton_manning.xlsx'</span><span class="token punctuation">)</span>
+df<span class="token punctuation">[</span><span class="token string">'y'</span><span class="token punctuation">]</span> <span class="token operator">=</span> np<span class="token punctuation">.</span>log<span class="token punctuation">(</span>df<span class="token punctuation">[</span><span class="token string">'y'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+playoffs <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token string">'holiday'</span><span class="token punctuation">:</span> <span class="token string">'playoff'</span><span class="token punctuation">,</span>
+    <span class="token string">'ds'</span><span class="token punctuation">:</span> pd<span class="token punctuation">.</span>to_datetime<span class="token punctuation">(</span><span class="token punctuation">[</span>
+        <span class="token string">'2008-01-13'</span><span class="token punctuation">,</span> <span class="token string">'2009-01-03'</span><span class="token punctuation">,</span> <span class="token string">'2010-01-16'</span><span class="token punctuation">,</span>
+        <span class="token string">'2010-01-24'</span><span class="token punctuation">,</span> <span class="token string">'2010-02-07'</span><span class="token punctuation">,</span> <span class="token string">'2011-01-08'</span><span class="token punctuation">,</span>
+        <span class="token string">'2013-01-12'</span><span class="token punctuation">,</span> <span class="token string">'2014-01-12'</span><span class="token punctuation">,</span> <span class="token string">'2014-01-19'</span><span class="token punctuation">,</span>
+        <span class="token string">'2014-02-02'</span><span class="token punctuation">,</span> <span class="token string">'2015-01-11'</span><span class="token punctuation">,</span> <span class="token string">'2016-01-17'</span><span class="token punctuation">,</span>
+        <span class="token string">'2016-01-24'</span><span class="token punctuation">,</span> <span class="token string">'2016-02-07'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token string">'lower_window'</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token string">'upper_window'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+superbowls <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token string">'holiday'</span><span class="token punctuation">:</span> <span class="token string">'superbowl'</span><span class="token punctuation">,</span>
+    <span class="token string">'ds'</span><span class="token punctuation">:</span> pd<span class="token punctuation">.</span>to_datetime<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'2010-02-07'</span><span class="token punctuation">,</span> <span class="token string">'2014-02-02'</span><span class="token punctuation">,</span> <span class="token string">'2016-02-07'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token string">'lower_window'</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token string">'upper_window'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+holidays <span class="token operator">=</span> pd<span class="token punctuation">.</span>concat<span class="token punctuation">(</span><span class="token punctuation">(</span>playoffs<span class="token punctuation">,</span> superbowls<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment"># 季后赛和超级碗比赛特别日期</span>
+m <span class="token operator">=</span> Prophet<span class="token punctuation">(</span>holidays<span class="token operator">=</span>holidays<span class="token punctuation">)</span>  <span class="token comment"># 指定节假日参数，其它参数以默认值进行训练</span>
+
+m<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>df<span class="token punctuation">)</span>  <span class="token comment"># 对过去数据进行训练</span>
+
+future <span class="token operator">=</span> m<span class="token punctuation">.</span>make_future_dataframe<span class="token punctuation">(</span>freq<span class="token operator">=</span><span class="token string">'D'</span><span class="token punctuation">,</span> periods<span class="token operator">=</span><span class="token number">365</span><span class="token punctuation">)</span>  <span class="token comment"># 建立数据预测框架，数据粒度为天，预测步长为一年</span>
+forecast <span class="token operator">=</span> m<span class="token punctuation">.</span>predict<span class="token punctuation">(</span>future<span class="token punctuation">)</span>
+
+m<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>forecast<span class="token punctuation">)</span><span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 绘制预测效果图</span></code></pre>
+
+<p><font color="grey">可以看到 Prophet 遵循 sciket-klearn 模型 API。</font></p>
+<p><code>fit()</code> 输入的 <code>DataFrame</code> 必须包含两列数据：<font color="orange">时间戳</font> <code>ds</code> 和<font color="orange">时间序列的取值</font> <code>y</code></p>
+<p>在预测效果图中，黑点表示<font color="black">实际值</font>，<font color="blue">蓝色</font>表示<font color="blue">预测值</font>，<font color="lightblue">浅蓝色</font>表示 <code>yhat_upper</code> 和 <code>yhat_lower</code>，置信区间受到 <code>interval_width</code> 这个参数的影响；当然，从 <code>forecasts</code> 的 <code>keys</code> 中可以看到，还有其他的 <code>_upper</code> 和 <code>_lower</code>，同样也会受到这个参数的影响。</p>
+<img src="/2022/06/29/fbprophet/预测效果图.png">
+
+<p><code>predict()</code> 输出的 <code>DataFrame</code> 包含四列数据：<font color="orange">时间戳</font> <code>ds</code>、<font color="orange">时间序列的预测值</font> <code>yhat</code>、<font color="orange">预测值的下界</font> <code>yhat_lower</code>、<font color="orange">预测值的上界</font> <code>yhat_upper</code></p>
+<img src="/2022/06/29/fbprophet/成分趋势图.png">
+
+<p>在成分趋势图中，四个图从上至下依次是对增长趋势模型（trend）、节假日模型（holidays）以及季节性模型（weekly 和 yearly）。</p>
+<p>所谓成分分析就是指对原理公式中的三大部分模型单独进行分析，成分分析有助于我们考察模型中的各个组件分别对预测结果的影响，通过可视化的展示，我们可以准确判断影响预测效果的具体原因，从而针对性的解决。成分分析是我们提高模型准确性的重要来源。</p>
+<p>需要注意的是，如果<font color="red">没有</font>在 <code>holidays</code> 参数里注明具体的节假日信息，模块也<font color="red">不会</font>自动对这一部分进行分析。如果对于上面的结果你觉得有不合理的地方，那么可以根据中参数使用说明更改相应的成分影响，这里应该尽可能的利用你的专业背景知识，以使各部分组成的影响更符合实际。举个例子，如果在每年趋势 <code>yearly</code> 中你认为当前的效果过拟合了，那么就可以调解 <code>seasonality_prior_scale</code> 这个参数，值越小，这里的季节性波动就越小。</p>
+<h3 id="Prophet-类"><a href="#Prophet-类" class="headerlink" title="Prophet() 类"></a><code>Prophet()</code> 类</h3><p>作用：进行时间序列预测</p>
+<br>
+
+<details><summary>源代码：</summary>
+
+
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Prophet</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""Prophet forecaster.
+
+    Parameters
+    ----------
+    growth: String 'linear' or 'logistic' to specify a linear or logistic
+        trend.
+    changepoints: List of dates at which to include potential changepoints. If
+        not specified, potential changepoints are selected automatically.
+    n_changepoints: Number of potential changepoints to include. Not used
+        if input `changepoints` is supplied. If `changepoints` is not supplied,
+        then n_changepoints potential changepoints are selected uniformly from
+        the first `changepoint_range` proportion of the history.
+    changepoint_range: Proportion of history in which trend changepoints will
+        be estimated. Defaults to 0.8 for the first 80%. Not used if
+        `changepoints` is specified.
+    Not used if input `changepoints` is supplied.
+    yearly_seasonality: Fit yearly seasonality.
+        Can be 'auto', True, False, or a number of Fourier terms to generate.
+    weekly_seasonality: Fit weekly seasonality.
+        Can be 'auto', True, False, or a number of Fourier terms to generate.
+    daily_seasonality: Fit daily seasonality.
+        Can be 'auto', True, False, or a number of Fourier terms to generate.
+    holidays: pd.DataFrame with columns holiday (string) and ds (date type)
+        and optionally columns lower_window and upper_window which specify a
+        range of days around the date to be included as holidays.
+        lower_window=-2 will include 2 days prior to the date as holidays. Also
+        optionally can have a column prior_scale specifying the prior scale for
+        that holiday.
+    seasonality_mode: 'additive' (default) or 'multiplicative'.
+    seasonality_prior_scale: Parameter modulating the strength of the
+        seasonality model. Larger values allow the model to fit larger seasonal
+        fluctuations, smaller values dampen the seasonality. Can be specified
+        for individual seasonalities using add_seasonality.
+    holidays_prior_scale: Parameter modulating the strength of the holiday
+        components model, unless overridden in the holidays input.
+    changepoint_prior_scale: Parameter modulating the flexibility of the
+        automatic changepoint selection. Large values will allow many
+        changepoints, small values will allow few changepoints.
+    mcmc_samples: Integer, if greater than 0, will do full Bayesian inference
+        with the specified number of MCMC samples. If 0, will do MAP
+        estimation.
+    interval_width: Float, width of the uncertainty intervals provided
+        for the forecast. If mcmc_samples=0, this will be only the uncertainty
+        in the trend using the MAP estimate of the extrapolated generative
+        model. If mcmc.samples&gt;0, this will be integrated over all model
+        parameters, which will include uncertainty in seasonality.
+    uncertainty_samples: Number of simulated draws used to estimate
+        uncertainty intervals.
+    """</span>
+    
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>
+            self<span class="token punctuation">,</span>
+            growth<span class="token operator">=</span><span class="token string">'linear'</span><span class="token punctuation">,</span>
+            changepoints<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span>
+            n_changepoints<span class="token operator">=</span><span class="token number">25</span><span class="token punctuation">,</span>
+            changepoint_range<span class="token operator">=</span><span class="token number">0.8</span><span class="token punctuation">,</span>
+            yearly_seasonality<span class="token operator">=</span><span class="token string">'auto'</span><span class="token punctuation">,</span>
+            weekly_seasonality<span class="token operator">=</span><span class="token string">'auto'</span><span class="token punctuation">,</span>
+            daily_seasonality<span class="token operator">=</span><span class="token string">'auto'</span><span class="token punctuation">,</span>
+            holidays<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span>
+            seasonality_mode<span class="token operator">=</span><span class="token string">'additive'</span><span class="token punctuation">,</span>
+            seasonality_prior_scale<span class="token operator">=</span><span class="token number">10.0</span><span class="token punctuation">,</span>
+            holidays_prior_scale<span class="token operator">=</span><span class="token number">10.0</span><span class="token punctuation">,</span>
+            changepoint_prior_scale<span class="token operator">=</span><span class="token number">0.05</span><span class="token punctuation">,</span>
+            mcmc_samples<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>
+            interval_width<span class="token operator">=</span><span class="token number">0.80</span><span class="token punctuation">,</span>
+            uncertainty_samples<span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">:</span></code></pre>
+
+</details>
+
+<ul>
+<li><code>Prophet()</code> 参数说明：<ul>
+<li><code>growth</code>: 字符串 <code>"linear"</code> 或 <code>"logistic"</code>，表示<font color="red">线性增长趋势</font>或者<font color="red">逻辑增长趋势</font>。</li>
+<li><code>changepoints</code>: 日期型向量，指定<font color="red">潜在拐点</font>，如果不指定，将会自动选择潜在拐点。例如：<code>changepoints=["2014-01-01"]</code> 指定 <code>'2014-01-01'</code> 这一天是潜在的 <code>changepoints</code>。</li>
+<li><code>n_changepoints</code>: 表示 <code>changepoints</code> 的<font color="red">数量大小</font>，如果 <code>changepoints</code> 指定，该传入参数将不会被使用。如果 <code>changepoints</code> 不指定，将会从输入的历史数据前 $80%$ 中选取 $25$ 个（个数由 <code>n_changepoints</code> 传入参数决定）潜在改变点。</li>
+<li><code>changepoint_range</code>: 估计趋势变化点的<font color="red">历史比例</font>。如果指定了 <code>changepoints</code>，则不使用。</li>
+<li><code>yearly_seasonality</code>: 指定是否<font color="red">分析数据的年季节性</font>，如果为 <code>True</code>，默认取傅里叶项为 $10$，最后会输出<code>yearly_trend, yearly_upper, yearly_lower</code> 等数据。</li>
+<li><code>weekly_seasonality</code>: 指定是否<font color="red">分析数据的周季节性</font>，如果为 <code>True</code>，默认取傅里叶项为 $10$，最后会输出<code>weekly_trend, weekly_upper, weekly_lower</code> 等数据。</li>
+<li><code>daily_seasonality</code>: 指定是否<font color="red">分析数据的天季节性</font>，如果为 <code>True</code>，默认取傅里叶项为 $10$，最后会输出<code>daily_trend, daily_upper, daily_lower</code> 等数据。</li>
+<li><code>holidays</code>: 传入 <code>DataFrame</code> 格式的数据。这个数据包含有 <code>holiday</code> 列 (<code>string</code>) 和 <code>ds</code> (<code>date</code>类型) 和可选列 <code>lower_window</code> 和 <code>upper_window</code> 来指定该日期的 <code>lower_window</code> 或者 <code>upper_window</code> 范围内都被列为假期。<code>lower_window = -2</code> 将包括前 $2$ 天的日期作为假期。（默认<code>None</code>）</li>
+<li><code>seasonality_mode</code>: <font color="red">季节模型</font> <code>"additive"</code>(default) or <code>"multiplicative"</code>。</li>
+<li><code>seasonality_prior_scale</code>: 调节<font color="red">季节性组件的强度</font>。值越大，模型将适应更强的季节性波动，值越小，越抑制季节性波动。</li>
+<li><code>holidays_prior_scale</code>: 调节<font color="red">节假日模型组件的强度</font>。值越大，该节假日对模型的影响越大，值越小，节假日的影响越小。</li>
+<li><code>changepoint_prior_scale</code>: <font color="red">增长趋势模型的灵活度</font>。调节 <code>changepoint</code> 选择的灵活度，值越大选择的 <code>changepoint</code> 越多，使模型对历史数据的拟合程度变强，然而也增加了过拟合的风险。</li>
+<li><code>mcmc_samples</code>: <font color="red">mcmc采样</font>，用于获得预测未来的不确定性。若大于 $0$，将做mcmc样本的全贝叶斯推理，如果为 $0$，将做最大后验估计。</li>
+<li><code>interval_width</code>: 衡量<font color="red">未来时间内趋势改变的程度</font>。表示预测未来时使用的趋势间隔出现的频率和幅度与历史数据的相似度，值越大越相似。当 <code>mcmc_samples = 0</code> 时，该参数仅用于增长趋势模型的改变程度，当 <code>mcmc_samples &gt; 0</code> 时，该参数也包括了季节性趋势改变的程度。</li>
+<li><code>uncertainty_samples</code>: 用于<font color="red">估计不确定性区间的模拟抽取数</font></li>
+</ul>
+</li>
+</ul>
+<h3 id="make-future-dataframe-函数"><a href="#make-future-dataframe-函数" class="headerlink" title="make_future_dataframe() 函数"></a><code>make_future_dataframe()</code> 函数</h3><p>作用：对模型对象和若干时段进行预测，并生成合适的时间数据帧。</p>
+<br>
+
+<details><summary>源代码：</summary>
+
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">make_future_dataframe</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> periods<span class="token punctuation">,</span> freq<span class="token operator">=</span><span class="token string">'D'</span><span class="token punctuation">,</span> include_history<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""Simulate the trend using the extrapolated generative model.
+
+    Parameters
+    ----------
+    periods: Int number of periods to forecast forward.
+    freq: Any valid frequency for pd.date_range, such as 'D' or 'M'.
+    include_history: Boolean to include the historical dates in the data
+        frame for predictions.
+
+    Returns
+    -------
+    pd.Dataframe that extends forward from the end of self.history for the
+    requested number of periods.
+    """</span></code></pre>
+
+</details>
+
+<ul>
+<li><code>make_future_dataframe()</code> 参数说明：<ul>
+<li><code>periods</code>: <font color="red">向前预测步数</font></li>
+<li><code>freq</code>: <font color="red">预测单位</font>，小时为 <code>'H'</code>，天为 <code>'D'</code>，月为 <code>'M'</code></li>
+<li><code>include_history</code>: <font color="red">是否包含历史数据的预测</font></li>
+</ul>
+</li>
+</ul>
+<h3 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h3><ul>
+<li>STEP<ol>
+<li>加载历史数据 <code>df = pd.DataFrame()</code></li>
+<li>初始化 <code>m = Prophet()</code></li>
+<li>拟合 <code>m.fit(df)</code></li>
+<li>加载/生成预测数据 <code>future = pd.DataFrame()</code> / <code>future = m.make_future_dataframe()</code></li>
+<li>预测 <code>forecast  = m.predict(future)</code></li>
+<li>绘图 <code>m.plot(forecast )</code> 和 <code>m.plot_components(forecast )</code></li>
+</ol>
+</li>
+</ul>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token comment"># todo 导入库</span>
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+<span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
+<span class="token keyword">from</span> fbprophet <span class="token keyword">import</span> Prophet
+
+<span class="token comment"># todo 加载数据</span>
+data <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_csv<span class="token punctuation">(</span><span class="token string">'./example_wp_log_peyton_manning.csv'</span><span class="token punctuation">)</span>
+<span class="token comment"># todo 查看数据</span>
+data<span class="token punctuation">.</span>head<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment"># todo 修改数据列名</span>
+df <span class="token operator">=</span> df<span class="token punctuation">.</span>rename<span class="token punctuation">(</span>columns<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'timestamp'</span><span class="token punctuation">:</span> <span class="token string">'ds'</span><span class="token punctuation">,</span> <span class="token string">'value'</span><span class="token punctuation">:</span> <span class="token string">'y'</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment"># todo 修改时间数据格式：如果 'timestamp' 是使用 unixtime 来记录的，需要修改成 YYYY-MM-DD hh:mm:ss 的形式</span>
+df<span class="token punctuation">[</span><span class="token string">'ds'</span><span class="token punctuation">]</span> <span class="token operator">=</span> pd<span class="token punctuation">.</span>to_datetime<span class="token punctuation">(</span>df<span class="token punctuation">[</span><span class="token string">'ds'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> unit<span class="token operator">=</span><span class="token string">'s'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># todo 时间序列需要进行归一化：</span>
+df<span class="token punctuation">[</span><span class="token string">'y'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>df<span class="token punctuation">[</span><span class="token string">'y'</span><span class="token punctuation">]</span> <span class="token operator">-</span> df<span class="token punctuation">[</span><span class="token string">'y'</span><span class="token punctuation">]</span><span class="token punctuation">.</span>mean<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span>df<span class="token punctuation">[</span><span class="token string">'y'</span><span class="token punctuation">]</span><span class="token punctuation">.</span>std<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># todo 初始化</span>
+m <span class="token operator">=</span> Prophet<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment"># todo 拟合</span>
+m<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>df<span class="token punctuation">)</span>
+
+<span class="token comment"># todo 预测：生成预测时间数据</span>
+future <span class="token operator">=</span> m<span class="token punctuation">.</span>make_future_dataframe<span class="token punctuation">(</span>periods<span class="token operator">=</span><span class="token number">30</span><span class="token punctuation">,</span> freq<span class="token operator">=</span><span class="token string">'M'</span><span class="token punctuation">)</span>
+<span class="token triple-quoted-string string">"""
+periods：需要预测的点数：30个
+freq：时间序列的频率：按月来收集的时间序列（'min'分钟）
+"""</span>
+<span class="token comment"># todo 展示预测值数据</span>
+future<span class="token punctuation">.</span>tail<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment"># todo 预测</span>
+forecast <span class="token operator">=</span> m<span class="token punctuation">.</span>predict<span class="token punctuation">(</span>future<span class="token punctuation">)</span>
+
+<span class="token comment"># todo 绘制预测图</span>
+m<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>forecast<span class="token punctuation">)</span>
+
+<span class="token comment"># todo 画出时间序列的分量</span>
+m<span class="token punctuation">.</span>plot_components<span class="token punctuation">(</span>forecast<span class="token punctuation">)</span></code></pre>
+
+<p>绘制图：（略）</p>
+<ul>
+<li>STEP<ol start="7">
+<li>绘制详细指标图（可交互，结合 plotly）</li>
+</ol>
+</li>
+</ul>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token comment"># todo 导入库</span>
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+<span class="token keyword">import</span> plotly<span class="token punctuation">.</span>express <span class="token keyword">as</span> px
+
+<span class="token comment"># todo 载入数据</span>
+df <span class="token operator">=</span> forecast
+<span class="token comment"># todo 查看数据</span>
+df
+df<span class="token punctuation">.</span>info
+df<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token punctuation">)</span>
+df<span class="token punctuation">.</span>head<span class="token punctuation">(</span><span class="token punctuation">)</span>
+df<span class="token punctuation">.</span>describe<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment"># todo 绘制预测值、预测上下限值</span>
+fig <span class="token operator">=</span> px<span class="token punctuation">.</span>scatter<span class="token punctuation">(</span>
+    data_frame<span class="token operator">=</span>df<span class="token punctuation">,</span> 
+    x<span class="token operator">=</span><span class="token string">"ds"</span><span class="token punctuation">,</span> 
+    y<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'yhat'</span><span class="token punctuation">,</span> <span class="token string">"yhat_lower"</span><span class="token punctuation">,</span> <span class="token string">"yhat_upper"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
+<span class="token punctuation">)</span>
+
+<span class="token comment"># todo 展示</span>
+fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+
+<p>绘制图：</p>
+<img src="/2022/06/29/fbprophet/fbprophet_plotly.png">
+
+<h3 id="参数设置"><a href="#参数设置" class="headerlink" title="参数设置"></a>参数设置</h3><ul>
+<li>变点</li>
+</ul>
+<pre class="language-python" data-language="python"><code class="language-python">m <span class="token operator">=</span> Prophet<span class="token punctuation">(</span>n_changepoints<span class="token operator">=</span><span class="token number">25</span><span class="token punctuation">)</span>
+m <span class="token operator">=</span> Prophet<span class="token punctuation">(</span>changepoint_range<span class="token operator">=</span><span class="token number">0.8</span><span class="token punctuation">)</span>
+m <span class="token operator">=</span> Prophet<span class="token punctuation">(</span>changepoint_prior_scale<span class="token operator">=</span><span class="token number">0.05</span><span class="token punctuation">)</span>
+m <span class="token operator">=</span> Prophet<span class="token punctuation">(</span>changepoints<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'2014-01-01'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 变点的作图：</span>
+<span class="token keyword">from</span> fbprophet<span class="token punctuation">.</span>plot <span class="token keyword">import</span> add_changepoints_to_plot
+fig <span class="token operator">=</span> m<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>forecast<span class="token punctuation">)</span>
+a <span class="token operator">=</span> add_changepoints_to_plot<span class="token punctuation">(</span>fig<span class="token punctuation">.</span>gca<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> m<span class="token punctuation">,</span> forecast<span class="token punctuation">)</span></code></pre>
+
+<ul>
+<li>周期性</li>
+</ul>
+<pre class="language-python" data-language="python"><code class="language-python">m <span class="token operator">=</span> Prophet<span class="token punctuation">(</span>weekly_seasonality<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+m<span class="token punctuation">.</span>add_seasonality<span class="token punctuation">(</span>name<span class="token operator">=</span><span class="token string">'monthly'</span><span class="token punctuation">,</span> period<span class="token operator">=</span><span class="token number">30.5</span><span class="token punctuation">,</span> fourier_order<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">)</span>
+m <span class="token operator">=</span> Prophet<span class="token punctuation">(</span>weekly_seasonality<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+m<span class="token punctuation">.</span>add_seasonality<span class="token punctuation">(</span>name<span class="token operator">=</span><span class="token string">'weekly'</span><span class="token punctuation">,</span> period<span class="token operator">=</span><span class="token number">7</span><span class="token punctuation">,</span> fourier_order<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">,</span> prior_scale<span class="token operator">=</span><span class="token number">0.1</span><span class="token punctuation">)</span></code></pre>
+
+<ul>
+<li>节假日</li>
+</ul>
+<pre class="language-python" data-language="python"><code class="language-python">playoffs <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token string">'holiday'</span><span class="token punctuation">:</span> <span class="token string">'playoff'</span><span class="token punctuation">,</span>
+  <span class="token string">'ds'</span><span class="token punctuation">:</span> pd<span class="token punctuation">.</span>to_datetime<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'2008-01-13'</span><span class="token punctuation">,</span> <span class="token string">'2009-01-03'</span><span class="token punctuation">,</span> <span class="token string">'2010-01-16'</span><span class="token punctuation">,</span>
+                        <span class="token string">'2010-01-24'</span><span class="token punctuation">,</span> <span class="token string">'2010-02-07'</span><span class="token punctuation">,</span> <span class="token string">'2011-01-08'</span><span class="token punctuation">,</span>
+                        <span class="token string">'2013-01-12'</span><span class="token punctuation">,</span> <span class="token string">'2014-01-12'</span><span class="token punctuation">,</span> <span class="token string">'2014-01-19'</span><span class="token punctuation">,</span>
+                        <span class="token string">'2014-02-02'</span><span class="token punctuation">,</span> <span class="token string">'2015-01-11'</span><span class="token punctuation">,</span> <span class="token string">'2016-01-17'</span><span class="token punctuation">,</span>
+                        <span class="token string">'2016-01-24'</span><span class="token punctuation">,</span> <span class="token string">'2016-02-07'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token string">'lower_window'</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token string">'upper_window'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+superbowls <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token string">'holiday'</span><span class="token punctuation">:</span> <span class="token string">'superbowl'</span><span class="token punctuation">,</span>
+  <span class="token string">'ds'</span><span class="token punctuation">:</span> pd<span class="token punctuation">.</span>to_datetime<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'2010-02-07'</span><span class="token punctuation">,</span> <span class="token string">'2014-02-02'</span><span class="token punctuation">,</span> <span class="token string">'2016-02-07'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token string">'lower_window'</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token string">'upper_window'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+holidays <span class="token operator">=</span> pd<span class="token punctuation">.</span>concat<span class="token punctuation">(</span><span class="token punctuation">(</span>playoffs<span class="token punctuation">,</span> superbowls<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+m <span class="token operator">=</span> Prophet<span class="token punctuation">(</span>holidays<span class="token operator">=</span>holidays<span class="token punctuation">,</span> holidays_prior_scale<span class="token operator">=</span><span class="token number">10.0</span><span class="token punctuation">)</span></code></pre>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>博客园：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/hahahu/p/11753804.html">python 安装fbprophet模块的艰辛历程</a>（安装强推！）<br>CSDN：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_23860475/article/details/81354467">python-fbprophet总结</a>（参数说明 + 代码）</p>
+<p>这俩差不多：原理 + 使用<br>标点符：<a target="_blank" rel="noopener" href="https://www.biaodianfu.com/fbprophet.html">Facebook时间序列预测工具fbprophet</a>（这个内容更多一点）<br>知乎：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/52330017">Facebook 时间序列预测算法 Prophet 的研究</a></p>
+<p>这俩差不多：例子多<br>博客园：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/bonelee/p/9577432.html">facebook开源的prophet时间序列预测工具</a>（这个内容更多一点）<br>CSDN：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_26917383/article/details/57419862">R+python︱Facebook大规模时序预测『真』神器——Prophet（遍地代码图）</a></p>
+<p>博客园：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/foley/p/5582358.html">python时间序列分析</a>（非 Prophet 的时序分析）</p>
+<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">hhhhmdzz</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://hhhhmdzz.github.io/2022/06/29/fbprophet/">https://hhhhmdzz.github.io/2022/06/29/fbprophet/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">hhhhmdzz</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B/">
+                                    <span class="chip bg-color">时间序列预测</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="https://unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    // new Valine({
+    //     el: '#vcomments',
+    //     appId: 'Ei1XiJqo7bzRu5lBjbBUXPIu-gzGzoHsz',
+    //     appKey: 'Ojx0e72LHhv1hUfFNQO9tInO',
+    //     serverURLs: '',
+    //     notify: 'false' === 'true',
+    //     verify: 'false' === 'true',
+    //     visitor: 'true' === 'true',
+    //     avatar: 'mm',
+    //     pageSize: '10',
+    //     lang: 'zh-cn',
+    //     placeholder: 'just go go'
+    // });
+    new Valine({
+        el: '#vcomments',
+        appId: 'Ei1XiJqo7bzRu5lBjbBUXPIu-gzGzoHsz',
+        appKey: 'Ojx0e72LHhv1hUfFNQO9tInO',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go',
+        enableQQ: true,
+        emojiCDN: '//i0.hdslb.com/bfs/emote/', 
+        // 表情title和图片映射
+        emojiMaps: {
+        "tv_doge": "6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png",
+        "tv_亲亲": "a8111ad55953ef5e3be3327ef94eb4a39d535d06.png",
+        "tv_偷笑": "bb690d4107620f1c15cff29509db529a73aee261.png",
+        "tv_再见": "180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png",
+        "tv_冷漠": "b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png",
+        "tv_发怒": "34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png",
+        "tv_发财": "34db290afd2963723c6eb3c4560667db7253a21a.png",
+        "tv_可爱": "9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png",
+        "tv_吐血": "09dd16a7aa59b77baa1155d47484409624470c77.png",
+        "tv_呆": "fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png",
+        "tv_呕吐": "9f996894a39e282ccf5e66856af49483f81870f3.png",
+        "tv_困": "241ee304e44c0af029adceb294399391e4737ef2.png",
+        "tv_坏笑": "1f0b87f731a671079842116e0991c91c2c88645a.png",
+        "tv_大佬": "093c1e2c490161aca397afc45573c877cdead616.png",
+        "tv_大哭": "23269aeb35f99daee28dda129676f6e9ea87934f.png",
+        "tv_委屈": "d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png",
+        "tv_害羞": "a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png",
+        "tv_尴尬": "7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png",
+        "tv_微笑": "70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png",
+        "tv_思考": "90cf159733e558137ed20aa04d09964436f618a1.png",
+        "tv_惊吓": "0d15c7e2ee58e935adc6a7193ee042388adc22af.png",
+        "tv_打脸": "56ab10b624063e966bfcb76ea5dc4794d87dfd47.png",
+        "tv_抓狂": "fe31c08edad661d63762b04e17b8d5ae3c71a757.png",
+        "tv_抠鼻": "c666f55e88d471e51bbd9fab9bb308110824a6eb.png",
+        "tv_斜眼笑": "911f987aa8bc1bee12d52aafe62bc41ef4474e6c.png",
+        "tv_无奈": "ea8ed89ee9878f2fece2dda0ea8a5dbfe21b5751.png",
+        "tv_晕": "5443c22b4d07fb1907ccc610c8e6db254f2461b7.png",
+        "tv_流汗": "cead1c351ab8d79e9f369605beb90148db0fbed3.png",
+        "tv_流泪": "7e71cde7858f0cd50d74b0264aa26db612a8a167.png",
+        "tv_流鼻血": "c32d39db2737f89b904ca32700d140a9241b0767.png",
+        "tv_点赞": "f85c354995bd99e28fc76c869bfe42ba6438eff4.png",
+        "tv_生气": "26702dcafdab5e8225b43ffd23c94ac1ff932654.png",
+        "tv_生病": "8b0ec90e6b86771092a498c54f09fc94621c1900.png",
+        "tv_疑问": "0793d949b18d7be716078349c202c15ff166f314.png",
+        "tv_白眼": "c1d59f439e379ee50eef488bcb5e5378e5044ea4.png",
+        "tv_皱眉": "72ccad6679fea0d14cce648b4d818e09b8ffea2d.png",
+        "tv_目瞪口呆": "0b8cb81a68de5d5365212c99375e7ace3e7891b7.png",
+        "tv_睡着": "8b196675b53af58264f383c50ad0945048290b33.png",
+        "tv_笑哭": "1abc628f6d4f4caf9d0e7800878f4697abbc8273.png",
+        "tv_腼腆": "89712c0d4af73e67f89e35cbc518420380a7f6f4.png",
+        "tv_色": "61822c7e9aae5da76475e7892534545336b23a6f.png",
+        "tv_调侃": "4bc022533ef31544ca0d72c12c808cf4a1cce3e3.png",
+        "tv_调皮": "b9c41de8e82dd7a8515ae5e3cb63e898bf245186.png",
+        "tv_鄙视": "6e72339f346a692a495b123174b49e4e8e781303.png",
+        "tv_闭嘴": "c9e990da7f6e93975e25fd8b70e2e290aa4086ef.png",
+        "tv_难过": "87f46748d3f142ebc6586ff58860d0e2fc8263ba.png",
+        "tv_馋": "fc7e829b845c43c623c8b490ee3602b7f0e76a31.png",
+        "tv_鬼脸": "0ffbbddf8a94d124ca2f54b360bbc04feb6bbfea.png",
+        "tv_黑人问号": "45821a01f51bc867da9edbaa2e070410819a95b2.png",
+        "tv_鼓掌": "1d21793f96ef4e6f48b23e53e3b9e42da833a0f6.png"
+        },
+        requiredFields: ['nick','mail'], //设置必填项
+    });
+</script>
+
+<!--酷Q推送-->
+
+
+<!-- 自己添加的内容 -->
+
+<!-- 直达评论 -->
+<div id="to_comment" class="comment-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#vcomments" title="直达评论">
+        <i class="fas fa-comments"></i>
+    </a>
+</div>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/06/29/di-1-zhang-ban-dao-ti-ji-chu-yuan-jian-yu-fei-xian-xing-dian-lu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="第1章-半导体基础元件于非线性电路">
+                        
+                        <span class="card-title">第1章-半导体基础元件于非线性电路</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            二极管 三极管 场效应管
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-29
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%A8%A1%E7%94%B5%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    模电笔记
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%A8%A1%E7%94%B5/">
+                        <span class="chip bg-color">模电</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/06/29/ict-zhan-dui-di-9-ci-bi-ji/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="ICT战队-第9次笔记">
+                        
+                        <span class="card-title">ICT战队-第9次笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            BGP边界网关协议
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-29
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/ICT%E6%88%98%E9%98%9F%E6%95%B0%E6%8D%AE%E9%80%9A%E4%BF%A1/" class="post-category">
+                                    ICT战队数据通信
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/HCIA/">
+                        <span class="chip bg-color">HCIA</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%8D%8E%E4%B8%BAeNSP/">
+                        <span class="chip bg-color">华为eNSP</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="tencent"
+                   type="playlist"
+                   id="8531859362"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021-2022</span>
+            
+            <a href="/about" target="_blank">hhhhmdzz</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">87.7k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2021";
+                        var startMonth = "6";
+                        var startDate = "28";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+                        
+                        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+                        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+                        
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                // yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天' + diffHours + '小时' + diffMinutes + '分钟' + diffSeconds + '秒';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    // calcSiteTime();
+                    setInterval("calcSiteTime()", 250);
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/hhhhmdzz" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1453584196@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1453584196" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1453584196" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            mermaid.initialize({theme: 'forest'});
+          }
+        </script>
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
